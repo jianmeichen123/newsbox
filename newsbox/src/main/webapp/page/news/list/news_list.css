@@ -1,0 +1,31 @@
+div,body{
+	padding: 0;
+	margin: 0;
+}
+
+#div_top{
+	width: 100%;
+	height: 40px;
+	padding-top: 10px;
+	padding-left: 20px;
+	background: #efefef;
+}
+
+#div_find{
+	width: 100%;
+	height: 50px;
+	padding-left: 30px;
+	border-bottom: 1px solid #efefef;
+}
+
+#div_find span{
+	color: #666;
+	font-size: 14px;
+}
+
+#ifm_news{
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+

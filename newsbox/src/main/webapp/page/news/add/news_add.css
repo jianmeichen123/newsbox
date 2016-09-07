@@ -1,0 +1,93 @@
+
+body,div{
+	padding: 0;
+	margin: 0;
+}
+
+#div_container{
+	width: 100%;
+	overflow: auto;
+}
+
+#div_sub_container{
+	width: 1024px;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#news_info,#ue_parent_div{
+	
+}
+
+#news_info{
+	height:280px;
+	width: 100%;
+	/* border-bottom: solid 1px #efefef; */
+}
+
+#ue_parent_div{
+	height: 100%;
+	width: 1024px;
+}
+
+.div_img_container{
+	border: 1px solid #efefef;
+	width: 100%;
+	height: 100%;
+}
+
+.flg_wheel{
+	visibility: hidden;
+}
+
+/*下面是图片编辑对话框的相关样式*/
+#div_all_img{
+	width: 100%;
+}
+
+#div_img_select,#div_img_shrink{
+	float: left;
+	z-index: 200;
+}
+
+#div_img_select{
+	width: 500px;
+	background: red;
+}
+
+#div_img_select img{
+	width: 500px;
+}
+
+#div_img_shrink{
+	width: 190px;
+	background: blue;
+}
+
+#div_img_tools{
+	height: 30px;
+	background: grey;
+}
+
+.input_size{
+	width: 30px;
+}
+
+.a {
+	cursor:hand;
+	text-decoration:none;
+	height:20px;
+	width:20px;
+	padding:0px;
+}
+
+.file {
+	cursor:pointer;
+	font-size:20px;
+	left:0px;
+	opacity:0;
+	filter:alpha(opacity=0)
+}
+
+

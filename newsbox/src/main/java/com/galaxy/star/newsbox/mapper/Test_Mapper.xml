@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+  
+  
+<mapper namespace="com.galaxy.star.newsbox.dao.TestDAO">
+	<select id="findById" parameterType="int" resultType="com.galaxy.star.newsbox.bean.Test">
+		select * from test whered userId=#{id}
+	</select>
+	
+	<insert id="addTest" parameterType="Test" useGeneratedKeys="true" keyColumn="userId">
+		insert into test(userName) values(#{userName})
+	</insert>
+
+</mapper>

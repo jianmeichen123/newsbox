@@ -1,0 +1,15 @@
+
+一、关于运行及打包
+1、该工程可以直接通过jetty插件运行，默认设置为每5秒钟自动部署一次
+	mvn jetty:run			//在Run As中省略掉mvn即可
+2、如果要将该工程打包为war文件，可以执行如下命令
+	mvn clean install		//在Run As中省略掉mvn即可
+	
+3、使用jetty配置的过程中，配置spring-mybatis.xml及log4j2.xml需要将编码设置为GB2312
+
+4、在使用log4j2的时候，也需要引入1.x的包，因为LogFactory来自于1.0
+
+5、由于jetty每隔一段时候就会自动扫描变化，如有变化就需要重新启动，逐渐会导致内存溢出，
+    需要配置jvm的参数解决这个问题
+    Run Configurations...  -->  Maven Build --> Jre （VM Arguments：）添入如下参数
+   				 -server -Xms512m -Xmx1024m -XX:PermSize=1024m -XX:MaxPermSize=1024m

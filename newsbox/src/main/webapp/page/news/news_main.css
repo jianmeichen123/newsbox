@@ -1,0 +1,14 @@
+div,body{
+	padding: 0;
+	margin: 0;
+}
+
+
+#div_top{
+	width: 100%;
+	height: 50px;
+	padding-top: 15px;
+	padding-left: 30px;
+	background: #efefef;
+}
+
