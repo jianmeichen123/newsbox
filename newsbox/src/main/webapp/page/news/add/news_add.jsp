@@ -34,6 +34,7 @@
 	</head>
 <body>
 	<!-- 这是图片编辑对话框 -->
+	<div style="visibility: hidden;width: 0px;height: 0px;">
 	<div id="dialog" title="编辑图片" style="padding-left: 5px;padding-right: 5px;">
 		<table style="width: 100%;height: 100%;">
 			<tr style="width: 100%;height: 100%;">
@@ -102,11 +103,12 @@
 			</tr>
 		</table>
 	</div>
+	</div>
 
 	<div id="div_container">
 		<div id="div_sub_container">
 			<div id="news_info">
-				<table style="width: 100%;">
+				<table style="width: 100%;margin-top: 10px;">
 					<tr>
 						<td>标题</td>
 						<td><input type="text" id="newCaption" class="txt_base" style="width: 400px;" placeholder="资讯标题"></td>
@@ -115,7 +117,15 @@
 					</tr>
 					<tr>
 						<td>资讯类型</td>
-						<td><input type="text" id="newType" class="txt_base" style="width: 400px;" placeholder="资讯类型"></td>
+						<td>
+							<select id="sel_news_type" class="txt_base" style="width: 410px;height: 30px;">
+								<option value="1">要闻</option>
+								<option value="3">阅微</option>
+								<option value="4">观点</option>
+								<option value="5">访谈</option>
+							</select>
+							<!-- <input type="text" id="newType" class="txt_base" style="width: 400px;" placeholder="资讯类型"> -->
+						</td>
 						<td>责任编辑</td>
 						<td><input type="text" id="newEditor" class="txt_base" style="width: 400px;" placeholder="责任编辑"></td>
 					</tr>
@@ -126,6 +136,12 @@
 						<td><input type="text" id="newAthors" class="txt_base" style="width: 400px;" placeholder="作者"></td>
 					</tr>
 					<tr>
+						<td>显示顺序</td>
+						<td><input type="text" id="showIndex" class="txt_base" style="width: 400px;" placeholder="请输入显示顺序"></td>
+						<td>&nbsp;</td>
+						<td><input type="text" id="" class="txt_base" style="width: 400px;visibility: hidden;" placeholder="预留"></td>
+					</tr>
+					<tr>
 						<td colspan="2"><input type="checkbox" id="isWheel">是否设置为轮播</td>
 						<td class="flg_wheel">轮播标题</td>
 						<td class="flg_wheel"><input type="text" id="wheelTitle" class="txt_base" style="width: 400px;" placeholder="轮播标题"></td>
@@ -133,10 +149,14 @@
 					<tr>
 						<td colspan="2">
 							<table style="width: 100%;">
-								<tr><td>列表缩略图</td></tr>
+								<tr><td>列表缩略图（<input type="checkbox" id="check_show_big_img">只显示第一张且设置为大图）</td></tr>
 								<tr>
 									<td style="width: 100%;height: 100px;">
-										<div class="div_img_container"></div>
+										<div class="div_img_container">
+											<div class="list_shrink_img_div" id="list_img1"><img src="${path }/imgs/def_img.png"></div>
+											<div class="list_shrink_img_div" id="list_img2"><img src="${path }/imgs/def_img.png"></div>
+											<div class="list_shrink_img_div" id="list_img3"><img src="${path }/imgs/def_img.png"></div>
+										</div>
 									</td>
 								</tr>
 							</table>
@@ -149,10 +169,12 @@
 										<table style="width: 100%;height: 100%;">
 											<tr>
 												<td style="width: 30%;" class="flg_wheel">
-													<div class="div_img_container"></div>
+													<div class="list_shrink_img_div" id="list_img5">
+														<img src="${path }/imgs/def_img.png" id="wheelImg">
+													</div>
 												</td>
 												<td style="width: 70%;padding-left: 10px;vertical-align: bottom;">
-													<input id="save" type="button" value="保存草稿">&nbsp;
+													<input id="save" type="button" value="保存">&nbsp;
 													<input type="button" value="发布">
 												</td>
 											</tr>

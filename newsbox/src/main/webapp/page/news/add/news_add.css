@@ -21,7 +21,7 @@ body,div{
 }
 
 #news_info{
-	height:280px;
+	height:320px;
 	width: 100%;
 	/* border-bottom: solid 1px #efefef; */
 }
@@ -32,13 +32,29 @@ body,div{
 }
 
 .div_img_container{
-	border: 1px solid #efefef;
 	width: 100%;
 	height: 100%;
 }
 
 .flg_wheel{
 	visibility: hidden;
+}
+
+.list_shrink_img_div{
+	width: 160px;
+	height: 90px;
+	line-height: 100px;
+	float: left;
+	font-size: 50px;
+	border: 1px solid #efefef;
+	text-align: center;
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.list_shrink_img_div img{
+	width: 160px;
+	height: 90px;
 }
 
 /*下面是图片编辑对话框的相关样式*/

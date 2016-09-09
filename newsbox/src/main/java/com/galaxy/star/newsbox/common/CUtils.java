@@ -3,6 +3,7 @@ package com.galaxy.star.newsbox.common;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -86,6 +87,13 @@ public class CUtils {
 		}catch(Exception e){
 		}
 		return resInt;
+	}
+	
+	/**
+	 * 取得UUID
+	 */
+	public String getUUID(){
+		return UUID.randomUUID().toString().replace("-", "");
 	}
 	
 

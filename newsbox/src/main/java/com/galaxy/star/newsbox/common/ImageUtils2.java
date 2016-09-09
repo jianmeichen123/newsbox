@@ -41,8 +41,9 @@ public class ImageUtils2 {
      * @param output    图片输出流
      * @param rect        需要截取部分的坐标和大小
      */
-    public void cutImage(String srcImgPath, String goalImgPath,ImageRect srcRect){
+    public boolean cutImage(String srcImgPath, String goalImgPath,ImageRect srcRect){
     	File srcImg = new File(srcImgPath);
+    	boolean flag = false;
         if(srcImg.exists()){
             FileInputStream fis = null;
             ImageInputStream iis = null;
@@ -72,7 +73,7 @@ public class ImageUtils2 {
                 }// 类型和图片后缀全部小写，然后判断后缀是否合法
                 if(suffix == null || types.toLowerCase().indexOf(suffix.toLowerCase()+",") < 0){
                     log.error("Sorry, the image suffix is illegal. the standard image suffix is {}." + types);
-                    return ;
+                    return false;
                 }
                 // 将FileInputStream 转换为ImageInputStream
                 iis = ImageIO.createImageInputStream(fis);
@@ -83,6 +84,7 @@ public class ImageUtils2 {
                 param.setSourceRegion(goalRect);
                 BufferedImage bi = reader.read(0, param);
                 ImageIO.write(bi, suffix,new File(goalImgPath));
+                flag = true;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -98,6 +100,7 @@ public class ImageUtils2 {
         }else {
             log.warn("the src image is not exist.");
         }
+        return flag;
     }
     
  /*   public void cutImage(File srcImg, OutputStream output, int x, int y, int width, int height){

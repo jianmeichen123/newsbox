@@ -12,7 +12,7 @@ public class News {
 	private String createTime;		//创建时间
 	private String createUser;		//创建用户
 	private String newType;			//新闻类型
-	private boolean isWheel;		//是否轮播
+	private int isWheel;			//是否轮播
 	private String wheelTitle;		//轮播标题
 	private String wheelImg;		//轮播图片
 	private String newListImg1;		//列表图片1
@@ -20,8 +20,12 @@ public class News {
 	private String newListImg3;		//列表图片3
 	private String newContent;		//新闻内容
 	private String newUrl;			//生成html后的地址
-	private boolean is_publish;		//是否发布
+	private int is_publish;			//是否发布
 	private int showIndex;			//发布后显示在列表的顺序
+	private int isShowBigImg;		//列表页是否只显示为一张大图
+	
+	public News(){
+	}
 	
 	public String getNewId() {
 		return newId;
@@ -89,10 +93,10 @@ public class News {
 	public void setNewType(String newType) {
 		this.newType = newType;
 	}
-	public boolean isWheel() {
+	public int getIsWheel() {
 		return isWheel;
 	}
-	public void setWheel(boolean isWheel) {
+	public void setIsWheel(int isWheel) {
 		this.isWheel = isWheel;
 	}
 	public String getWheelTitle() {
@@ -137,10 +141,10 @@ public class News {
 	public void setNewUrl(String newUrl) {
 		this.newUrl = newUrl;
 	}
-	public boolean isIs_publish() {
+	public int getIs_publish() {
 		return is_publish;
 	}
-	public void setIs_publish(boolean is_publish) {
+	public void setIs_publish(int is_publish) {
 		this.is_publish = is_publish;
 	}
 	public int getShowIndex() {
@@ -149,6 +153,10 @@ public class News {
 	public void setShowIndex(int showIndex) {
 		this.showIndex = showIndex;
 	}
-	
-	
+	public int getIsShowBigImg() {
+		return isShowBigImg;
+	}
+	public void setIsShowBigImg(int isShowBigImg) {
+		this.isShowBigImg = isShowBigImg;
+	}
 }
