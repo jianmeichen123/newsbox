@@ -1,7 +1,7 @@
 package com.galaxy.star.newsbox.action.news;
 
 import java.io.File;
-import java.util.Enumeration;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +24,16 @@ import com.galaxy.star.newsbox.common.CUtils;
 import com.galaxy.star.newsbox.common.Const;
 import com.galaxy.star.newsbox.common.DateTools;
 import com.galaxy.star.newsbox.common.ImageUtils2;
+import com.galaxy.star.newsbox.dao.NewsDAO;
+import com.galaxy.star.newsbox.service.news.INewsService;
+import com.galaxy.star.newsbox.service.news.NewsServiceImpl;
 
 @Controller
 @RequestMapping("/news")
 public class NewsController {
+	private static final Logger logger = LoggerFactory.getLogger(NewsServiceImpl.class);
+	@Autowired
+	private INewsService newsService;
 	
 	@RequestMapping("toAddNewPage")
 	public String toAddNewPage(){
@@ -39,20 +48,29 @@ public class NewsController {
 	public Map<String,Object> uploadFile(HttpServletRequest request, HttpServletResponse response,@RequestBody News news) {
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("error", 1);
-		result.put("msg","上传失败");
+		result.put("msg","保存资讯失败！");
 		
-		news.setNewId(CUtils.init().getUUID());						//设置ID
-		news.setCreateTime(DateTools.get().getCurrentDateTime());	//创建时间
-		news.setCreateUser("angli");		//登录用户
-		news.setIs_publish(0);				//是否发布 0：不发布
-		news.setNewType("1");				//设置资讯类型（1：对应dics表的要闻）
-		
-		//将富文本生成对应的html5页面
-		
-		
-		
-		//news.setNewUrl(newUrl);
-		
+		try{
+			news.setNewId(CUtils.init().getUUID());						//设置ID
+			news.setCreateTime(DateTools.get().getCurrentDateTime());	//创建时间
+			news.setCreateUser("angli");		//登录用户
+			news.setIs_publish(0);				//是否发布 0：不发布
+			news.setNewType("1");				//设置资讯类型（1：对应dics表的要闻）
+			
+			//将富文本生成对应的html5页面
+			String html5Url = createHtml5(news.getNewId(),news.getNewContent());
+			
+			if(html5Url!=null && !"".equals(html5Url.trim())){
+				news.setNewUrl(html5Url);
+				
+				newsService.addNews(news);
+				
+				result.put("error", 0);
+				result.put("msg","保存资讯成功！");
+			}
+		}catch(Exception e){
+			logger.error("保存新闻失败", e);
+		}
 		
 		return result;
 	}
@@ -60,10 +78,41 @@ public class NewsController {
 	/**
 	 * 将富文本生成相应的html5页面
 	 */
+	public String createHtml5(String newsId,String newsContent){
+		String htmlUrl = null;
+		StringBuffer sb = new StringBuffer();
+		sb.append("<!DOCTYPE html>\r\n");
+		sb.append("<html>\r\n");
+		sb.append("<head>\r\n");
+		sb.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
+		sb.append("</head>\r\n");
+		sb.append("<body>\r\n");
+		sb.append(newsContent);
+		sb.append("</body>\r\n");
+		sb.append("</html>\r\n");
+		
+		String htmlFilePath = Const.FILE_PATH + File.separator + Const.HTML5_DIR_NAME;
+		File htmlFileDir = new File(htmlFilePath);
+		if(!htmlFileDir.exists()){
+			htmlFileDir.mkdirs();
+		}
+		
+		File htmlFile = new File(htmlFilePath + File.separator + newsId + ".html");
+		try{
+			FileWriter fw = new FileWriter(htmlFile);
+			fw.write(sb.toString());
+			fw.flush();fw.close();
+			
+			htmlUrl = Const.HTML_SERVER + "/" + Const.HTML5_DIR_NAME + "/" + newsId + ".html";
+		}catch(Exception e){
+		}
+		
+		return htmlUrl;
+	}
 
 	
 	/**
-	 * 上传图片
+	 * 上传图片-用于上传自定义的列表图片等
 	 * @param file
 	 * @param request
 	 * @param model
@@ -77,8 +126,6 @@ public class NewsController {
 		
 		String srcPath = Const.getImgSrcPath(request);
 		String dealPath = Const.getImgDealPath(request);
-		
-
 		
 		//上传的源图片文件存放的目录
 		File uploadDirectory = new File(srcPath); 
@@ -121,11 +168,61 @@ public class NewsController {
 			        //model.addAttribute("fileUrl", path + File.separator + fileName);  
 				}
 			}
-			
 		}
 		return result;  
-
 	}
+	
+	/**
+	 * 上传图片-专用UEditor上传图片及视频文件等专用
+	 * @param file
+	 * @param request
+	 * @param model
+	 * @return   10.9.11.161
+	 */
+	@RequestMapping(value = "/ue/uploadImgFile")  
+	public Map<String,Object> uploadFileForUE(HttpSession session,@RequestParam(value = "upfile", required = false) MultipartFile[] fileList,HttpServletRequest request, HttpServletResponse response) {
+		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("state", "FAILSE");
+		result.put("url","");
+		result.put("title", "");
+		result.put("original", "");
+		
+		String srcPath = Const.getUEImagePath(request);
+		
+		//上传的源图片文件存放的目录
+		File uploadDirectory = new File(srcPath); 
+		if(!uploadDirectory.exists()){
+			uploadDirectory.mkdirs();
+		}
+		
+		if(fileList!=null && fileList.length>0){
+			for(int i=0;i<fileList.length;i++){
+				if(fileList[i]!=null && !fileList[i].isEmpty()){
+					String fileName = fileList[i].getOriginalFilename();  
+			        File targetFile = new File(srcPath, fileName);  
+			        if(!targetFile.exists()){  
+			            targetFile.mkdirs();  
+			        }else{
+			        	targetFile.delete();
+			        }
+			        try{  
+			        	fileList[i].transferTo(targetFile); 
+			    		result.put("state", "SUCCESS");
+			    		result.put("url",Const.HTML_SERVER + "/" + Const.IMG_SRC_DIR_NAME + "/" + fileName);
+			    		result.put("title", fileName);
+			    		result.put("original", fileName);
+			        	
+			        }catch (Exception e) {  
+			            e.printStackTrace();  
+			        }  
+				}
+			}
+		}
+		return result;  
+	}
+	
+	
+	
 	
 	/**
 	 * 裁剪图片

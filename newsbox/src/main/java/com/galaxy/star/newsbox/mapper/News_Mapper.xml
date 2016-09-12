@@ -5,5 +5,52 @@
   
 <mapper namespace="com.galaxy.star.newsbox.dao.NewsDAO">
 
+	<insert id="addNews" parameterType="News" keyColumn="newId">
+		insert into new_repository(
+			new_id,
+			new_caption,
+			new_sub_title,
+			publish_time,
+			new_source,
+			new_athors,
+			new_key_word,
+			new_editor,
+			create_time,
+			create_user,
+			new_type,
+			is_wheel,
+			wheel_img,
+			new_list_img1,
+			new_list_img2,
+			new_list_img3,
+			new_content,
+			new_url,
+			is_publish,
+			show_index,
+			is_show_big_img
+		) values(
+			#{newId},
+			#{newCaption},
+			#{newSubTitle},
+			#{publishTime},
+			#{newSource},
+			#{newAthors},
+			#{newKeyWord},
+			#{newEditor},
+			#{createTime},
+			#{createUser},
+			#{newType},
+			#{isWheel},
+			#{wheelImg},
+			#{newListImg1},
+			#{newListImg2},
+			#{newListImg3},
+			#{newContent},
+			#{newUrl},
+			#{is_publish},
+			#{showIndex},
+			#{isShowBigImg}
+		)
+	</insert>
 
 </mapper>

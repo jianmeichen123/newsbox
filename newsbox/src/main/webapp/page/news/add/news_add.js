@@ -9,7 +9,7 @@ $(function(){
 		initialFrameHeight: 800,
 		isShow: true
 	 }); 
-	
+	 
 	$(window).resize(function(){
 		setWindowSize();
 	});
@@ -183,7 +183,8 @@ $(function(){
 		}
 		
 		var url = path + "/news/saveNews.json";
-		//alert(JSON.stringify(params));
+		
+		
 		$.utils.sendData(url,JSON.stringify(params),function(data){
 			alert(data);
 		});
