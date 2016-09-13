@@ -172,54 +172,7 @@ public class NewsController {
 		return result;  
 	}
 	
-	/**
-	 * 上传图片-专用UEditor上传图片及视频文件等专用
-	 * @param file
-	 * @param request
-	 * @param model
-	 * @return   10.9.11.161
-	 */
-	@RequestMapping(value = "/ue/uploadImgFile")  
-	public Map<String,Object> uploadFileForUE(HttpSession session,@RequestParam(value = "upfile", required = false) MultipartFile[] fileList,HttpServletRequest request, HttpServletResponse response) {
-		Map<String,Object> result = new HashMap<String,Object>();
-		result.put("state", "FAILSE");
-		result.put("url","");
-		result.put("title", "");
-		result.put("original", "");
-		
-		String srcPath = Const.getUEImagePath(request);
-		
-		//上传的源图片文件存放的目录
-		File uploadDirectory = new File(srcPath); 
-		if(!uploadDirectory.exists()){
-			uploadDirectory.mkdirs();
-		}
-		
-		if(fileList!=null && fileList.length>0){
-			for(int i=0;i<fileList.length;i++){
-				if(fileList[i]!=null && !fileList[i].isEmpty()){
-					String fileName = fileList[i].getOriginalFilename();  
-			        File targetFile = new File(srcPath, fileName);  
-			        if(!targetFile.exists()){  
-			            targetFile.mkdirs();  
-			        }else{
-			        	targetFile.delete();
-			        }
-			        try{  
-			        	fileList[i].transferTo(targetFile); 
-			    		result.put("state", "SUCCESS");
-			    		result.put("url",Const.HTML_SERVER + "/" + Const.IMG_SRC_DIR_NAME + "/" + fileName);
-			    		result.put("title", fileName);
-			    		result.put("original", fileName);
-			        	
-			        }catch (Exception e) {  
-			            e.printStackTrace();  
-			        }  
-				}
-			}
-		}
-		return result;  
-	}
+
 	
 	
 	

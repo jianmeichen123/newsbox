@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.galaxy.star.newsbox.dao.FileDAO">
+	<insert id="addFile" parameterType="FileBean" keyColumn="fileId">
+		insert into upload_files(
+			file_id,
+			file_name,
+			file_type,
+			file_path,
+			file_size,
+			file_source,
+			file_url,
+			create_user,
+			create_time
+		) values(
+			#{fileId},
+			#{fileName},
+			#{fileType},
+			#{filePath},
+			#{fileSize},
+			#{fileSource},
+			#{fileUrl},
+			#{createUser},
+			#{createTime}
+		)
+	</insert>
+	
+	
+
+</mapper>

@@ -10,7 +10,7 @@
 		
 		<!-- 富文本 -->
 	    <script type="text/javascript" charset="utf-8" src="${path }/common/ueditor/ueditor.config.js"></script>
-	    <script type="text/javascript" charset="utf-8" src="${path }/common/ueditor/ueditor.all.min.js"> </script>
+	    <script type="text/javascript" charset="utf-8" src="${path }/common/ueditor/ueditor.all.js"> </script>
 	    <script type="text/javascript" charset="utf-8" src="${path }/common/ueditor/lang/zh-cn/zh-cn.js"></script>
 	    
 	    <!-- 上传文件 -->

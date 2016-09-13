@@ -4,11 +4,25 @@ $(function(){
 	
 	setWindowSize();
 	
+	 UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+	 UE.Editor.prototype.getActionUrl = function(action) {
+	     if(action=='uploadimage' || action=='uploadscrawl' || action=='uploadimage') {
+	         return path + "/ueditor/uploadImgFile.json?requestType=image";
+	     }else if (action=='uploadvideo') {
+	    	 return path + '/ueditor/uploadImgFile.json?requestType=video';
+	     }else if(action=="listimage"){
+	    	 return path + '/ueditor/listimage.json';
+	     }else{
+	         return this._bkGetActionUrl.call(this, action);
+	     }
+	 };
 	 var ue = UE.getEditor('editor',{
 		initialFrameWidth: '100%',
 		initialFrameHeight: 800,
 		isShow: true
 	 }); 
+	 
+
 	 
 	$(window).resize(function(){
 		setWindowSize();
