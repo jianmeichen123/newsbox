@@ -96,5 +96,15 @@ public class CUtils {
 		return UUID.randomUUID().toString().replace("-", "");
 	}
 	
+	public boolean strIsNull(Object obj){
+		if(obj==null || "".equals(obj.toString().trim())){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean strIsNotNull(Object obj){
+		return !strIsNull(obj);
+	}
 
 }

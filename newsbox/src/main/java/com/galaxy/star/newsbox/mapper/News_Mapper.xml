@@ -47,10 +47,86 @@
 			#{newListImg3},
 			#{newContent},
 			#{newUrl},
-			#{is_publish},
+			#{isPublish},
 			#{showIndex},
 			#{isShowBigImg}
 		)
 	</insert>
+	
+	<select id="getNewsList" resultMap="newsListMap" parameterType="PageBean" resultType="News">
+		select new_id,
+			new_caption,
+			publish_time,
+			new_source,
+			new_athors,
+			new_key_word,
+			new_editor,
+			new_type,
+			is_wheel,
+			wheel_img,
+			new_list_img1,
+			new_list_img2,
+			new_list_img3,
+			new_url,
+			is_publish,
+			show_index,
+			is_show_big_img,
+			create_time,
+			create_user
+		from new_repository t limit #{start},#{pageSize};
+	</select>
+	
+	<select id="getNewsById" resultMap="newsResultMap" parameterType="java.lang.String" resultType="News">
+		select * from new_repository t where t.new_id=#{newId}
+	</select>
+	
+	
+	<resultMap type="News" id="newsResultMap">
+		<id column="new_id" property="newId"/>
+		<result column="new_id" property="newId"/>
+		<result column="new_caption" property="newCaption"/>
+		<result column="new_sub_title" property="newSubTitle"/>
+		<result column="publish_time" property="publishTime"/>
+		<result column="new_source" property="newSource"/>
+		<result column="new_athors" property="newAthors"/>
+		<result column="new_key_word" property="newKeyWord"/>
+		<result column="new_editor" property="newEditor"/>
+		<result column="new_type" property="newType"/>
+		<result column="is_wheel" property="isWheel"/>
+		<result column="wheel_img" property="wheelImg"/>
+		<result column="new_list_img1" property="newListImg1"/>
+		<result column="new_list_img2" property="newListImg2"/>
+		<result column="new_list_img3" property="newListImg3"/>
+		<result column="new_content" property="newContent"/>
+		<result column="new_url" property="newUrl"/>
+		<result column="is_publish" property="isPublish"/>
+		<result column="show_index" property="showIndex"/>
+		<result column="is_show_big_img" property="isShowBigImg"/>
+		<result column="create_time" property="createTime"/>
+		<result column="create_user" property="createUser"/>
+	</resultMap>
+	
+	<resultMap type="News" id="newsListMap">
+		<id column="new_id" property="newId"/>
+		<result column="new_caption" property="newCaption"/>
+		<result column="publish_time" property="publishTime"/>
+		<result column="new_source" property="newSource"/>
+		<result column="new_athors" property="newAthors"/>
+		<result column="new_key_word" property="newKeyWord"/>
+		<result column="new_editor" property="newEditor"/>
+		<result column="new_type" property="newType"/>
+		<result column="is_wheel" property="isWheel"/>
+		<result column="wheel_img" property="wheelImg"/>
+		<result column="new_list_img1" property="newListImg1"/>
+		<result column="new_list_img2" property="newListImg2"/>
+		<result column="new_list_img3" property="newListImg3"/>
+		<result column="new_url" property="newUrl"/>
+		<result column="is_publish" property="isPublish"/>
+		<result column="show_index" property="showIndex"/>
+		<result column="is_show_big_img" property="isShowBigImg"/>
+		<result column="create_time" property="createTime"/>
+		<result column="create_user" property="createUser"/>
+	</resultMap>
+	
 
 </mapper>

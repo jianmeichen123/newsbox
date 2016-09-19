@@ -12,6 +12,8 @@ $(function(){
 	    	 return path + '/ueditor/uploadImgFile.json?requestType=video';
 	     }else if(action=="listimage"){
 	    	 return path + '/ueditor/listimage.json';
+	     }else if(action=="catchimage"){
+	    	 return path + '/ueditor/catchImage.json?method=GET';
 	     }else{
 	         return this._bkGetActionUrl.call(this, action);
 	     }
@@ -200,30 +202,8 @@ $(function(){
 		
 		
 		$.utils.sendData(url,JSON.stringify(params),function(data){
-			alert(data);
+			alert("添加成功");
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
@@ -319,7 +299,7 @@ $(function(){
 	    		//将上传的图片返回给列表缩略图
 	    		if(status=="success"){
 	    			if(data.error>0){
-	    				alert(data.msg);
+	    				//alert(data.msg);
 	    			}else{
 	    				if(div_img_obj){
 	    					div_img_obj.children("img").attr("src",data.img_src);
@@ -331,7 +311,7 @@ $(function(){
 	    		}
     		},
     		error: function (data, status, e){	//服务器响应失败处理函数
-    			alert("tdj:" + e);
+    			//alert("tdj:" + e);
     		}
     	});
     }

@@ -4,6 +4,8 @@ $(function(){
 	var d = document;
 	var de = d.documentElement;
 	
+	
+	
 	setWindowSize();
 	$(window).resize(function(){
 		setWindowSize();
@@ -27,7 +29,6 @@ $(function(){
 	 * 点击菜单项的操作（改变样式并进入相关页面）
 	 */
 	$("#div_top .menu ul li").click(function(){
-		//alert($(this).attr("value"));
 		$(this).css("color","#34acdb");
 		$(this).siblings().css("color","#cdced1");
 		

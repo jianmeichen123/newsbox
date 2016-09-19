@@ -28,6 +28,25 @@
 		)
 	</insert>
 	
+	<select id="getFileByPage" parameterType="PageBean" resultType="FileBean" resultMap="fileBeanMap">
+		select * from upload_files limit #{start},#{pageSize};
+	</select>
+	
+	
+	<resultMap type="FileBean" id="fileBeanMap">
+		<id column="file_id" property="fileId"/>
+		<result column="file_name" property="fileName"/>
+		<result column="file_type" property="fileType"/>
+		<result column="file_path" property="filePath"/>
+		<result column="file_size" property="fileSize"></result>
+		<result column="file_source" property="fileSource"/>
+		<result column="file_url" property="fileUrl"/>
+		<result column="create_user" property="createUser"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	
+	
 	
 
 </mapper>

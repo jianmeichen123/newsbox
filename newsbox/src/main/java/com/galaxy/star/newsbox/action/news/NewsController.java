@@ -3,6 +3,7 @@ package com.galaxy.star.newsbox.action.news;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,6 @@ import com.galaxy.star.newsbox.common.CUtils;
 import com.galaxy.star.newsbox.common.Const;
 import com.galaxy.star.newsbox.common.DateTools;
 import com.galaxy.star.newsbox.common.ImageUtils2;
-import com.galaxy.star.newsbox.dao.NewsDAO;
 import com.galaxy.star.newsbox.service.news.INewsService;
 import com.galaxy.star.newsbox.service.news.NewsServiceImpl;
 
@@ -41,6 +41,33 @@ public class NewsController {
 	}
 	
 	/**
+	 * 取得新闻列表
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "getNewsList")  
+	public Map<String,Object> getNewsList(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("error", 1);
+		resultMap.put("msg","取得新闻列表失败");
+		resultMap.put("newsList", "");
+		
+		try{
+			List<News> newsList = newsService.getNewsList(0, 10);
+			resultMap.put("error", 0);
+			if(newsList!=null){
+				resultMap.put("newsList", newsList);
+			}
+		}catch(Exception e){
+			logger.error("取得新闻列表失败",e);
+		}
+		return resultMap;
+	}
+	
+	
+	
+	/**
 	 * 保存新闻稿
 	 * 
 	 */
@@ -54,7 +81,7 @@ public class NewsController {
 			news.setNewId(CUtils.init().getUUID());						//设置ID
 			news.setCreateTime(DateTools.get().getCurrentDateTime());	//创建时间
 			news.setCreateUser("angli");		//登录用户
-			news.setIs_publish(0);				//是否发布 0：不发布
+			news.setIsPublish(0);				//是否发布 0：不发布
 			news.setNewType("1");				//设置资讯类型（1：对应dics表的要闻）
 			
 			//将富文本生成对应的html5页面
@@ -74,42 +101,6 @@ public class NewsController {
 		
 		return result;
 	}
-	
-	/**
-	 * 将富文本生成相应的html5页面
-	 */
-	public String createHtml5(String newsId,String newsContent){
-		String htmlUrl = null;
-		StringBuffer sb = new StringBuffer();
-		sb.append("<!DOCTYPE html>\r\n");
-		sb.append("<html>\r\n");
-		sb.append("<head>\r\n");
-		sb.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
-		sb.append("</head>\r\n");
-		sb.append("<body>\r\n");
-		sb.append(newsContent);
-		sb.append("</body>\r\n");
-		sb.append("</html>\r\n");
-		
-		String htmlFilePath = Const.FILE_PATH + File.separator + Const.HTML5_DIR_NAME;
-		File htmlFileDir = new File(htmlFilePath);
-		if(!htmlFileDir.exists()){
-			htmlFileDir.mkdirs();
-		}
-		
-		File htmlFile = new File(htmlFilePath + File.separator + newsId + ".html");
-		try{
-			FileWriter fw = new FileWriter(htmlFile);
-			fw.write(sb.toString());
-			fw.flush();fw.close();
-			
-			htmlUrl = Const.HTML_SERVER + "/" + Const.HTML5_DIR_NAME + "/" + newsId + ".html";
-		}catch(Exception e){
-		}
-		
-		return htmlUrl;
-	}
-
 	
 	/**
 	 * 上传图片-用于上传自定义的列表图片等
@@ -172,10 +163,6 @@ public class NewsController {
 		return result;  
 	}
 	
-
-	
-	
-	
 	
 	/**
 	 * 裁剪图片
@@ -212,6 +199,42 @@ public class NewsController {
 		
 		return flag;
     }
+    
+	/**
+	 * 将富文本生成相应的html5页面
+	 */
+	private String createHtml5(String newsId,String newsContent){
+		String htmlUrl = null;
+		StringBuffer sb = new StringBuffer();
+		sb.append("<!DOCTYPE html>\r\n");
+		sb.append("<html>\r\n");
+		sb.append("<head>\r\n");
+		sb.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
+		sb.append("</head>\r\n");
+		sb.append("<body>\r\n");
+		sb.append(newsContent);
+		sb.append("</body>\r\n");
+		sb.append("</html>\r\n");
+		
+		String htmlFilePath = Const.FILE_PATH + File.separator + Const.HTML5_DIR_NAME;
+		File htmlFileDir = new File(htmlFilePath);
+		if(!htmlFileDir.exists()){
+			htmlFileDir.mkdirs();
+		}
+		
+		File htmlFile = new File(htmlFilePath + File.separator + newsId + ".html");
+		try{
+			FileWriter fw = new FileWriter(htmlFile);
+			fw.write(sb.toString());
+			fw.flush();fw.close();
+			
+			htmlUrl = Const.HTML_SERVER + "/" + Const.HTML5_DIR_NAME + "/" + newsId + ".html";
+		}catch(Exception e){
+		}
+		
+		return htmlUrl;
+	}
+
 	
 
 }

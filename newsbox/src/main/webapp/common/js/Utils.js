@@ -9,7 +9,6 @@ $(function(){
 	
 	
 	$.utils.sendData = function(url,paramObj,callBack){
-		alert();
 		$.ajax({
 			type: "POST",
 			url: url,
@@ -22,10 +21,7 @@ $(function(){
 		});
 	};
 	
-	
-	$.utils.test = function(msg){
-		alert(msg);
-	};
+
 
 	
 	

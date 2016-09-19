@@ -16,7 +16,7 @@
 	<div id="div_find">
 		<table style="height: 100%;">
 			<tr>
-				<td><span>关键字: </span><input type="text" class="txt_base" style="width: 100px;" placeholder="关键字">&nbsp;</td>
+				<td><span>关键字: </span><input type="text" class="txt_base" style="width: 100px;" placeholder="关键字" onclick="click_list_item(3);">&nbsp;</td>
 				<td><span>标题: </span><input type="text" class="txt_base" style="width: 100px;" placeholder="资讯标题">&nbsp;</td>
 				<td>
 					<span>创建日期: </span><input type="text" class="txt_base" style="width: 80px;" id="datepicker_start"> 至 
@@ -26,7 +26,9 @@
 			</tr>
 		</table>
 	</div>
-
+	<!-- 列表 -->
+	<div id="news_list">
+	</div>
 
 	
 </body>

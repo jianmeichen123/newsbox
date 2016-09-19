@@ -20,7 +20,7 @@ public class News {
 	private String newListImg3;		//列表图片3
 	private String newContent;		//新闻内容
 	private String newUrl;			//生成html后的地址
-	private int is_publish;			//是否发布
+	private int isPublish;			//是否发布
 	private int showIndex;			//发布后显示在列表的顺序
 	private int isShowBigImg;		//列表页是否只显示为一张大图
 	
@@ -141,11 +141,11 @@ public class News {
 	public void setNewUrl(String newUrl) {
 		this.newUrl = newUrl;
 	}
-	public int getIs_publish() {
-		return is_publish;
+	public int getIsPublish() {
+		return isPublish;
 	}
-	public void setIs_publish(int is_publish) {
-		this.is_publish = is_publish;
+	public void setIsPublish(int isPublish) {
+		this.isPublish = isPublish;
 	}
 	public int getShowIndex() {
 		return showIndex;
