@@ -147,7 +147,6 @@ $(function(){
 				});
 				//列表内编辑按钮鼠标点击跳转到编辑页面
 				$(".div_bianji img").click(function(){
-					var newId = $(this).attr("id");
 					var ifm_news = $('#ifm_news', window.parent.document);
 					ifm_news.attr("src",path + "/news/toEditNewPage" + "?newId=" + newId);
 				});
