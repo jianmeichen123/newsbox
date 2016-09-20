@@ -32,7 +32,7 @@
 		</div> -->
 
 		<div class="div_right">
-			<iframe id="ifm" src="" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
+			<iframe id="ifm" style="width: 100%;geight: 100%;" src="" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
 		</div>
 	</div>
 	

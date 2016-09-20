@@ -33,8 +33,8 @@
 	</div>
 	<!-- 列表区-->
 	<div id="div_list">
-		<iframe id="ifm_news" style="width: 100%;height: 90%;" src="${path }/news/toListPage"
-		frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
+		<iframe id="ifm_news" style="width: 100%;height: 100%;"  src="${path }/news/toListPage"
+		frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe>
 	</div>
 	 
 

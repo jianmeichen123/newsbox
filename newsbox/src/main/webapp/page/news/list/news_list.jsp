@@ -14,7 +14,7 @@
 	</head>
 <body style="">
 
-	<div id="div_find">
+	<div id="div_find" style="">
 		<table style="height: 100%;">
 			<tr>
 				<td><span>关键字: </span><input type="text" class="txt_base" id="newKeyWord" value="${page.newKeyWord }" style="width: 100px;" placeholder="关键字">&nbsp;</td>
@@ -33,7 +33,7 @@
 	<!-- 分页 -->
 	<div style="height: 60px;line-height: 60px;padding-left: 20px;">
 			共<span class="span_page_text" id="pageListCount">0</span>条，
-			每页<span class="span_page_text" id="pageSize">2</span>条记录 &nbsp;&nbsp;
+			每页<span class="span_page_text" id="pageSize">10</span>条记录 &nbsp;&nbsp;
 			当前页：<span class="span_page_text" id="pageNo">${page.pageNo }</span>&nbsp;&nbsp;
 			<span class="btn_page" id="page_prev">上一页</span> &nbsp;&nbsp;
 			<span class="btn_page" id="page_next">下一页</span>

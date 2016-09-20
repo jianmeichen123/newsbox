@@ -14,7 +14,6 @@ div,body{
 #div_find{
 	width: 100%;
 	height: 50px;
-	padding-left: 30px;
 	border-bottom: 1px solid #efefef;
 }
 
@@ -31,7 +30,6 @@ div,body{
 
 /*新闻列表*/
 .news_list_item{
-	width: 100%;
 	height: 100px;
 	margin-left: 20px;
 	border-bottom: solid 1px #eee;
@@ -123,7 +121,6 @@ div,body{
 
 .div_bianji{
 	width: 200px;
-	height: 100%;
 	position: absolute;
 	right: 80px;
 	line-height: 100px;

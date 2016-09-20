@@ -142,7 +142,7 @@ $(function(){
 	 */
 	function setWindowSize(){
 		var clienHeight = de.clientHeight;
-		$("#div_list").css("height",clienHeight);
+		$("#div_list").css("height",clienHeight-76);
 	}
 
 });
