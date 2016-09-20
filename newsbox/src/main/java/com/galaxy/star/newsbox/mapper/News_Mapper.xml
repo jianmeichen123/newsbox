@@ -53,7 +53,45 @@
 		)
 	</insert>
 	
-	<select id="getNewsList" resultMap="newsListMap" parameterType="PageBean" resultType="News">
+	<update id="updateNews" parameterType="News">
+		update new_repository t set 
+			t.new_caption=#{newCaption},
+			t.new_sub_title=#{newSubTitle},
+			t.publish_time=#{publishTime},
+			t.new_source=#{newSource},
+			t.new_athors=#{newAthors},
+			t.new_key_word=#{newKeyWord},
+			t.new_editor=#{newEditor},
+			t.create_time=#{createTime},
+			t.create_user=#{createUser},
+			t.new_type=#{newType},
+			t.is_wheel=#{isWheel},
+			t.wheel_img=#{wheelImg},
+			t.new_list_img1=#{newListImg1},
+			t.new_list_img2=#{newListImg2},
+			t.new_list_img3=#{newListImg3},
+			t.new_content=#{newContent},
+			t.new_url=#{newUrl},
+			t.is_publish=#{isPublish},
+			t.show_index=#{showIndex},
+			t.is_show_big_img=#{isShowBigImg}
+		where t.new_id=#{newId};
+	</update>
+	
+	<update id="publishNews" parameterType="Map">
+		update new_repository set 
+			is_publish=#{isPublish} 
+			where new_id=#{newId};
+	</update>
+	
+	<update id="deleteNews" parameterType="Map">
+		update new_repository set 
+			is_del=#{isDel} 
+			where new_id=#{newId};
+	</update>
+	
+	<!-- 用于查询新闻列表 -->
+	<select id="getNewsList" resultMap="newsListMap" parameterType="Map" resultType="News">
 		select new_id,
 			new_caption,
 			publish_time,
@@ -73,13 +111,45 @@
 			is_show_big_img,
 			create_time,
 			create_user
-		from new_repository t limit #{start},#{pageSize};
+		from new_repository t
+		<include refid="getNewsListWhere"/>
+		AND t.is_del is NULL or t.is_del&lt;&gt;1
+		LIMIT #{pageNo},#{pageSize}
 	</select>
+	
+	<!-- 新闻列表总记录数 -->
+	<select id="getNewsListCount" resultType="Integer" parameterType="Map">
+		select count(1)
+		from new_repository t
+		<include refid="getNewsListWhere"/>
+	</select>
+	
+	<!-- 列表查询条件 -->
+	<sql id="getNewsListWhere" >
+		<where>
+			<trim prefixOverrides="and">
+				
+				<if test="newCaption !=null ">
+					AND t.new_caption like CONCAT(CONCAT('%', #{newCaption, jdbcType=VARCHAR}),'%') 
+				</if>
+				<if test="newKeyWord !=null ">
+					AND t.new_key_word like CONCAT(CONCAT('%', #{newKeyWord, jdbcType=VARCHAR}),'%') 
+				</if>
+				<if test="createTimeStart !=null ">
+					AND t.create_time&gt;=#{createTimeStart} 
+				</if>
+				<if test="createTimeEnd !=null ">
+					AND t.create_time&lt;=#{createTimeEnd}
+				</if>
+			</trim>
+		</where>
+	</sql>
+	
+
 	
 	<select id="getNewsById" resultMap="newsResultMap" parameterType="java.lang.String" resultType="News">
 		select * from new_repository t where t.new_id=#{newId}
 	</select>
-	
 	
 	<resultMap type="News" id="newsResultMap">
 		<id column="new_id" property="newId"/>

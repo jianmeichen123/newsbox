@@ -24,6 +24,25 @@ $(function(){
 		isShow: true
 	 }); 
 	 
+	 //如果编辑的新闻带有轮播图，则打开隐藏选项
+	 if($("#isWheel").is(":checked")){
+		$(".flg_wheel").css("visibility","visible");
+	}else{
+		$(".flg_wheel").css("visibility","hidden");
+	}
+	 
+	 //如果新闻内容隐藏域不为空，说明这是编辑页面，将页回写
+	 var newContent = $("#newContent").val();
+	 if(newContent!=="" || newContent!==undefined){
+		ue.addListener("ready", function () { 
+			 // editor准备好之后才可以使用 
+			 ue.setContent(newContent); 
+		});
+	 }
+	 
+
+	 
+	 
 
 	 
 	$(window).resize(function(){
@@ -150,6 +169,7 @@ $(function(){
 	 */
 	$("#save").click(function(){
 		var params = {};
+		params.newId = $("#newId").val();
 		params.newCaption = $("#newCaption").val();
 		params.newKeyWord = $("#newKeyWord").val();
 		params.newType = $("#newType").val();

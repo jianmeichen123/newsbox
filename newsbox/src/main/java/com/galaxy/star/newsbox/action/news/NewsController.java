@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,9 +36,127 @@ public class NewsController {
 	@Autowired
 	private INewsService newsService;
 	
+	/**
+	 * 跳转到新增新闻页
+	 * @return
+	 */
 	@RequestMapping("toAddNewPage")
 	public String toAddNewPage(){
 		return "news/add_news/news_add";
+	}
+	
+	/**
+	 * 跳转到新闻列表页
+	 */
+	@RequestMapping(value = "toListPage")  
+	public String toListPage(HttpServletRequest request,HttpServletResponse response,Model model){
+		
+		String pageNo = CUtils.init().Obj2string(request.getParameter("pageNo"), "1");
+		String newCaption = CUtils.init().Obj2string(request.getParameter("newCaption"), "");
+		String newKeyWord = CUtils.init().Obj2string(request.getParameter("newKeyWord"), "");
+		String createTimeStart = CUtils.init().Obj2string(request.getParameter("createTimeStart"), "");
+		String datepicker_end = CUtils.init().Obj2string(request.getParameter("datepicker_end"), "");
+		
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		paramMap.put("pageNo", pageNo);
+		paramMap.put("newCaption", newCaption);
+		paramMap.put("newKeyWord", newKeyWord);
+		paramMap.put("createTimeStart", createTimeStart);
+		paramMap.put("datepicker_end", datepicker_end);
+		
+		model.addAttribute("page", paramMap);
+	
+		return "news/list/news_list";
+	}
+	
+	/**
+	 * 发布新闻
+	 */
+	@RequestMapping(value = "publishNews")  
+	public Object publishNews(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("error", 1);
+		resultMap.put("msg","发布失败");
+		
+		try{
+			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
+			if(paramMap!=null && paramMap.containsKey("newId")){
+				paramMap.put("isPublish", 1);
+				newsService.publishNews(paramMap);
+				resultMap.put("error", 0);
+			}
+		}catch(Exception e){
+			logger.error("发布失败",e);
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 取消发布新闻
+	 */
+	@RequestMapping(value = "cancelPublishNews")  
+	public Object cancelPublishNews(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("error", 1);
+		resultMap.put("msg","取消发布失败");
+		
+		try{
+			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
+			if(paramMap!=null && paramMap.containsKey("newId")){
+				paramMap.put("isPublish", 0);
+				newsService.publishNews(paramMap);
+				resultMap.put("error", 0);
+			}
+		}catch(Exception e){
+			logger.error("取消发布失败",e);
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 删除新闻
+	 */
+	@RequestMapping(value = "deleteNews")  
+	public Object deleteNews(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("error", 1);
+		resultMap.put("msg","删除失败");
+		
+		try{
+			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
+			if(paramMap!=null && paramMap.containsKey("newId")){
+				paramMap.put("isDel", 1);
+				newsService.deleteNews(paramMap);
+				resultMap.put("error", 0);
+			}
+		}catch(Exception e){
+			logger.error("删除失败",e);
+		}
+		return resultMap;
+	}
+	
+	
+	/**
+	 * 跳转到编辑页
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "toEditNewPage")  
+	public String toModify(HttpServletRequest request,HttpServletResponse response,Model model){
+		try{
+			String newId = CUtils.init().Obj2string(request.getParameter("newId"));
+			//newId = "ac5ec686545c4f0da2803747faea4a6b";
+			if(CUtils.init().strIsNotNull(newId)){
+				News news = newsService.getNewsById(newId);
+				model.addAttribute("news", news);
+			}
+		}catch(Exception e){
+			logger.error("取新闻出错",e);
+		}
+		
+		return "news/add/news_add";
 	}
 	
 	/**
@@ -53,19 +172,38 @@ public class NewsController {
 		resultMap.put("msg","取得新闻列表失败");
 		resultMap.put("newsList", "");
 		
+		Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
+		
 		try{
-			List<News> newsList = newsService.getNewsList(0, 10);
+			Integer listCount = newsService.getNewsListCount(paramMap);								//总记录数
+			Integer pageSize = CUtils.init().Obj2Int(paramMap.get("pageSize"), Const.PAGE_SIZE);	//每页总记录数
+			paramMap.put("pageSize", pageSize);
+			Integer pageNo = CUtils.init().Obj2Int(paramMap.get("pageNo"),1);						//当前页码
+			
+			int totalPage = (int)Math.ceil(listCount*1.0/pageSize);
+			if(pageNo>totalPage){
+				pageNo = totalPage;
+			}
+			if(pageNo<=0) pageNo = 1;
+			
+			int start = (pageNo-1)*pageSize;
+			paramMap.put("pageNo", start);
+			
+			
+			List<News> newsList = newsService.getNewsList(paramMap);		//列表数据
+			
+			
+			
 			resultMap.put("error", 0);
 			if(newsList!=null){
 				resultMap.put("newsList", newsList);
+				resultMap.put("listCount", listCount);
 			}
 		}catch(Exception e){
 			logger.error("取得新闻列表失败",e);
 		}
 		return resultMap;
 	}
-	
-	
 	
 	/**
 	 * 保存新闻稿
@@ -76,22 +214,28 @@ public class NewsController {
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("error", 1);
 		result.put("msg","保存资讯失败！");
-		
+
 		try{
-			news.setNewId(CUtils.init().getUUID());						//设置ID
 			news.setCreateTime(DateTools.get().getCurrentDateTime());	//创建时间
 			news.setCreateUser("angli");		//登录用户
-			news.setIsPublish(0);				//是否发布 0：不发布
-			news.setNewType("1");				//设置资讯类型（1：对应dics表的要闻）
-			
 			//将富文本生成对应的html5页面
 			String html5Url = createHtml5(news.getNewId(),news.getNewContent());
-			
+			boolean isSuccess = false;
 			if(html5Url!=null && !"".equals(html5Url.trim())){
 				news.setNewUrl(html5Url);
+				isSuccess = true;
+			}
+			
+			if(CUtils.init().strIsNotNull(news.getNewId())){
+				newsService.updateNews(news);
 				
+			}else{
+				news.setNewId(CUtils.init().getUUID());				//设置ID
+				news.setIsPublish(0);								//是否发布 0：不发布
 				newsService.addNews(news);
-				
+			}
+			
+			if(isSuccess){
 				result.put("error", 0);
 				result.put("msg","保存资讯成功！");
 			}

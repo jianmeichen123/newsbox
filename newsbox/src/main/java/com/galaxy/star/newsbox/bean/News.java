@@ -23,6 +23,7 @@ public class News {
 	private int isPublish;			//是否发布
 	private int showIndex;			//发布后显示在列表的顺序
 	private int isShowBigImg;		//列表页是否只显示为一张大图
+	private int isDel;				//删除标识
 	
 	public News(){
 	}
@@ -158,5 +159,11 @@ public class News {
 	}
 	public void setIsShowBigImg(int isShowBigImg) {
 		this.isShowBigImg = isShowBigImg;
+	}
+	public int getIsDel() {
+		return isDel;
+	}
+	public void setIsDel(int isDel) {
+		this.isDel = isDel;
 	}
 }

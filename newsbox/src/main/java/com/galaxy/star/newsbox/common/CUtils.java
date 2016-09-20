@@ -44,6 +44,17 @@ public class CUtils {
 		return paramStrng;
 	}
 	
+	
+	/**
+	 * android端使用application/json的方式传输参数，此处进行特殊处理进行接收
+	 * @param req
+	 * @return
+	 * @throws IOException
+	 */
+	public Map<String,Object> getRequestMap(HttpServletRequest request){
+		return json2map(getRequestBody(request));
+	}
+	
 	/**
 	 * 将json转换为map
 	 * @return
@@ -67,8 +78,16 @@ public class CUtils {
 	 * @param obj
 	 * @return
 	 */
-	public String Obj2string(Object obj){
-		return obj==null?null:obj.toString().trim();
+	public String Obj2string(Object obj,String... defValue){
+		String resultValue = null;
+		if(defValue!=null && defValue.length>0){
+			resultValue = defValue[0];
+		}
+		try{
+			resultValue = obj.toString().trim();
+		}catch(Exception e){
+		}
+		return resultValue;
 	}
 	
 	/**

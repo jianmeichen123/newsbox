@@ -15,6 +15,7 @@
 <script type="text/javascript">
 	var path = "${path}";
 	var basePath = "${basePath}";
+	var find_params = {};
 </script>
 
 

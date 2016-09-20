@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>繁星－新建新闻</title>
+		<title>繁星－创建新闻</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<jsp:include page="/common/common.jsp"></jsp:include>
 		<link rel="stylesheet" type="text/css" href="${path }/common/css/common.css" />
@@ -111,49 +112,112 @@
 				<table style="width: 100%;margin-top: 10px;">
 					<tr>
 						<td>标题</td>
-						<td><input type="text" id="newCaption" class="txt_base" style="width: 400px;" placeholder="资讯标题"></td>
+						<td>
+							<input type="hidden" id="newId" value="${news.newId }">
+							<textarea id="newContent"  style="position: absolute;left: -99999px;width: 0px;height: 0px;visibility: hidden;padding:0;margin:0;">${news.newContent}</textarea>
+							<input type="text" id="newCaption" class="txt_base" style="width: 400px;" value="${news.newCaption }" placeholder="资讯标题">
+						</td>
 						<td>关键字</td>
-						<td><input type="text" id="newKeyWord" class="txt_base" style="width: 400px;" placeholder="关键字"></td>
+						<td><input type="text" id="newKeyWord" class="txt_base" style="width: 400px;" value="${news.newKeyWord }" placeholder="关键字"></td>
 					</tr>
 					<tr>
 						<td>资讯类型</td>
 						<td>
 							<select id="sel_news_type" class="txt_base" style="width: 410px;height: 30px;">
-								<option value="1">要闻</option>
-								<option value="3">阅微</option>
-								<option value="4">观点</option>
-								<option value="5">访谈</option>
+								<c:choose>
+									<c:when test="${news.newType == 1 }">
+										<option value="1" selected="selected">要闻</option>
+									</c:when>	
+									<c:otherwise>
+										<option value="1">要闻</option>
+									</c:otherwise>								
+								</c:choose>
+								<c:choose>
+									<c:when test="${news.newType == 3 }">
+										<option value="3" selected="selected">阅微</option>
+									</c:when>	
+									<c:otherwise>
+										<option value="3">阅微</option>
+									</c:otherwise>								
+								</c:choose>
+								<c:choose>
+									<c:when test="${news.newType == 4 }">
+										<option value="4" selected="selected">观点</option>
+									</c:when>	
+									<c:otherwise>
+										<option value="4">观点</option>
+									</c:otherwise>								
+								</c:choose>
+								<c:choose>
+									<c:when test="${news.newType == 5 }">
+										<option value="5" selected="selected">访谈</option>
+									</c:when>	
+									<c:otherwise>
+										<option value="5">访谈</option>
+									</c:otherwise>								
+								</c:choose>
 							</select>
 							<!-- <input type="text" id="newType" class="txt_base" style="width: 400px;" placeholder="资讯类型"> -->
 						</td>
 						<td>责任编辑</td>
-						<td><input type="text" id="newEditor" class="txt_base" style="width: 400px;" placeholder="责任编辑"></td>
+						<td><input type="text" id="newEditor" class="txt_base" value="${news.newEditor }" style="width: 400px;" placeholder="责任编辑"></td>
 					</tr>
 					<tr>
 						<td>资讯来源</td>
-						<td><input type="text" id="newSource" class="txt_base" style="width: 400px;" placeholder="资讯来源"></td>
+						<td><input type="text" id="newSource" class="txt_base" style="width: 400px;" value="${news.newSource }" placeholder="资讯来源"></td>
 						<td>作者</td>
-						<td><input type="text" id="newAthors" class="txt_base" style="width: 400px;" placeholder="作者"></td>
+						<td><input type="text" id="newAthors" class="txt_base" style="width: 400px;" value="${news.newAthors }" placeholder="作者"></td>
 					</tr>
 					<tr>
 						<td>显示顺序</td>
-						<td><input type="text" id="showIndex" class="txt_base" style="width: 400px;" placeholder="请输入显示顺序"></td>
+						<td><input type="text" id="showIndex" class="txt_base" style="width: 400px;" value="${news.showIndex }" placeholder="请输入显示顺序"></td>
 						<td>&nbsp;</td>
 						<td><input type="text" id="" class="txt_base" style="width: 400px;visibility: hidden;" placeholder="预留"></td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="checkbox" id="isWheel">是否设置为轮播</td>
+						<td colspan="2">
+							<c:choose>
+								<c:when test="${news.isWheel == 1 }">
+									<input type="checkbox" checked="checked" id="isWheel">
+								</c:when>
+								<c:otherwise>
+									<input type="checkbox" id="isWheel">
+								</c:otherwise>
+							</c:choose>
+							是否设置为轮播
+						</td>
+							
 						<td class="flg_wheel">轮播标题</td>
-						<td class="flg_wheel"><input type="text" id="wheelTitle" class="txt_base" style="width: 400px;" placeholder="轮播标题"></td>
+						<td class="flg_wheel"><input type="text" id="wheelTitle" class="txt_base" value="${news.wheelTitle }" style="width: 400px;" placeholder="轮播标题"></td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<table style="width: 100%;">
-								<tr><td>列表缩略图（<input type="checkbox" id="check_show_big_img">只显示第一张且设置为大图）</td></tr>
+								<tr><td>列表缩略图（
+									<c:choose>
+										<c:when test="${news.isShowBigImg == 1 }">
+											<input type="checkbox" checked="checked" id="check_show_big_img">
+										</c:when>
+										<c:otherwise>
+											<input type="checkbox" id="check_show_big_img">
+										</c:otherwise>
+									</c:choose>
+									
+									只显示第一张且设置为大图）</td>
+								</tr>
 								<tr>
 									<td style="width: 100%;height: 100px;">
 										<div class="div_img_container">
-											<div class="list_shrink_img_div" id="list_img1"><img src="${path }/imgs/def_img.png"></div>
+											<div class="list_shrink_img_div" id="list_img1">
+												<c:choose>
+													<c:when test="${!empty news.newListImg1 }">
+														<img src="${news.newListImg1 }">
+													</c:when>
+													<c:otherwise>
+														<img src="${path }/imgs/def_img.png">
+													</c:otherwise>
+												</c:choose>
+											</div>
 											<div class="list_shrink_img_div" id="list_img2"><img src="${path }/imgs/def_img.png"></div>
 											<div class="list_shrink_img_div" id="list_img3"><img src="${path }/imgs/def_img.png"></div>
 										</div>
@@ -171,6 +235,14 @@
 												<td style="width: 30%;" class="flg_wheel">
 													<div class="list_shrink_img_div" id="list_img5">
 														<img src="${path }/imgs/def_img.png" id="wheelImg">
+														<c:choose>
+															<c:when test="${!empty news.wheelImg }">
+																<img src="${news.wheelImg }">
+															</c:when>
+															<c:otherwise>
+																<img src="${path }/imgs/def_img.png">
+															</c:otherwise>
+														</c:choose>
 													</div>
 												</td>
 												<td style="width: 70%;padding-left: 10px;vertical-align: bottom;">
