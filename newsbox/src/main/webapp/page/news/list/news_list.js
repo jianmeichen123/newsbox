@@ -70,6 +70,8 @@ $(function(){
 					if(newListImg1){
 						if(newListImg2 && newListImg3){
 							flag = 3;
+						}else{
+							flag = 1;
 						}
 					}else{
 						if(newListImg2){
@@ -79,9 +81,9 @@ $(function(){
 								newListImg1 = newListImg3;
 							}
 						}
-					}
-					if(newListImg1){
-						flag = 1;
+						if(newListImg1){
+							flag = 1;
+						}
 					}
 			
 					//生成列表项
@@ -106,7 +108,7 @@ $(function(){
 						'</div>' + 
 						'<div class="float_left div_list_container">' + 
 							'<div class="div_list_caption">'+newCaption+' </div>' + 		//标题 
-							'<div style="height: 50%;">' + 
+							'<div style="height: 50%;width: 100%;">' + 
 								'<div class="float_left div_list_time_p">' + 
 									'<div class="float_left div_list_time_label">发稿时间</div>' + 
 									'<div class="float_left div_list_time_value">'+createTime+'</div>' +	//发稿时间 
@@ -118,9 +120,9 @@ $(function(){
 								'</div>' + 
 							'</div>' + 
 						'</div>' + 
-						'<div class="float_left div_bianji" style="">' +
+						'<div class="float_left div_bianji" >' +
 							'<span class="float_left" style="margin-right: 10px;" id="span_publish_'+newId+'">');
-					
+							
 						if(isPublish>=1){
 							div_htmls += "发布中";
 						}else{
@@ -129,7 +131,7 @@ $(function(){
 						
 						div_htmls += (
 							'</span>'+
-							'<img class="float_left" style="margin-top: 38px;margin-right: 30px;" src="'+path+'/imgs/bianji.png">' + 
+							'<img class="float_left" style="margin-top: 38px;margin-right: 30px;" id="'+newId+'" src="'+path+'/imgs/bianji.png">' + 
 							'<input type="checkbox" value="'+newId+'">' +
 						'</div>' + 
 						
@@ -148,7 +150,7 @@ $(function(){
 				//列表内编辑按钮鼠标点击跳转到编辑页面
 				$(".div_bianji img").click(function(){
 					var ifm_news = $('#ifm_news', window.parent.document);
-					ifm_news.attr("src",path + "/news/toEditNewPage" + "?newId=" + newId);
+					ifm_news.attr("src",path + "/news/toEditNewPage" + "?newId=" + $(this).attr("id"));
 				});
 				
 				//鼠标经过列表项更改颜色

@@ -9,6 +9,17 @@ $(function(){
 	});
 	
 	/**
+	 * 测试按钮
+	 */
+	$("#btn_test").click(function(){
+		var url = path + "/mobile/getNewsList.json";
+		var params = {"pageSize": 10,"pageNo": 1};
+		$.utils.sendData(url,JSON.stringify(params),function(data){
+			alert(JSON.stringify(data));
+		});
+	});
+	
+	/**
 	 * 新建
 	 */
 	$("#btn_add_news").click(function(){
@@ -99,7 +110,7 @@ $(function(){
 					if(data && data.error==0){
 						alert("发布成功！");
 						var span_publish = $("#span_publish_"+newId,window.frames[0].document);
-						span_publish.html("已发布");
+						span_publish.html("发布中");
 					}
 				});
 			});

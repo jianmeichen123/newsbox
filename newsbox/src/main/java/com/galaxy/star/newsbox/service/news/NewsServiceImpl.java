@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.galaxy.star.newsbox.bean.News;
+import com.galaxy.star.newsbox.bean.NewsBean;
 import com.galaxy.star.newsbox.common.exception.BaseServiceException;
 import com.galaxy.star.newsbox.dao.NewsDAO;
 
@@ -19,7 +19,7 @@ public class NewsServiceImpl implements INewsService{
 	private NewsDAO newDao;
 	
 	@Override
-	public void addNews(News news) {
+	public void addNews(NewsBean news) {
 		try{
 			newDao.addNews(news);
 		}catch(Exception e){
@@ -30,9 +30,9 @@ public class NewsServiceImpl implements INewsService{
 	/**
 	 * 取得新闻列表
 	 */
-	public List<News> getNewsList(Map<String,Object> paramMap){
+	public List<NewsBean> getNewsList(Map<String,Object> paramMap){
 		try{
-			List<News> list = newDao.getNewsList(paramMap);
+			List<NewsBean> list = newDao.getNewsList(paramMap);
 			
 			return list;
 		}catch(Exception e){
@@ -40,6 +40,17 @@ public class NewsServiceImpl implements INewsService{
 		}
 	}
 	
+	@Override
+	public List<NewsBean> getMobileNewsList(Map<String, Object> paramMap) {
+		try{
+			List<NewsBean> list = newDao.getMobileNewsList(paramMap);
+			
+			return list;
+		}catch(Exception e){
+			throw new BaseServiceException(e,logger);
+		}
+	}
+
 	@Override
 	public Integer getNewsListCount(Map<String, Object> paramsMap) {
 		Integer count = 0;
@@ -50,9 +61,20 @@ public class NewsServiceImpl implements INewsService{
 		}
 		return count;
 	}
+	
+	@Override
+	public Integer getMobileNewsListCount(Map<String, Object> paramsMap) {
+		Integer count = 0;
+		try{
+			count = newDao.getMobileNewsListCount(paramsMap);
+		}catch(Exception e){
+			throw new BaseServiceException(e,logger);
+		}
+		return count;
+	}
 
 	@Override
-	public News getNewsById(String newId) {
+	public NewsBean getNewsById(String newId) {
 		try{
 			return newDao.getNewsById(newId);
 		}catch(Exception e){
@@ -61,7 +83,7 @@ public class NewsServiceImpl implements INewsService{
 	}
 
 	@Override
-	public void updateNews(News news) {
+	public void updateNews(NewsBean news) {
 		try{
 			newDao.updateNews(news);
 		}catch(Exception e){

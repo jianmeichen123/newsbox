@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxy.star.newsbox.bean.ImageRect;
-import com.galaxy.star.newsbox.bean.News;
+import com.galaxy.star.newsbox.bean.NewsBean;
 import com.galaxy.star.newsbox.common.CUtils;
 import com.galaxy.star.newsbox.common.Const;
 import com.galaxy.star.newsbox.common.DateTools;
@@ -149,7 +149,7 @@ public class NewsController {
 			String newId = CUtils.init().Obj2string(request.getParameter("newId"));
 			//newId = "ac5ec686545c4f0da2803747faea4a6b";
 			if(CUtils.init().strIsNotNull(newId)){
-				News news = newsService.getNewsById(newId);
+				NewsBean news = newsService.getNewsById(newId);
 				model.addAttribute("news", news);
 			}
 		}catch(Exception e){
@@ -190,7 +190,7 @@ public class NewsController {
 			paramMap.put("pageNo", start);
 			
 			
-			List<News> newsList = newsService.getNewsList(paramMap);		//列表数据
+			List<NewsBean> newsList = newsService.getNewsList(paramMap);		//列表数据
 			
 			
 			
@@ -210,7 +210,7 @@ public class NewsController {
 	 * 
 	 */
 	@RequestMapping(value = "saveNews")  
-	public Map<String,Object> uploadFile(HttpServletRequest request, HttpServletResponse response,@RequestBody News news) {
+	public Map<String,Object> uploadFile(HttpServletRequest request, HttpServletResponse response,@RequestBody NewsBean news) {
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("error", 1);
 		result.put("msg","保存资讯失败！");
@@ -218,8 +218,14 @@ public class NewsController {
 		try{
 			news.setCreateTime(DateTools.get().getCurrentDateTime());	//创建时间
 			news.setCreateUser("angli");		//登录用户
+			
+			String newId = news.getNewId();
+			if(CUtils.init().strIsNull(news.getNewId())){
+				newId = CUtils.init().getUUID();
+			}
+			
 			//将富文本生成对应的html5页面
-			String html5Url = createHtml5(news.getNewId(),news.getNewContent());
+			String html5Url = createHtml5(request,newId,news.getNewContent());
 			boolean isSuccess = false;
 			if(html5Url!=null && !"".equals(html5Url.trim())){
 				news.setNewUrl(html5Url);
@@ -228,10 +234,11 @@ public class NewsController {
 			
 			if(CUtils.init().strIsNotNull(news.getNewId())){
 				newsService.updateNews(news);
-				
 			}else{
-				news.setNewId(CUtils.init().getUUID());				//设置ID
-				news.setIsPublish(0);								//是否发布 0：不发布
+				news.setNewId(newId);				//设置ID
+				news.setIsPublish(0);				//是否发布 0：不发布
+				news.setIsDel(0);					//删除标志
+				news.setIsPublish(0);				//发布标志
 				newsService.addNews(news);
 			}
 			
@@ -347,7 +354,7 @@ public class NewsController {
 	/**
 	 * 将富文本生成相应的html5页面
 	 */
-	private String createHtml5(String newsId,String newsContent){
+	private String createHtml5(HttpServletRequest request,String newsId,String newsContent){
 		String htmlUrl = null;
 		StringBuffer sb = new StringBuffer();
 		sb.append("<!DOCTYPE html>\r\n");
@@ -360,7 +367,7 @@ public class NewsController {
 		sb.append("</body>\r\n");
 		sb.append("</html>\r\n");
 		
-		String htmlFilePath = Const.FILE_PATH + File.separator + Const.HTML5_DIR_NAME;
+		String htmlFilePath = Const.getFilePath(request) + File.separator + Const.HTML5_DIR_NAME;
 		File htmlFileDir = new File(htmlFilePath);
 		if(!htmlFileDir.exists()){
 			htmlFileDir.mkdirs();

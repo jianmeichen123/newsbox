@@ -5,7 +5,7 @@
   
 <mapper namespace="com.galaxy.star.newsbox.dao.NewsDAO">
 
-	<insert id="addNews" parameterType="News" keyColumn="newId">
+	<insert id="addNews" parameterType="NewsBean" keyColumn="newId">
 		insert into new_repository(
 			new_id,
 			new_caption,
@@ -53,7 +53,7 @@
 		)
 	</insert>
 	
-	<update id="updateNews" parameterType="News">
+	<update id="updateNews" parameterType="NewsBean">
 		update new_repository t set 
 			t.new_caption=#{newCaption},
 			t.new_sub_title=#{newSubTitle},
@@ -91,7 +91,7 @@
 	</update>
 	
 	<!-- 用于查询新闻列表 -->
-	<select id="getNewsList" resultMap="newsListMap" parameterType="Map" resultType="News">
+	<select id="getNewsList" resultMap="newsListMap" parameterType="Map" resultType="NewsBean">
 		select new_id,
 			new_caption,
 			publish_time,
@@ -117,6 +117,41 @@
 		LIMIT #{pageNo},#{pageSize}
 	</select>
 	
+	<!-- 用于mobile查询新闻列表 -->
+	<select id="getMobileNewsList" resultMap="newsListMap" parameterType="Map" resultType="NewsBean">
+		select new_id,
+			new_caption,
+			UNIX_TIMESTAMP(publish_time) publish_time,
+			new_source,
+			new_athors,
+			new_key_word,
+			new_editor,
+			new_type,
+			is_wheel,
+			wheel_img,
+			new_list_img1,
+			new_list_img2,
+			new_list_img3,
+			new_url,
+			is_publish,
+			show_index,
+			is_show_big_img,
+			UNIX_TIMESTAMP(create_time) create_time,
+			create_user
+		from new_repository t
+		where t.is_del=0
+		and t.is_publish=1
+		LIMIT #{pageNo},#{pageSize}
+	</select>
+	
+	<!-- 用于mobile 新闻列表总记录数 -->
+	<select id="getMobileNewsListCount" resultType="Integer" parameterType="Map">
+		select count(1)
+		from new_repository t
+		where t.is_del=0
+		and t.is_publish=1
+	</select>
+	
 	<!-- 新闻列表总记录数 -->
 	<select id="getNewsListCount" resultType="Integer" parameterType="Map">
 		select count(1)
@@ -128,7 +163,6 @@
 	<sql id="getNewsListWhere" >
 		<where>
 			<trim prefixOverrides="and">
-				
 				<if test="newCaption !=null ">
 					AND t.new_caption like CONCAT(CONCAT('%', #{newCaption, jdbcType=VARCHAR}),'%') 
 				</if>
@@ -147,11 +181,11 @@
 	
 
 	
-	<select id="getNewsById" resultMap="newsResultMap" parameterType="java.lang.String" resultType="News">
+	<select id="getNewsById" resultMap="newsResultMap" parameterType="java.lang.String" resultType="NewsBean">
 		select * from new_repository t where t.new_id=#{newId}
 	</select>
 	
-	<resultMap type="News" id="newsResultMap">
+	<resultMap type="NewsBean" id="newsResultMap">
 		<id column="new_id" property="newId"/>
 		<result column="new_id" property="newId"/>
 		<result column="new_caption" property="newCaption"/>
@@ -176,7 +210,7 @@
 		<result column="create_user" property="createUser"/>
 	</resultMap>
 	
-	<resultMap type="News" id="newsListMap">
+	<resultMap type="NewsBean" id="newsListMap">
 		<id column="new_id" property="newId"/>
 		<result column="new_caption" property="newCaption"/>
 		<result column="publish_time" property="publishTime"/>

@@ -29,6 +29,9 @@
 			<div id="btn_back_list" class="btn_base btn_tianjia" style="width: 120px;"><img alt="" src="${path }/imgs/tianjia.png">
 				<span style="padding-left: 10px;">返回列表</span>
 			</div>
+			<div id="btn_test" class="btn_base btn_tianjia" style="width: 120px;"><img alt="" src="${path }/imgs/tianjia.png">
+				<span style="padding-left: 10px;">测试按钮</span>
+			</div>
 		</div>
 	</div>
 	<!-- 列表区-->

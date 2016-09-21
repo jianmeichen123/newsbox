@@ -1,6 +1,6 @@
 package com.galaxy.star.newsbox.bean;
 
-public class News {
+public class NewsBean {
 	private String newId;			//id
 	private String newCaption;		//标题
 	private String newSubTitle;		//子标题
@@ -25,7 +25,7 @@ public class News {
 	private int isShowBigImg;		//列表页是否只显示为一张大图
 	private int isDel;				//删除标识
 	
-	public News(){
+	public NewsBean(){
 	}
 	
 	public String getNewId() {

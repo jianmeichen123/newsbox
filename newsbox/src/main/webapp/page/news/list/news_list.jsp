@@ -28,7 +28,7 @@
 		</table>
 	</div>
 	<!-- 列表 -->
-	<div id="news_list" style="width: 100%;height: 600px;">
+	<div id="news_list" style="width: 100%;">
 	</div>
 	<!-- 分页 -->
 	<div style="height: 60px;line-height: 60px;padding-left: 20px;">

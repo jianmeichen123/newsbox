@@ -218,8 +218,27 @@
 													</c:otherwise>
 												</c:choose>
 											</div>
-											<div class="list_shrink_img_div" id="list_img2"><img src="${path }/imgs/def_img.png"></div>
-											<div class="list_shrink_img_div" id="list_img3"><img src="${path }/imgs/def_img.png"></div>
+											<div class="list_shrink_img_div" id="list_img2">
+												<c:choose>
+													<c:when test="${!empty news.newListImg2 }">
+														<img src="${news.newListImg2 }">
+													</c:when>
+													<c:otherwise>
+														<img src="${path }/imgs/def_img.png">
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="list_shrink_img_div" id="list_img3">
+												<c:choose>
+													<c:when test="${!empty news.newListImg3 }">
+														<img src="${news.newListImg3 }">
+													</c:when>
+													<c:otherwise>
+														<img src="${path }/imgs/def_img.png">
+													</c:otherwise>
+												</c:choose>
+											
+											</div>
 										</div>
 									</td>
 								</tr>
