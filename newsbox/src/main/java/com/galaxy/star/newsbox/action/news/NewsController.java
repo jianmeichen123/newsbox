@@ -81,8 +81,12 @@ public class NewsController {
 		try{
 			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
 			if(paramMap!=null && paramMap.containsKey("newId")){
+				String newId = CUtils.init().Obj2string(paramMap.get("newId"));
 				paramMap.put("isPublish", 1);
+				paramMap.put("publishTime", DateTools.get().getCurrentDateTime());
 				newsService.publishNews(paramMap);
+				NewsBean newsBean = newsService.getNewsById(newId);
+				createHtml5(request,newsBean);
 				resultMap.put("error", 0);
 			}
 		}catch(Exception e){
@@ -224,15 +228,20 @@ public class NewsController {
 				newId = CUtils.init().getUUID();
 			}
 			
-			//将富文本生成对应的html5页面
-			String html5Url = createHtml5(request,newId,news.getNewContent());
-			boolean isSuccess = false;
-			if(html5Url!=null && !"".equals(html5Url.trim())){
-				news.setNewUrl(html5Url);
-				isSuccess = true;
-			}
+//			//将富文本生成对应的html5页面
+//			String html5Url = createHtml5(request,news);
+//			boolean isSuccess = false;
+//			if(html5Url!=null && !"".equals(html5Url.trim())){
+//				news.setNewUrl(html5Url);
+//				isSuccess = true;
+//			}
 			
 			if(CUtils.init().strIsNotNull(news.getNewId())){
+				//将富文本生成对应的html5页面
+				String html5Url = createHtml5(request,news);
+				if(html5Url!=null && !"".equals(html5Url.trim())){
+					news.setNewUrl(html5Url);
+				}
 				newsService.updateNews(news);
 			}else{
 				news.setNewId(newId);				//设置ID
@@ -242,10 +251,9 @@ public class NewsController {
 				newsService.addNews(news);
 			}
 			
-			if(isSuccess){
-				result.put("error", 0);
-				result.put("msg","保存资讯成功！");
-			}
+			result.put("error", 0);
+			result.put("msg","保存资讯成功！");
+			
 		}catch(Exception e){
 			logger.error("保存新闻失败", e);
 		}
@@ -354,18 +362,34 @@ public class NewsController {
 	/**
 	 * 将富文本生成相应的html5页面
 	 */
-	private String createHtml5(HttpServletRequest request,String newsId,String newsContent){
+	private String createHtml5(HttpServletRequest request,NewsBean newsBean){
 		String htmlUrl = null;
 		StringBuffer sb = new StringBuffer();
-		sb.append("<!DOCTYPE html>\r\n");
-		sb.append("<html>\r\n");
-		sb.append("<head>\r\n");
-		sb.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
-		sb.append("</head>\r\n");
-		sb.append("<body>\r\n");
-		sb.append(newsContent);
-		sb.append("</body>\r\n");
-		sb.append("</html>\r\n");
+		sb.append("<!DOCTYPE html>\r\n")
+		.append("<html>\n")
+		.append("<head>\n")
+		.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n")
+		.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n")												//用于字体自适应
+		.append("<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;\" name=\"viewport\" />\n") 		//取消缩放
+		.append("<link rel=\"stylesheet\" type=\"text/css\" href=\""+Const.HTML_SERVER + "/common/css/app_common.css\" />\n")				//引入公共样式
+		.append("</head>\n")
+		.append("<body>\n")
+		//拼入标题
+		.append("<h1 class=\"h1_new_caption\"><span class=\"span_new_caption\">"+newsBean.getNewCaption()+"</span></h1>\n")
+		.append("<p class=\"p_editor_create_time\">"+newsBean.getPublishTime()+
+				"&nbsp;&nbsp;<a href=\""+newsBean.getNewAthors()+"\" target=\"_blank\">"+
+				newsBean.getNewSource()+"</a>");
+			
+		if(CUtils.init().strIsNotNull(newsBean.getNewEditor())){
+			sb.append("<br>责任编辑："+newsBean.getNewEditor()+"</p>\n");
+		}
+				
+		sb.append(newsBean.getNewContent())
+		.append("\n")
+		.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.HTML_SERVER+"/common/js/jquery-1.12.3.js\"></script>\n")	//引入jquery
+		.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.HTML_SERVER+"/common/js/app_common.js\"></script>\n")		//引入公共脚本
+		.append("</body>\n")
+		.append("</html>\n");
 		
 		String htmlFilePath = Const.getFilePath(request) + File.separator + Const.HTML5_DIR_NAME;
 		File htmlFileDir = new File(htmlFilePath);
@@ -373,13 +397,13 @@ public class NewsController {
 			htmlFileDir.mkdirs();
 		}
 		
-		File htmlFile = new File(htmlFilePath + File.separator + newsId + ".html");
+		File htmlFile = new File(htmlFilePath + File.separator + newsBean.getNewId() + ".html");
 		try{
 			FileWriter fw = new FileWriter(htmlFile);
 			fw.write(sb.toString());
 			fw.flush();fw.close();
 			
-			htmlUrl = Const.HTML_SERVER + "/" + Const.HTML5_DIR_NAME + "/" + newsId + ".html";
+			htmlUrl = Const.HTML_SERVER + "/" + Const.HTML5_DIR_NAME + "/" + newsBean.getNewId() + ".html";
 		}catch(Exception e){
 		}
 		

@@ -2,6 +2,7 @@
 $(function(){
 	var d = document;
 	var de = d.documentElement;
+	
 	setWindowSize();
 	
 	$(window).resize(function(){

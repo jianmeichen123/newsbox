@@ -165,8 +165,8 @@
 					<tr>
 						<td>资讯来源</td>
 						<td><input type="text" id="newSource" class="txt_base" style="width: 400px;" value="${news.newSource }" placeholder="资讯来源"></td>
-						<td>作者</td>
-						<td><input type="text" id="newAthors" class="txt_base" style="width: 400px;" value="${news.newAthors }" placeholder="作者"></td>
+						<td>来源网址</td>
+						<td><input type="text" id="newAthors" class="txt_base" style="width: 400px;" value="${news.newAthors }" placeholder="来源网址"></td>
 					</tr>
 					<tr>
 						<td>显示顺序</td>
@@ -287,6 +287,7 @@
 	
 
 	<script type="text/javascript">
+	
 		  
 		//实例化编辑器
 		//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例

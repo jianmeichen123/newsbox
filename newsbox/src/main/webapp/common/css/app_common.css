@@ -1,0 +1,28 @@
+
+body{
+	font-size: 1.25em;
+	margin: 0px;
+	padding-left: 20px;
+	padding-right: 15px;
+}
+
+p{
+	font-size: 18px;
+	letter-spacing: 0.1em;
+}
+
+.p_editor_create_time{
+	color: #666;
+	font-size: 12px;
+}
+
+.h1_new_caption{
+	
+}
+
+.span_new_caption{
+	font-size: 28px;
+	color: #333;
+	font-weight: bold;
+	line-height: 30px;
+}

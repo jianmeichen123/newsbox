@@ -80,7 +80,8 @@
 	
 	<update id="publishNews" parameterType="Map">
 		update new_repository set 
-			is_publish=#{isPublish} 
+			is_publish=#{isPublish},
+			publish_time=#{publishTime}
 			where new_id=#{newId};
 	</update>
 	
