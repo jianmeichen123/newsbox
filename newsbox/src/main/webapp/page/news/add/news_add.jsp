@@ -11,23 +11,23 @@
 		
 		<!-- 富文本 -->
 	    <script type="text/javascript" charset="utf-8" src="${path }/common/ueditor/ueditor.config.js"></script>
-	    <script type="text/javascript" charset="utf-8" src="${path }/common/ueditor/ueditor.all.js"> </script>
-	    <script type="text/javascript" charset="utf-8" src="${path }/common/ueditor/lang/zh-cn/zh-cn.js"></script>
+	    <script type="text/javascript" charset="utf-8" src="${path }/common/ueditor/ueditor.all.min.js"> </script>
+	    <%-- <script type="text/javascript" charset="utf-8" src="${path }/common/ueditor/lang/zh-cn/zh-cn.js"></script> --%>
 	    
 	    <!-- 上传文件 -->
 	    <script type="text/javascript" charset="utf-8" src="${path }/common/jquery_file_upload/ajaxfileupload.js"></script>
 	    
 	    <!-- 加载jqueryui -->
-	    <script type="text/javascript" src="${path }/common/jquery-ui-1.12.0/jquery-ui.js"></script>
-	    <link rel="stylesheet" type="text/css" href="${path }/common/jquery-ui-1.12.0/jquery-ui.theme.css" />
-	    <link rel="stylesheet" type="text/css" href="${path }/common/jquery-ui-1.12.0/jquery-ui.css" />
+	    <script type="text/javascript" src="${path }/common/jquery-ui-1.12.0/jquery-ui.min.js"></script>
+	    <link rel="stylesheet" type="text/css" href="${path }/common/jquery-ui-1.12.0/jquery-ui.theme.min.css" />
+	    <link rel="stylesheet" type="text/css" href="${path }/common/jquery-ui-1.12.0/jquery-ui.min.css" />
 	    
 	    <!-- 用于在线编辑图片 -->
 	    <script type="text/javascript" charset="utf-8" src="${path }/common/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.js"></script>
   		<script type="text/javascript" charset="utf-8" src="${path }/common/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.pack.js"></script>
-		<link rel="stylesheet" type="text/css" href="${path }/common/jquery.imgareaselect-0.9.10/css/imgareaselect-animated.css" />
-		<link rel="stylesheet" type="text/css" href="${path }/common/jquery.imgareaselect-0.9.10/css/imgareaselect-default.css" />
-		<link rel="stylesheet" type="text/css" href="${path }/common/jquery.imgareaselect-0.9.10/css/imgareaselect-deprecated.css" />
+ 		<link rel="stylesheet" type="text/css" href="${path }/common/jquery.imgareaselect-0.9.10/css/imgareaselect-animated.css" />
+		<%--<link rel="stylesheet" type="text/css" href="${path }/common/jquery.imgareaselect-0.9.10/css/imgareaselect-default.css" />
+		<link rel="stylesheet" type="text/css" href="${path }/common/jquery.imgareaselect-0.9.10/css/imgareaselect-deprecated.css" /> --%>
 		
 		<!-- 自定义脚本 -->
 		<link rel="stylesheet" type="text/css" href="${path }/page/news/add/news_add.css" />
@@ -90,12 +90,13 @@
 							</tr>
 							<tr>
 								<td colspan="4" style="padding-bottom: 10px;">
-									<input type="button" value="选择文件" onclick="clp();">
+									<p onclick="clp();" class="float_left btn_base" id="btn_cancel_find">选择文件</p>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="4">
-									<input type="button" value="保存并上传" id="btn_fileupload">
+									<p class="float_left btn_base" id="btn_fileupload">上传保存</p>
+									<!-- <input type="button" value="保存并上传" id="btn_fileupload"> -->
 								</td>
 							</tr>
 						</tbody>
@@ -168,12 +169,12 @@
 						<td>来源网址</td>
 						<td><input type="text" id="newAthors" class="txt_base" style="width: 400px;" value="${news.newAthors }" placeholder="来源网址"></td>
 					</tr>
-					<tr>
+<%-- 					<tr>
 						<td>显示顺序</td>
 						<td><input type="text" id="showIndex" class="txt_base" style="width: 400px;" value="${news.showIndex }" placeholder="请输入显示顺序"></td>
 						<td>&nbsp;</td>
 						<td><input type="text" id="" class="txt_base" style="width: 400px;visibility: hidden;" placeholder="预留"></td>
-					</tr>
+					</tr> --%>
 					<tr>
 						<td colspan="2">
 							<c:choose>
@@ -253,20 +254,24 @@
 											<tr>
 												<td style="width: 30%;" class="flg_wheel">
 													<div class="list_shrink_img_div" id="list_img5">
-														<img src="${path }/imgs/def_img.png" id="wheelImg">
+														<%-- <img src="${path }/imgs/def_img.png" id="wheelImg"> --%>
 														<c:choose>
 															<c:when test="${!empty news.wheelImg }">
-																<img src="${news.wheelImg }">
+																<img src="${news.wheelImg }" id="wheelImg">
 															</c:when>
 															<c:otherwise>
-																<img src="${path }/imgs/def_img.png">
+																<img src="${path }/imgs/def_img.png" id="wheelImg">
 															</c:otherwise>
 														</c:choose>
 													</div>
 												</td>
 												<td style="width: 70%;padding-left: 10px;vertical-align: bottom;">
-													<input id="save" type="button" value="保存">&nbsp;
-													<input type="button" value="发布">
+													<p class="float_left btn_base" id="save">保存</p>
+													<!-- <p style="margin-left: 10px;" class="float_left btn_base" id="btn_fileupload">保存并发布</p> -->
+													<p style="margin-left: 10px;" class="float_left btn_base" id="btn_back_list">返回列表</p>
+													<!-- <input id="save" type="button" value="保存">&nbsp;
+													<input type="button" value="保存并发布">
+													<input type="button" id="btn_back_list" value="返回列表"> -->
 												</td>
 											</tr>
 										</table>

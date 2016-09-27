@@ -224,10 +224,21 @@ $(function(){
 		$.utils.sendData(url,JSON.stringify(params),function(data){
 			alert("添加成功");
 		});
-		
-		
-		
 	});
+	
+	/**
+	 * 返回列表
+	 */
+	$("#btn_back_list").click(function(){
+		$('#ifm', window.parent.document).attr("src",path + "/page/news/news_main.jsp");
+	});
+	
+	
+	
+	/**
+	 * 保存并发布
+	 */
+	
 	
 	/**
 	 * 文件上传组件change事件方法

@@ -28,7 +28,7 @@ public class HelloController{
 			
 			
 			result.put("state", "SUCCESS");
-    		result.put("url",Const.HTML_SERVER + "/" + Const.UEDITOR_IMGS + "/" + "文件名");
+    		result.put("url",Const.getHtmlServer(request) + "/" + Const.UEDITOR_IMGS + "/" + "文件名");
     		result.put("title", "文件名");
     		result.put("original", "文件名");
 			

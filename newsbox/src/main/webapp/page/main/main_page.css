@@ -1,98 +1,61 @@
 
-
-body,div,ul,li{
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	
-}
-
-#div_top{
+.div_top{
 	position: absolute;
 	width: 100%;
 	height: 76px;
 	background: #5b656d;
-	z-index: 1000;
+	color: #cdced1;
 }
-#div_top .logo,.menu,.info{
+
+.div_top img{
+	margin-top: 20px;
+	margin-left: 30px;
+}
+
+.menu{
+	width: 300px;
+	height: 100%;
+	margin-left: 80px;
+	 
+}
+
+.user_info{
+	right: 20px;
+	height: 100%;
+}
+
+.user_info p{
 	position: absolute;
-	float: left;
+	right: 40px;
+	bottom: 10px;
 }
 
-#div_top .logo{
-	width: 212px;
-	height: 100%;
-	padding-left: 30px;
-	padding-top: 19px;
-}
 
-#div_top .menu{
-	height: 100%;
-	margin-left: 212px;
-}
-
-#div_top .menu ul{
+.menu ul{
 	height: 100%;
 }
 
-#div_top .menu ul li{
+.menu ul li{
 	display: block;
 	float: left;
-	font-size: 16px;
-	padding-right: 40px;
-	color: #cdced1;
-	line-height: 76px;
+	font-size: 14px;
+	line-height: 90px;
+	text-align: center;
+	width: auto;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
-#div_top .menu ul li:hover,
-#div_content .div_left ul li:hover{
+.menu ul li:hover,
+ul li:hover{
 	color: #34acdb; 
 	cursor: pointer;
 }
 
 
-#div_top .info{
-	width: 200px;
-	height: 100%;
-	right: 0px;
-	line-height: 76px;
-	color: #cdced1;
-	font-size: 14px;
-}
-
-#div_content{
-	position: absolute;
+.div_center{
 	width: 100%;
-	margin-top: 76px;
-	z-index: 999;
+	padding-top: 76px;
+	overflow: hidden;
 }
-
-#div_content .div_right{
-	height: 100%;
-}
-
-#div_content .div_right iframe{
-	padding: 0;
-	margin: 0;
-	border: 0;
-	width: 100%;
-	height: 99%;
-}
-
-.div_btns{
-	width: 100%;
-	height: 45px;
-	background: #efefef;
-	padding-left: 30px;
-	padding-top: 15px;
-}
-
-
-
-
-
-
-
-
-
 

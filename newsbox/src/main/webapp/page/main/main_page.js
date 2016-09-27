@@ -1,10 +1,7 @@
 
 $(function(){
-	
 	var d = document;
 	var de = d.documentElement;
-	
-	
 	
 	setWindowSize();
 	$(window).resize(function(){
@@ -16,19 +13,15 @@ $(function(){
 	 */
 	function setWindowSize(){
 		var clienHeight = de.clientHeight;
-		var clientWidth = de.clientWidth;
 		
-		var div_top_height = 76;
-		var div_left_width = 200;
-
-		$("#div_content").css("height",clienHeight-div_top_height);				//设置功能区及左侧菜单区的高度
-		$("#div_content .div_right").css("width",clientWidth);	//设置功能区的宽度
+		var div_top_height = $(".div_top").height();					//顶部高度
+		$(".div_center").css("height",clienHeight-div_top_height);		//设置功能区及左侧菜单区的高度
 	}
 	
 	/**
 	 * 点击菜单项的操作（改变样式并进入相关页面）
 	 */
-	$("#div_top .menu ul li").click(function(){
+	$(".div_top .menu ul li").click(function(){
 		$(this).css("color","#34acdb");
 		$(this).siblings().css("color","#cdced1");
 		

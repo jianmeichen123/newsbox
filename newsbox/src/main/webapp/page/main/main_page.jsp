@@ -9,37 +9,25 @@
 		<link rel="stylesheet" type="text/css" href="${path }/page/main/main_page.css" />
 		<script type="text/javascript" src="${path }/page/main/main_page.js"></script>
 	</head>
-<body style="">
-	<div id="div_top">
-		<div class="logo"><img src="${path}/imgs/logo.png"/></div>
-		<div class="menu">
-			<ul>
-				<li value="gaojianku">稿件库</li>
-				<li value="tusong">推送</li>
-				<li value="tongji">统计</li>
-			</ul>
+<body>
+	<div style="min-width: 1001px;width: 100%;height: 100%;position: absolute;">
+		<div class="div_top">
+			<img class="float_left" alt="" src="${path}/imgs/logo.png">
+			<div class="float_left menu">
+				<ul>
+					<li value="gaojianku">稿库</li>
+					<li value="gaojianku">推送</li>
+					<li value="gaojianku">统计</li>
+					<li value="gaojianku">系统工具</li>
+				</ul>
+			</div>
+			<div class="float-left user_info">
+				<p>用户名：<span>李昂</span></p>
+			</div>
 		</div>
-		 <div class="info">
-		 	<span>用户名：李昂</span>
-		 </div>
-	</div>
-
-	<div id="div_content" style="">
-<!-- 		<div class="div_left">
-			<ul>
-				<li>我的稿件库</li>
-			</ul>
-		</div> -->
-
-		<div class="div_right">
-			<iframe id="ifm" style="width: 100%;geight: 100%;" src="" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
+		<div class="div_center">
+			<iframe id="ifm" style="width: 100%;height: 100%;border: 0;" src="" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
 		</div>
 	</div>
-	
-	
-
-	<script type="text/javascript">
-		
-	</script>
 </body>
 </html>

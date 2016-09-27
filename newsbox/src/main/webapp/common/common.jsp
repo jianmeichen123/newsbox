@@ -12,6 +12,9 @@
 <script type="text/javascript" src="${path }/common/js/json2.js"></script>
 <script type="text/javascript" src="${path }/common/js/Utils.js"></script>
 
+<link rel="stylesheet" type="text/css" href="${path }/common/css/common.css" />
+		
+
 <script type="text/javascript">
 	var path = "${path}";
 	var basePath = "${basePath}";

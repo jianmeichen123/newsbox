@@ -1,21 +1,37 @@
+body,div,ul,li,p,iframe{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	border: 0;
+	font-family: "微软雅黑";
+	font-size: 12px;
+}
 
 /*按钮基类*/
 .btn_base{
-	height: 30px;
+	width: 60px;
+	height: 26px;
 	background: #34acdb;
 	color: #fff;
-	font-weight: bold;
-	font-size: 14px;
-	float: left;
-	margin-right: 15px;
+	font-size: 12px;
 	cursor: pointer;
+	line-height: 26px;
+	text-align: center;
     /*border: 5px solid #dedede;*/
     -moz-border-radius: 2px;      /* Gecko browsers */
     -webkit-border-radius: 2px;   /* Webkit browsers */
     border-radius: 2px;            /* W3C syntax */
 }
 
-.btn_noimg_base{
+.btn_base img{
+	width: 12px;
+}
+
+.btn_base span{
+	margin-left: 5px;
+}
+
+/* .btn_noimg_base{
 	height: 30px;
 	line-height: 30px;
 	background: #34acdb;
@@ -23,27 +39,31 @@
 	font-weight: bold;
 	font-size: 14px;
 	cursor: pointer;
-    /*border: 5px solid #dedede;*/
-    -moz-border-radius: 2px;      /* Gecko browsers */
-    -webkit-border-radius: 2px;   /* Webkit browsers */
-    border-radius: 2px;            /* W3C syntax */
+    border: 5px solid #dedede;
+    -moz-border-radius: 2px;      Gecko browsers
+    -webkit-border-radius: 2px;   Webkit browsers
+    border-radius: 2px;            W3C syntax
 }
+ */
 
-
-/*按钮   添加*/
+/*按钮   添加
 .btn_tianjia{
-	width: 80px;
-	padding-left: 15px;
+	width: 60px;
+	padding-left: 10px;
 	line-height: 30px;
-}
+}*/
 
 /*文本框  基类*/
 .txt_base{
-	height: 26px;
+	height: 22px;
 	font-size: 14px;
-	border: 2px solid #acbbc6;
+	border: 1px solid #acbbc6;
 	padding-left: 3px;
 	padding-right: 3px;
+}
+
+.float_left{
+	float: left;
 }
 
 

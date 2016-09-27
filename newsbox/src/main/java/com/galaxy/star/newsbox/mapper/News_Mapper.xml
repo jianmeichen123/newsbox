@@ -27,7 +27,8 @@
 			new_url,
 			is_publish,
 			show_index,
-			is_show_big_img
+			is_show_big_img,
+			is_del
 		) values(
 			#{newId},
 			#{newCaption},
@@ -49,7 +50,8 @@
 			#{newUrl},
 			#{isPublish},
 			#{showIndex},
-			#{isShowBigImg}
+			#{isShowBigImg},
+			#{isDel}
 		)
 	</insert>
 	
@@ -79,10 +81,17 @@
 	</update>
 	
 	<update id="publishNews" parameterType="Map">
+		<!-- update new_repository set 
+			is_publish=#{isPublish},
+			publish_time=#{publishTime}
+			where new_id in (#{newIds}); -->
 		update new_repository set 
 			is_publish=#{isPublish},
 			publish_time=#{publishTime}
-			where new_id=#{newId};
+			where new_id in 
+			<foreach collection="newIds" index="" item="newId" separator="," open="(" close=")">
+				#{newId}
+			</foreach>	
 	</update>
 	
 	<update id="deleteNews" parameterType="Map">
@@ -93,28 +102,10 @@
 	
 	<!-- 用于查询新闻列表 -->
 	<select id="getNewsList" resultMap="newsListMap" parameterType="Map" resultType="NewsBean">
-		select new_id,
-			new_caption,
-			publish_time,
-			new_source,
-			new_athors,
-			new_key_word,
-			new_editor,
-			new_type,
-			is_wheel,
-			wheel_img,
-			new_list_img1,
-			new_list_img2,
-			new_list_img3,
-			new_url,
-			is_publish,
-			show_index,
-			is_show_big_img,
-			create_time,
-			create_user
+		select *
 		from new_repository t
 		<include refid="getNewsListWhere"/>
-		AND t.is_del is NULL or t.is_del&lt;&gt;1
+		AND t.is_del&lt;&gt;1
 		LIMIT #{pageNo},#{pageSize}
 	</select>
 	
@@ -175,6 +166,9 @@
 				</if>
 				<if test="createTimeEnd !=null ">
 					AND t.create_time&lt;=#{createTimeEnd}
+				</if>
+				<if test="isPublish !=null">
+					AND t.is_publish=#{isPublish}
 				</if>
 			</trim>
 		</where>

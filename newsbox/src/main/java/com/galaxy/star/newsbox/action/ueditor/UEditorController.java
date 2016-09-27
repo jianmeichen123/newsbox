@@ -104,7 +104,7 @@ public class UEditorController {
 					String fileName = fileList[i].getOriginalFilename();  
 			        File targetFile = new File(srcPath, fileName);  
 			        try{  
-			        	String urlPath = Const.HTML_SERVER + "/" + fileDir + "/";
+			        	String urlPath = Const.getHtmlServer(request) + "/" + fileDir + "/";
 			        	fileList[i].transferTo(targetFile); 
 			    		result.put("state", "SUCCESS");
 			    		result.put("url",urlPath + fileName);
@@ -159,7 +159,7 @@ public class UEditorController {
 			if(list!=null){
 				for(int i=0;i<list.size();i++){
 					Map<String,String> urlMap = new HashMap<String,String>();
-					urlMap.put("url", Const.HTML_SERVER + "/" + list.get(i).getFilePath() + "/" + list.get(i).getFileName());
+					urlMap.put("url", Const.getHtmlServer(request) + "/" + list.get(i).getFilePath() + "/" + list.get(i).getFileName());
 					urlList.add(urlMap);
 				}
 				result.put("state", "SUCCESS");
@@ -213,7 +213,7 @@ public class UEditorController {
 			        is.close();
 					
 			        Map<String,Object> map = new HashMap<String,Object>();
-			        map.put("url", Const.HTML_SERVER + "/" + Const.IMG_CATCH_DIR_NAME + "/" + fileName);
+			        map.put("url", Const.getHtmlServer(request) + "/" + Const.IMG_CATCH_DIR_NAME + "/" + fileName);
 			        map.put("source", sources[i]);
 			        map.put("state", "SUCCESS");
 			       

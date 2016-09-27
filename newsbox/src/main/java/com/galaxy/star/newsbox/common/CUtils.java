@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 public class CUtils {
 	private static CUtils utils;
@@ -71,6 +72,21 @@ public class CUtils {
 			}
 		}
 		return map;
+	}
+	
+	/**
+	 * 将map转换为json字符串
+	 */
+	public String object2jsonString(Object obj){
+		String result = null;
+		try{
+			if(strIsNotNull(obj)){
+				Gson gson = new Gson(); 
+				result = gson.toJson(obj); 
+			}
+		}catch(Exception e){
+		}
+		return result;
 	}
 	
 	/**

@@ -19,8 +19,21 @@ public class Const {
 	public static final String UEDITOR_IMGS = "ueditor" + File.separator + "imgs";	//Ueditor上传的图片
 	public static final String UEDITOR_VIDEOS = "ueditor" + File.separator + "videos";	//Ueditor上传的视频
 	public static final String UEDITOR_OTHERS = "ueditor" + File.separator + "other";	//Ueditor上传的视频
-	public static final String HTML_SERVER = "http://www.bobycloud.com:7777/newsbox";	//图片上传成功后与富文本生成后对应html服务器
+	public static final String HTML_SERVER = "";										//"http://www.bobycloud.com:7777/newsbox";	//图片上传成功后与富文本生成后对应html服务器
 	public static final String CUT_FILE_PRE = "cut_";					//图片经过裁剪处理后生成的图片文件前面的前缀
+	
+	
+	public static String getHtmlServer(HttpServletRequest request){
+		if(CUtils.init().strIsNotNull(HTML_SERVER)){
+			return HTML_SERVER;
+		}else{
+			String url = request.getScheme() + "://"; 	//请求协议 http 或 https    
+			url += request.getHeader("host");  			// 请求服务器    
+			url += request.getContextPath();     		// 工程名
+			
+			return url;
+		}
+	}
 	
 	public static String getFilePath(HttpServletRequest request){
 		String path = null;

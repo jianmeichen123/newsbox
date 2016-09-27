@@ -2,6 +2,7 @@ package com.galaxy.star.newsbox.action.news;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +72,7 @@ public class NewsController {
 	}
 	
 	/**
-	 * 发布新闻
+	 * 发布或取消新闻
 	 */
 	@RequestMapping(value = "publishNews")  
 	public Object publishNews(HttpServletRequest request,HttpServletResponse response){
@@ -80,42 +82,69 @@ public class NewsController {
 		
 		try{
 			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
-			if(paramMap!=null && paramMap.containsKey("newId")){
-				String newId = CUtils.init().Obj2string(paramMap.get("newId"));
-				paramMap.put("isPublish", 1);
-				paramMap.put("publishTime", DateTools.get().getCurrentDateTime());
-				newsService.publishNews(paramMap);
-				NewsBean newsBean = newsService.getNewsById(newId);
-				createHtml5(request,newsBean);
+			if(paramMap!=null && paramMap.containsKey("newIds") && paramMap.containsKey("type")){
+				String newidJsonString = CUtils.init().Obj2string(paramMap.get("newIds"));
+				String type = CUtils.init().Obj2string(paramMap.get("type"));
+				List<String> newList = new ArrayList<String>();
+				
+				JSONArray arr = null;
+				if(CUtils.init().strIsNotNull(newidJsonString)){
+					arr = new JSONArray(newidJsonString);
+					if(arr!=null && arr.length()>0){
+						for(int i=0;i<arr.length();i++){
+							newList.add(arr.getString(i));
+						}
+					}
+				}
+				
+				Map<String,Object> map = new HashMap<String,Object>();
+				map.put("newIds", newList);
+				if("publish".equals(type)){
+					map.put("isPublish", 1);
+				}else{
+					map.put("isPublish", 0);
+				}
+				map.put("publishTime", DateTools.get().getCurrentDateTime());
+				newsService.publishNews(map);
+				
+				if("publish".equals(type)){
+					if(arr!=null && arr.length()>0){
+						for(int i=0;i<arr.length();i++){
+							NewsBean newsBean = newsService.getNewsById(arr.getString(i));
+							createHtml5(request,newsBean);
+						}
+					}
+				}
+				
 				resultMap.put("error", 0);
 			}
 		}catch(Exception e){
-			logger.error("发布失败",e);
+			logger.error("发布或取消发布失败",e);
 		}
 		return resultMap;
 	}
 	
-	/**
-	 * 取消发布新闻
-	 */
-	@RequestMapping(value = "cancelPublishNews")  
-	public Object cancelPublishNews(HttpServletRequest request,HttpServletResponse response){
-		Map<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("error", 1);
-		resultMap.put("msg","取消发布失败");
-		
-		try{
-			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
-			if(paramMap!=null && paramMap.containsKey("newId")){
-				paramMap.put("isPublish", 0);
-				newsService.publishNews(paramMap);
-				resultMap.put("error", 0);
-			}
-		}catch(Exception e){
-			logger.error("取消发布失败",e);
-		}
-		return resultMap;
-	}
+//	/**
+//	 * 取消发布新闻
+//	 */
+//	@RequestMapping(value = "cancelPublishNews")  
+//	public Object cancelPublishNews(HttpServletRequest request,HttpServletResponse response){
+//		Map<String,Object> resultMap = new HashMap<String,Object>();
+//		resultMap.put("error", 1);
+//		resultMap.put("msg","取消发布失败");
+//		
+//		try{
+//			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
+//			if(paramMap!=null && paramMap.containsKey("newId")){
+//				paramMap.put("isPublish", 0);
+//				newsService.publishNews(paramMap);
+//				resultMap.put("error", 0);
+//			}
+//		}catch(Exception e){
+//			logger.error("取消发布失败",e);
+//		}
+//		return resultMap;
+//	}
 	
 	/**
 	 * 删除新闻
@@ -139,6 +168,34 @@ public class NewsController {
 		return resultMap;
 	}
 	
+	/**
+	 * 用于保存并获取查询条件
+	 */
+	@RequestMapping("saveAndGetFind")
+	public Object saveAndGetFind(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("error", 1);
+		resultMap.put("finds", "");
+		
+		if(paramMap!=null && paramMap.containsKey("type")){
+			String type = CUtils.init().Obj2string(paramMap.get("type"));
+			HttpSession session = request.getSession();
+			if(CUtils.init().strIsNotNull(type)){
+				if("save".equals(type)){
+					session.setAttribute("finds", CUtils.init().object2jsonString(paramMap));
+					resultMap.put("error", 0);
+				}else if("get".equals(type)){
+					String findString = CUtils.init().Obj2string(session.getAttribute("finds"));
+					if(CUtils.init().strIsNotNull(findString)){
+						resultMap.put("error", 0);
+						resultMap.put("finds", CUtils.init().json2map(findString));
+					}
+				}
+			}
+		}
+		return resultMap;
+	}
 	
 	/**
 	 * 跳转到编辑页
@@ -196,7 +253,7 @@ public class NewsController {
 			
 			List<NewsBean> newsList = newsService.getNewsList(paramMap);		//列表数据
 			
-			
+			System.out.println(newsList.size());
 			
 			resultMap.put("error", 0);
 			if(newsList!=null){
@@ -214,7 +271,7 @@ public class NewsController {
 	 * 
 	 */
 	@RequestMapping(value = "saveNews")  
-	public Map<String,Object> uploadFile(HttpServletRequest request, HttpServletResponse response,@RequestBody NewsBean news) {
+	public Map<String,Object> saveNews(HttpServletRequest request, HttpServletResponse response,@RequestBody NewsBean news) {
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("error", 1);
 		result.put("msg","保存资讯失败！");
@@ -304,9 +361,9 @@ public class NewsController {
 			        	
 			        	//如果存在裁剪的图片则返回该图片，如果没有裁剪的图片则返回原图片
 			        	if(!flag){	
-			        		result.put("img_src", Const.HTML_SERVER + "/" + Const.IMG_SRC_DIR_NAME + "/" + fileName);
+			        		result.put("img_src", Const.getHtmlServer(request) + "/" + Const.IMG_SRC_DIR_NAME + "/" + fileName);
 			        	}else{
-			        		result.put("img_src", Const.HTML_SERVER + "/" + Const.IMG_DEAL_DIR_NAME + "/" + Const.CUT_FILE_PRE + fileName);
+			        		result.put("img_src", Const.getHtmlServer(request) + "/" + Const.IMG_DEAL_DIR_NAME + "/" + Const.CUT_FILE_PRE + fileName);
 			        	}
 			        	
 			        	result.put("error", 0);
@@ -371,7 +428,8 @@ public class NewsController {
 		.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n")
 		.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n")												//用于字体自适应
 		.append("<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;\" name=\"viewport\" />\n") 		//取消缩放
-		.append("<link rel=\"stylesheet\" type=\"text/css\" href=\""+Const.HTML_SERVER + "/common/css/app_common.css\" />\n")				//引入公共样式
+		.append("<link rel=\"stylesheet\" type=\"text/css\" href=\""+Const.getHtmlServer(request) + "/common/css/app_common.css\" />\n")				//引入公共样式
+		.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/jquery-1.12.3.js\"></script>\n")	//引入jquery
 		.append("</head>\n")
 		.append("<body>\n")
 		//拼入标题
@@ -386,8 +444,7 @@ public class NewsController {
 				
 		sb.append(newsBean.getNewContent())
 		.append("\n")
-		.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.HTML_SERVER+"/common/js/jquery-1.12.3.js\"></script>\n")	//引入jquery
-		.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.HTML_SERVER+"/common/js/app_common.js\"></script>\n")		//引入公共脚本
+		.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/app_common.js\"></script>\n")		//引入公共脚本
 		.append("</body>\n")
 		.append("</html>\n");
 		
@@ -403,7 +460,7 @@ public class NewsController {
 			fw.write(sb.toString());
 			fw.flush();fw.close();
 			
-			htmlUrl = Const.HTML_SERVER + "/" + Const.HTML5_DIR_NAME + "/" + newsBean.getNewId() + ".html";
+			htmlUrl = Const.getHtmlServer(request) + "/" + Const.HTML5_DIR_NAME + "/" + newsBean.getNewId() + ".html";
 		}catch(Exception e){
 		}
 		
