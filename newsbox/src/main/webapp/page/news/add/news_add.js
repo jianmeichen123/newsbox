@@ -136,7 +136,7 @@ $(function(){
 	 * 添加列表缩略图
 	 */
 	var div_img_obj = null;
-	$(".list_shrink_img_div").bind("click",open_dialog);
+	$(".list_shrink_img_div img").bind("click",open_dialog);
 	function open_dialog(){
 		var def_img = path + "/imgs/def_img.png";
 		if($("#list_img1 img").attr("src")==def_img && $(this).attr("id")!=="list_img1" && $(this).attr("id")!=="list_img5"){
@@ -148,6 +148,41 @@ $(function(){
 			div_img_obj = $("#" + $(this).attr("id"));
 		}
 	};
+	
+	/**
+	 * 为所有图片添加删除功能
+	 */
+	$(".list_shrink_img_div").mouseover(function(){
+		var width = $(this).width();
+		var left = $(this).position().left;
+		var top = $(this).position().top;
+		var def_img = path + "/imgs/def_img.png";
+		var shrink_img_src = $(this).find(".shrink_img").attr("src");
+
+		if($(this).children(".img_del").length<=0 && def_img!==shrink_img_src){
+			var img_del = $('<img class="img_del" style="left: '+(left+width-26)+'px;top: '+(top+2)+
+					'px;width: 26px;height: auto;position: absolute;z-index: 1000;" src="'+path+'/imgs/shanchu.png">');
+			$(this).append(img_del);	
+			img_del.click(function(){
+				$(this).parent().find(".shrink_img").attr("src",path + "/imgs/def_img.png");
+			});
+			
+			
+		}
+	});
+	
+//	//删除已经选定的图片
+//	$(".list_shrink_img_div").children(".img_del").click(function(){
+//		alert(111);
+//	});
+//	
+
+	
+	$(".list_shrink_img_div").mouseleave(function(){
+		if($(this).children(".img_del").length>0){
+			$(this).children(".img_del").remove();	
+		}	
+	});
 	
 	/**
 	 * 显示为一张大图
@@ -177,6 +212,8 @@ $(function(){
 		params.newSource = $("#newSource").val();
 		params.newAthors = $("#newAthors").val();
 		params.showIndex = $("#showIndex").val();
+		params.isDel = $("#isDel").val();
+		params.isPublish = $("#isPublish").val();
 		
 		//取得资讯类型
 		params.newType = $("#sel_news_type").val();

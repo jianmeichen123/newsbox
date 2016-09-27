@@ -151,7 +151,7 @@ $(function(){
 							//div_htmls += ("发布中");
 							div_htmls += ('<img class="float_left" style="margin-top: 38px;margin-right: 30px;" id="fabu_'+newId+'" src="'+path+'/imgs/fabu1.png">');
 						}else{
-							div_htmls += ('<img class="float_left" style="margin-top: 38px;margin-right: 30px;" id="quxiaofabu_'+newId+'" src="'+path+'/imgs/quxiaofabu1.png">');
+							div_htmls += ('<img class="float_left" style="margin-top: 38px;margin-right: 30px;" id="fabu_'+newId+'" src="'+path+'/imgs/quxiaofabu1.png">');
 						}
 						
 						div_htmls += (
@@ -172,8 +172,8 @@ $(function(){
 				if(count<4){
 					count = 4;
 				}
-				$(".div_page").css("top",100*count + 40);
-				$(".div_page").css("left",100);
+				$(".div_page").css("top",100*count + 20);
+				$(".div_page").css("left",70);
 				
 				//列表内编辑按钮鼠标悬停事件
 				$(".div_bianji .edit_news").mouseover(function(){
@@ -293,17 +293,17 @@ $(function(){
 		
 	});
 	
-//	/**
-//	 * 测试按钮
-//	 */
-//	$("#btn_test").click(function(){
-//		var url = path + "/mobile/getNewsList.json";
-//		var params = {"pageSize": 10,"pageNo": 1};
-//		$.utils.sendData(url,JSON.stringify(params),function(data){
-//			alert(JSON.stringify(data));
-//		});
-//	});
-//	
+	/**
+	 * 测试按钮
+	 */
+	$("#btn_test").click(function(){
+		var url = path + "/mobile/getNewsList.json";
+		var params = {"pageSize": 10,"pageNo": 1};
+		$.utils.sendData(url,JSON.stringify(params),function(data){
+			alert(JSON.stringify(data));
+		});
+	});
+	
 	/**
 	 * 新建
 	 */
@@ -427,8 +427,9 @@ $(function(){
 				if(data && data.error==0){
 					alert("发布成功！");
 					for(var i=0;i<newIds.length;i++){
-						var span_publish = $("#span_publish_"+newIds[i]);
-						span_publish.html("发布中");
+						var img_publish = $("#fabu_"+newIds[i]);
+						img_publish.attr("src",path + "/imgs/fabu1.png");
+
 					}
 				}
 			});
@@ -455,8 +456,8 @@ $(function(){
 				if(data && data.error==0){
 					alert("取消发布成功！");
 					for(var i=0;i<newIds.length;i++){
-						var span_publish = $("#span_publish_"+newIds[i]);
-						span_publish.html("未发布");
+						var img_publish = $("#fabu_"+newIds[i]);
+						img_publish.attr("src",path + "/imgs/quxiaofabu1.png");
 					}
 				}
 			});

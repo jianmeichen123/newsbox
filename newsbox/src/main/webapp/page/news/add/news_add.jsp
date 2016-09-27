@@ -90,12 +90,12 @@
 							</tr>
 							<tr>
 								<td colspan="4" style="padding-bottom: 10px;">
-									<p onclick="clp();" class="float_left btn_base" id="btn_cancel_find">选择文件</p>
+									<p onclick="clp();" style="width: 80px;" class="float_left btn_base_noimg" id="btn_cancel_find">选择文件</p>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="4">
-									<p class="float_left btn_base" id="btn_fileupload">上传保存</p>
+									<p style="width: 80px;" class="float_left btn_base_noimg" id="btn_fileupload">上传保存</p>
 									<!-- <input type="button" value="保存并上传" id="btn_fileupload"> -->
 								</td>
 							</tr>
@@ -115,6 +115,9 @@
 						<td>标题</td>
 						<td>
 							<input type="hidden" id="newId" value="${news.newId }">
+							<input type="hidden" id="isDel" value="${news.isDel }">
+							<input type="hidden" id="isPublish" value="${news.isPublish }">
+							
 							<textarea id="newContent"  style="position: absolute;left: -99999px;width: 0px;height: 0px;visibility: hidden;padding:0;margin:0;">${news.newContent}</textarea>
 							<input type="text" id="newCaption" class="txt_base" style="width: 400px;" value="${news.newCaption }" placeholder="资讯标题">
 						</td>
@@ -209,33 +212,35 @@
 								<tr>
 									<td style="width: 100%;height: 100px;">
 										<div class="div_img_container">
-											<div class="list_shrink_img_div" id="list_img1">
+											<div class="list_shrink_img_div" id="list_img1" style="background: red;">
 												<c:choose>
 													<c:when test="${!empty news.newListImg1 }">
-														<img src="${news.newListImg1 }">
+														<img class="shrink_img" src="${news.newListImg1 }">
 													</c:when>
 													<c:otherwise>
-														<img src="${path }/imgs/def_img.png">
+														<img class="shrink_img" src="${path }/imgs/def_img.png">
 													</c:otherwise>
+													
 												</c:choose>
+												
 											</div>
 											<div class="list_shrink_img_div" id="list_img2">
 												<c:choose>
 													<c:when test="${!empty news.newListImg2 }">
-														<img src="${news.newListImg2 }">
+														<img class="shrink_img" src="${news.newListImg2 }">
 													</c:when>
 													<c:otherwise>
-														<img src="${path }/imgs/def_img.png">
+														<img class="shrink_img" src="${path }/imgs/def_img.png">
 													</c:otherwise>
 												</c:choose>
 											</div>
 											<div class="list_shrink_img_div" id="list_img3">
 												<c:choose>
 													<c:when test="${!empty news.newListImg3 }">
-														<img src="${news.newListImg3 }">
+														<img class="shrink_img" src="${news.newListImg3 }">
 													</c:when>
 													<c:otherwise>
-														<img src="${path }/imgs/def_img.png">
+														<img class="shrink_img" src="${path }/imgs/def_img.png">
 													</c:otherwise>
 												</c:choose>
 											
@@ -257,18 +262,18 @@
 														<%-- <img src="${path }/imgs/def_img.png" id="wheelImg"> --%>
 														<c:choose>
 															<c:when test="${!empty news.wheelImg }">
-																<img src="${news.wheelImg }" id="wheelImg">
+																<img class="shrink_img" src="${news.wheelImg }" id="wheelImg">
 															</c:when>
 															<c:otherwise>
-																<img src="${path }/imgs/def_img.png" id="wheelImg">
+																<img class="shrink_img" src="${path }/imgs/def_img.png" id="wheelImg">
 															</c:otherwise>
 														</c:choose>
 													</div>
 												</td>
 												<td style="width: 70%;padding-left: 10px;vertical-align: bottom;">
-													<p class="float_left btn_base" id="save">保存</p>
+													<p class="float_left btn_base_noimg" id="save">保存</p>
 													<!-- <p style="margin-left: 10px;" class="float_left btn_base" id="btn_fileupload">保存并发布</p> -->
-													<p style="margin-left: 10px;" class="float_left btn_base" id="btn_back_list">返回列表</p>
+													<p style="width: 80px;" class="float_left btn_base_noimg" id="btn_back_list">返回列表</p>
 													<!-- <input id="save" type="button" value="保存">&nbsp;
 													<input type="button" value="保存并发布">
 													<input type="button" id="btn_back_list" value="返回列表"> -->

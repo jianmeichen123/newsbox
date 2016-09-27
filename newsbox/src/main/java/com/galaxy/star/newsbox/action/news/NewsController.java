@@ -99,6 +99,7 @@ public class NewsController {
 				
 				Map<String,Object> map = new HashMap<String,Object>();
 				map.put("newIds", newList);
+				//判断是发布新闻还是取消发布新闻
 				if("publish".equals(type)){
 					map.put("isPublish", 1);
 				}else{
@@ -107,14 +108,14 @@ public class NewsController {
 				map.put("publishTime", DateTools.get().getCurrentDateTime());
 				newsService.publishNews(map);
 				
-				if("publish".equals(type)){
-					if(arr!=null && arr.length()>0){
-						for(int i=0;i<arr.length();i++){
-							NewsBean newsBean = newsService.getNewsById(arr.getString(i));
-							createHtml5(request,newsBean);
-						}
-					}
-				}
+//				if("publish".equals(type)){
+//					if(arr!=null && arr.length()>0){
+//						for(int i=0;i<arr.length();i++){
+//							NewsBean newsBean = newsService.getNewsById(arr.getString(i));
+//							createHtml5(request,newsBean);
+//						}
+//					}
+//				}
 				
 				resultMap.put("error", 0);
 			}
@@ -285,26 +286,23 @@ public class NewsController {
 				newId = CUtils.init().getUUID();
 			}
 			
-//			//将富文本生成对应的html5页面
-//			String html5Url = createHtml5(request,news);
-//			boolean isSuccess = false;
-//			if(html5Url!=null && !"".equals(html5Url.trim())){
-//				news.setNewUrl(html5Url);
-//				isSuccess = true;
-//			}
+			//将富文本生成对应的html5页面
+			String html5Url = createHtml5(request,news);
+			if(html5Url!=null && !"".equals(html5Url.trim())){
+				news.setNewUrl(html5Url);
+			}
+//			String html5Url = createHtml5(request,news);		//将富文本生成对应的html5页面
+//			news.setNewUrl(html5Url);
 			
 			if(CUtils.init().strIsNotNull(news.getNewId())){
-				//将富文本生成对应的html5页面
-				String html5Url = createHtml5(request,news);
-				if(html5Url!=null && !"".equals(html5Url.trim())){
-					news.setNewUrl(html5Url);
-				}
+				//更新
 				newsService.updateNews(news);
 			}else{
+				//新增
 				news.setNewId(newId);				//设置ID
 				news.setIsPublish(0);				//是否发布 0：不发布
 				news.setIsDel(0);					//删除标志
-				news.setIsPublish(0);				//发布标志
+				news.setNewUrl(html5Url);
 				newsService.addNews(news);
 			}
 			
@@ -434,10 +432,15 @@ public class NewsController {
 		.append("<body>\n")
 		//拼入标题
 		.append("<h1 class=\"h1_new_caption\"><span class=\"span_new_caption\">"+newsBean.getNewCaption()+"</span></h1>\n")
-		.append("<p class=\"p_editor_create_time\">"+newsBean.getPublishTime()+
-				"&nbsp;&nbsp;<a href=\""+newsBean.getNewAthors()+"\" target=\"_blank\">"+
+		.append("<p class=\"p_editor_create_time\">"+newsBean.getCreateTime()+
+				"&nbsp;&nbsp;");
+		//来源
+		if(CUtils.init().strIsNotNull(newsBean.getNewAthors())){
+			sb.append("<a href=\""+newsBean.getNewAthors()+"\" target=\"_blank\">"+
 				newsBean.getNewSource()+"</a>");
+		}
 			
+		//责任编辑
 		if(CUtils.init().strIsNotNull(newsBean.getNewEditor())){
 			sb.append("<br>责任编辑："+newsBean.getNewEditor()+"</p>\n");
 		}

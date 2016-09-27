@@ -15,9 +15,14 @@
 	<div class="div_top">
 		<div class="float_left div_buttons" style="">
 			<div style="height: 100%;margin-top: 7px;">
-				<p class="float_left btn_base" id="btn_add_news"><a><img src="${path }/imgs/tianjia.png"><span>新建</span></a></p>
+				<div class="btn_base" id="btn_add_news" style="background: #34acdb url(${path }/imgs/tianjia.png) no-repeat 15px 8px;">新建</div>
+				<div class="btn_base" id="btn_publish" style="background: #34acdb url(${path }/imgs/fabu.png) no-repeat 15px 6px;">发布</div>
+				<div class="btn_base" id="btn_disable_publish" style="width: 100px;background: #34acdb url(${path }/imgs/quxiaofabu.png) no-repeat 15px 6px;">取消发布</div>
+				
+				<div class="btn_base" id="btn_test" style="width: 100px;background: #34acdb url(${path }/imgs/quxiaofabu.png) no-repeat 15px 6px;">测试</div>
+				<%-- <p class="float_left btn_base" id="btn_add_news"><a><img src="${path }/imgs/tianjia.png"><span>新建</span></a></p>
 				<p class="float_left btn_base" id="btn_publish" style="margin-left: 10px;"><a><img src="${path }/imgs/fabu.png"><span>发布</span></a></p>
-				<p class="float_left btn_base" id="btn_disable_publish" style="margin-left: 10px;width: 80px;"><a><img src="${path }/imgs/quxiaofabu.png"><span>取消发布</span></a></p>
+				<p class="float_left btn_base" id="btn_disable_publish" style="margin-left: 10px;width: 100px;"><a><img src="${path }/imgs/quxiaofabu.png"><span>取消发布</span></a></p> --%>
 			</div>
 		</div>
 		<div class="float_left div_finds">
@@ -38,8 +43,8 @@
 						</select>
 					</td>
 					<td>
-						<p class="float_left btn_base" id="btn_find">查询</p>
-						<p style="margin-left: 10px;" class="float_left btn_base" id="btn_cancel_find">重置</p>
+						<p class="float_left btn_base_noimg" id="btn_find">查询</p>
+						<p class="btn_base_noimg"  class="float_left btn_base" id="btn_cancel_find">重置</p>
 					</td>
 				</tr>
 			</table>
@@ -51,7 +56,7 @@
 		</div>
 		
 		<!-- 分页 -->
-		<div class="div_page">
+		<div class="div_page" style="">
 				共<span class="span_page_text" id="pageListCount">0</span>条，
 				每页<span class="span_page_text" id="pageSize">10</span>条记录 &nbsp;&nbsp;
 				当前页：<span class="span_page_text" id="pageNo">${page.pageNo }</span>&nbsp;&nbsp;

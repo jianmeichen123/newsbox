@@ -4,18 +4,36 @@ body,div,ul,li,p,iframe{
 	list-style: none;
 	border: 0;
 	font-family: "微软雅黑";
-	font-size: 12px;
+	font-size: 14px;
 }
 
 /*按钮基类*/
 .btn_base{
-	width: 60px;
-	height: 26px;
+	width: 56px;
+	height: 30px;
+	float: left;
+	padding-left: 30px;
+	margin-left: 15px;
 	background: #34acdb;
 	color: #fff;
-	font-size: 12px;
 	cursor: pointer;
-	line-height: 26px;
+	line-height: 30px;
+	text-align: center;
+    /*border: 5px solid #dedede;*/
+    -moz-border-radius: 2px;      /* Gecko browsers */
+    -webkit-border-radius: 2px;   /* Webkit browsers */
+    border-radius: 2px;            /* W3C syntax */
+}
+
+.btn_base_noimg{
+	width: 60px;
+	height: 30px;
+	float: left;
+	background: #34acdb;
+	color: #fff;
+	margin-right: 10px;
+	cursor: pointer;
+	line-height: 30px;
 	text-align: center;
     /*border: 5px solid #dedede;*/
     -moz-border-radius: 2px;      /* Gecko browsers */
@@ -24,7 +42,8 @@ body,div,ul,li,p,iframe{
 }
 
 .btn_base img{
-	width: 12px;
+	width: auto;
+	background: red;
 }
 
 .btn_base span{
@@ -56,8 +75,7 @@ body,div,ul,li,p,iframe{
 /*文本框  基类*/
 .txt_base{
 	height: 22px;
-	font-size: 14px;
-	border: 1px solid #acbbc6;
+	border: 2px solid #acbbc6;
 	padding-left: 3px;
 	padding-right: 3px;
 }

@@ -7,6 +7,8 @@ $(function(){
 	$(window).resize(function(){
 		setWindowSize();
 	});
+
+	$("#ifm").attr("src",path + "/page/news/news_main.jsp");
 	
 	/**
 	 * 动态设置页面各部分的宽度及高

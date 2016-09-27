@@ -75,6 +75,7 @@
 			t.new_content=#{newContent},
 			t.new_url=#{newUrl},
 			t.is_publish=#{isPublish},
+			t.is_del=#{isDel},
 			t.show_index=#{showIndex},
 			t.is_show_big_img=#{isShowBigImg}
 		where t.new_id=#{newId};
@@ -106,42 +107,9 @@
 		from new_repository t
 		<include refid="getNewsListWhere"/>
 		AND t.is_del&lt;&gt;1
+		order by create_time desc
 		LIMIT #{pageNo},#{pageSize}
-	</select>
-	
-	<!-- 用于mobile查询新闻列表 -->
-	<select id="getMobileNewsList" resultMap="newsListMap" parameterType="Map" resultType="NewsBean">
-		select new_id,
-			new_caption,
-			UNIX_TIMESTAMP(publish_time) publish_time,
-			new_source,
-			new_athors,
-			new_key_word,
-			new_editor,
-			new_type,
-			is_wheel,
-			wheel_img,
-			new_list_img1,
-			new_list_img2,
-			new_list_img3,
-			new_url,
-			is_publish,
-			show_index,
-			is_show_big_img,
-			UNIX_TIMESTAMP(create_time) create_time,
-			create_user
-		from new_repository t
-		where t.is_del=0
-		and t.is_publish=1
-		LIMIT #{pageNo},#{pageSize}
-	</select>
-	
-	<!-- 用于mobile 新闻列表总记录数 -->
-	<select id="getMobileNewsListCount" resultType="Integer" parameterType="Map">
-		select count(1)
-		from new_repository t
-		where t.is_del=0
-		and t.is_publish=1
+		
 	</select>
 	
 	<!-- 新闻列表总记录数 -->
@@ -149,6 +117,7 @@
 		select count(1)
 		from new_repository t
 		<include refid="getNewsListWhere"/>
+		AND t.is_del&lt;&gt;1
 	</select>
 	
 	<!-- 列表查询条件 -->
@@ -174,7 +143,43 @@
 		</where>
 	</sql>
 	
+	<!-- 手机端使用的接口 -->
 
+	<!-- 用于mobile查询新闻列表 -->
+	<select id="getMobileNewsList" resultMap="newsListMap" parameterType="Map" resultType="NewsBean">
+		select new_id,
+			new_caption,
+			UNIX_TIMESTAMP(publish_time) publish_time,
+			new_source,
+			new_athors,
+			new_key_word,
+			new_editor,
+			new_type,
+			is_wheel,
+			wheel_img,
+			new_list_img1,
+			new_list_img2,
+			new_list_img3,
+			new_url,
+			is_publish,
+			show_index,
+			is_show_big_img,
+			UNIX_TIMESTAMP(create_time) create_time,
+			create_user
+		from new_repository t
+		where t.is_del=0
+		and t.is_publish=1
+		order by create_time desc
+		LIMIT #{pageNo},#{pageSize}
+	</select>
+	
+	<!-- 用于mobile 新闻列表总记录数 -->
+	<select id="getMobileNewsListCount" resultType="Integer" parameterType="Map">
+		select count(1)
+		from new_repository t
+		where t.is_del=0
+		and t.is_publish=1
+	</select>
 	
 	<select id="getNewsById" resultMap="newsResultMap" parameterType="java.lang.String" resultType="NewsBean">
 		select * from new_repository t where t.new_id=#{newId}
