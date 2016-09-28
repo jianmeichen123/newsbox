@@ -20,6 +20,55 @@ $(function(){
 	});
 	
 	loadFinds();
+	createLoading();
+	
+	function createLoading(){
+		var loading_div = '<div id="loading_div" style="background: #fff;position: absolute;overflow: hidden;">'+
+		'<img src="'+path+'/imgs/loading'+$.utils.getRandInt(5, 1)+'.gif"></div>';
+		
+		$("#div_container").append(loading_div);
+		setLoadingPosition();
+	}
+	
+	function showLoading(){
+		if($("#loading_div").length>0){
+			
+			$("#loading_div").find("img").attr("src",path + "/imgs/loading" + $.utils.getRandInt(5, 1) + ".gif");
+			
+			//$.utils.getRandInt(5, 1)
+			$("#loading_div").show();
+		}
+	}
+	
+	function hideLoading(){
+		if($("#loading_div").length>0){
+			$("#loading_div").hide();
+		}
+	}
+	
+	function setLoadingPosition(){
+		var clienHeight = de.clientHeight;
+		var div_top_height = $(".div_top").height();
+		var clientWidth = de.clientWidth;
+		var loading_img_height = 300;
+		//alert($("#loading_div").length>0);
+		if($("#loading_div").length>0){
+			var loading_div = $("#loading_div");
+			var loading_div_img = $("#loading_div").find("img");
+			loading_div.css("width",clientWidth-20);
+			if($("#div_data_list").height()<clienHeight){
+				loading_div.css("height",clienHeight);
+			}else{
+				loading_div.css("height",$("#div_data_list").height());
+			}
+			
+			loading_div.css("top",div_top_height-110);
+			
+			loading_div_img.css("width",loading_img_height);
+			loading_div_img.css("padding-top",(clienHeight-div_top_height-80-300)/2);
+			loading_div_img.css("padding-left",(clientWidth-loading_div_img.width())/2);
+		}
+	}
 	
 	
 	/**
@@ -29,6 +78,8 @@ $(function(){
 		var clienHeight = de.clientHeight;
 		var div_top_height = $(".div_top").height();
 		$("#div_container").css("height",clienHeight-div_top_height);
+		
+		setLoadingPosition();
 	}
 	
 	/**
@@ -175,6 +226,9 @@ $(function(){
 				$(".div_page").css("top",100*count + 20);
 				$(".div_page").css("left",70);
 				
+				$("#div_data_list").css("height",100*count + 100);
+				setLoadingPosition();
+				
 				//列表内编辑按钮鼠标悬停事件
 				$(".div_bianji .edit_news").mouseover(function(){
 					$(this).attr("src",path + "/imgs/bianji1.png");
@@ -232,6 +286,8 @@ $(function(){
 						});
 					}
 				});
+				
+				hideLoading();
 			}
 		});
 	}
@@ -249,6 +305,7 @@ $(function(){
 			curPage = 1;
 		}
 		
+		showLoading();
 		$("#pageNo").html(curPage);			//将当前页回写
 		loadPageList(curPage,pageSize);
 	});
@@ -267,7 +324,7 @@ $(function(){
 		}else{
 			curPage = parseInt(totalPage);
 		}
-		
+		showLoading();
 		$("#pageNo").html(curPage);			//将当前页回写
 		loadPageList(curPage,pageSize);
 	});
@@ -276,6 +333,7 @@ $(function(){
 	 * 查询
 	 */
 	$("#btn_find").click(function(){
+		showLoading();
 		saveFinds(loadPageList());
 	});
 	
@@ -289,6 +347,7 @@ $(function(){
 		$("#datepicker_start").val("");
 		$("#datepicker_end").val("");
 		$("#select_is_publish").val("all");
+		showLoading();
 		saveFinds(loadPageList());
 		
 	});
@@ -296,12 +355,13 @@ $(function(){
 	/**
 	 * 测试按钮
 	 */
-	$("#btn_test").click(function(){
-		var url = path + "/mobile/getNewsList.json";
-		var params = {"pageSize": 10,"pageNo": 1};
-		$.utils.sendData(url,JSON.stringify(params),function(data){
-			alert(JSON.stringify(data));
-		});
+	$("#btn_test").click(function(){ 
+		alert($.utils.getRandInt(5, 1));
+//		var url = path + "/mobile/getNewsList.json";
+//		var params = {"pageSize": 10,"pageNo": 1};
+//		$.utils.sendData(url,JSON.stringify(params),function(data){
+//			alert(JSON.stringify(data));
+//		});
 	});
 	
 	/**

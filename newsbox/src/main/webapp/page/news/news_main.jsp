@@ -19,7 +19,7 @@
 				<div class="btn_base" id="btn_publish" style="background: #34acdb url(${path }/imgs/fabu.png) no-repeat 15px 6px;">发布</div>
 				<div class="btn_base" id="btn_disable_publish" style="width: 100px;background: #34acdb url(${path }/imgs/quxiaofabu.png) no-repeat 15px 6px;">取消发布</div>
 				
-				<div class="btn_base" id="btn_test" style="width: 100px;background: #34acdb url(${path }/imgs/quxiaofabu.png) no-repeat 15px 6px;">测试</div>
+				<%-- <div class="btn_base" id="btn_test" style="width: 100px;background: #34acdb url(${path }/imgs/quxiaofabu.png) no-repeat 15px 6px;">测试</div> --%>
 				<%-- <p class="float_left btn_base" id="btn_add_news"><a><img src="${path }/imgs/tianjia.png"><span>新建</span></a></p>
 				<p class="float_left btn_base" id="btn_publish" style="margin-left: 10px;"><a><img src="${path }/imgs/fabu.png"><span>发布</span></a></p>
 				<p class="float_left btn_base" id="btn_disable_publish" style="margin-left: 10px;width: 100px;"><a><img src="${path }/imgs/quxiaofabu.png"><span>取消发布</span></a></p> --%>
