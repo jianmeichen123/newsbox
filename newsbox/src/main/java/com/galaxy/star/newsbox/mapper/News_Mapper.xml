@@ -24,7 +24,7 @@
 			new_list_img2,
 			new_list_img3,
 			new_content,
-			new_url,
+			new_html_file_name,
 			is_publish,
 			show_index,
 			is_show_big_img,
@@ -47,7 +47,7 @@
 			#{newListImg2},
 			#{newListImg3},
 			#{newContent},
-			#{newUrl},
+			#{newHtmlFileName},
 			#{isPublish},
 			#{showIndex},
 			#{isShowBigImg},
@@ -73,7 +73,7 @@
 			t.new_list_img2=#{newListImg2},
 			t.new_list_img3=#{newListImg3},
 			t.new_content=#{newContent},
-			t.new_url=#{newUrl},
+			t.new_html_file_name=#{newHtmlFileName},
 			t.is_publish=#{isPublish},
 			t.is_del=#{isDel},
 			t.show_index=#{showIndex},
@@ -160,7 +160,7 @@
 			new_list_img1,
 			new_list_img2,
 			new_list_img3,
-			new_url,
+			new_html_file_name,
 			is_publish,
 			show_index,
 			is_show_big_img,
@@ -202,7 +202,7 @@
 		<result column="new_list_img2" property="newListImg2"/>
 		<result column="new_list_img3" property="newListImg3"/>
 		<result column="new_content" property="newContent"/>
-		<result column="new_url" property="newUrl"/>
+		<result column="new_html_file_name" property="newHtmlFileName"/>
 		<result column="is_publish" property="isPublish"/>
 		<result column="show_index" property="showIndex"/>
 		<result column="is_show_big_img" property="isShowBigImg"/>
@@ -224,7 +224,7 @@
 		<result column="new_list_img1" property="newListImg1"/>
 		<result column="new_list_img2" property="newListImg2"/>
 		<result column="new_list_img3" property="newListImg3"/>
-		<result column="new_url" property="newUrl"/>
+		<result column="new_html_file_name" property="newHtmlFileName"/>
 		<result column="is_publish" property="isPublish"/>
 		<result column="show_index" property="showIndex"/>
 		<result column="is_show_big_img" property="isShowBigImg"/>

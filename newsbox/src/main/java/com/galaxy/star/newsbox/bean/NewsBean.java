@@ -19,7 +19,7 @@ public class NewsBean {
 	private String newListImg2;		//列表图片2
 	private String newListImg3;		//列表图片3
 	private String newContent;		//新闻内容
-	private String newUrl;			//生成html后的地址
+	private String newHtmlFileName;	//生成html后的地址 
 	private int isPublish;			//是否发布
 	private int showIndex;			//发布后显示在列表的顺序
 	private int isShowBigImg;		//列表页是否只显示为一张大图
@@ -136,11 +136,11 @@ public class NewsBean {
 	public void setNewContent(String newContent) {
 		this.newContent = newContent;
 	}
-	public String getNewUrl() {
-		return newUrl;
+	public String getNewHtmlFileName() {
+		return newHtmlFileName;
 	}
-	public void setNewUrl(String newUrl) {
-		this.newUrl = newUrl;
+	public void setNewHtmlFileName(String newHtmlFileName) {
+		this.newHtmlFileName = newHtmlFileName;
 	}
 	public int getIsPublish() {
 		return isPublish;

@@ -117,6 +117,7 @@
 							<input type="hidden" id="newId" value="${news.newId }">
 							<input type="hidden" id="isDel" value="${news.isDel }">
 							<input type="hidden" id="isPublish" value="${news.isPublish }">
+							<input type="hidden" id="newUrl" value="${news.newHtmlFileName }">
 							
 							<textarea id="newContent"  style="position: absolute;left: -99999px;width: 0px;height: 0px;visibility: hidden;padding:0;margin:0;">${news.newContent}</textarea>
 							<input type="text" id="newCaption" class="txt_base" style="width: 400px;" value="${news.newCaption }" placeholder="资讯标题">

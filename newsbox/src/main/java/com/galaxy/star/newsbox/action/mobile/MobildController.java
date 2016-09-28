@@ -103,7 +103,8 @@ public class MobildController {
 					map.put("newsSource", newsBean.getNewSource());
 					map.put("newsAthors", newsBean.getNewAthors());
 					map.put("newsEditor", newsBean.getNewEditor());
-					map.put("newsUrl", newsBean.getNewUrl());
+					map.put("newsUrl", Const.getNewsHtml5Url(request, newsBean.getNewHtmlFileName()));
+					
 					mobileNewsList.add(map);
 				}	
 				resultMap.put("error", 0);

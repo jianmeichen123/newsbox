@@ -22,6 +22,14 @@ public class Const {
 	public static final String HTML_SERVER = "";										//"http://www.bobycloud.com:7777/newsbox";	//图片上传成功后与富文本生成后对应html服务器
 	public static final String CUT_FILE_PRE = "cut_";					//图片经过裁剪处理后生成的图片文件前面的前缀
 	
+	/**
+	 * 根据给定的html名称拼写出mobile能够访问的html地址
+	 * @param request
+	 * @return
+	 */
+	public static String getNewsHtml5Url(HttpServletRequest request,String newHtmlFileName){
+		return (Const.getHtmlServer(request) + "/" + Const.HTML5_DIR_NAME + "/" + newHtmlFileName);
+	}
 	
 	public static String getHtmlServer(HttpServletRequest request){
 		if(CUtils.init().strIsNotNull(HTML_SERVER)){

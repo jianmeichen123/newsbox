@@ -136,18 +136,37 @@ $(function(){
 	 * 添加列表缩略图
 	 */
 	var div_img_obj = null;
-	$(".list_shrink_img_div img").bind("click",open_dialog);
-	function open_dialog(){
+	$("#list_img1").bind("click",fn_img1);
+	$("#list_img2").bind("click",fn_img2);
+	$("#list_img3").bind("click",fn_img3);
+	
+	function fn_img1(){
+		div_img_obj = $(this);
+		$("#dialog").dialog("open");
+	}
+	
+	function fn_img2(){
 		var def_img = path + "/imgs/def_img.png";
-		if($("#list_img1 img").attr("src")==def_img && $(this).attr("id")!=="list_img1" && $(this).attr("id")!=="list_img5"){
+		if($("#list_img1 .shrink_img").attr("src")==def_img){
 			alert("请先设置第一张图片！");
-		}else if($("#list_img2 img").attr("src")==def_img && $(this).attr("id")=="list_img3"){
-			alert("请先设置第二张图片！");
-		}else{
-			$("#dialog").dialog("open");	//打开对话框
-			div_img_obj = $("#" + $(this).attr("id"));
+			return;
 		}
-	};
+		div_img_obj = $(this);
+		$("#dialog").dialog("open");
+	}
+	
+	function fn_img3(){
+		var def_img = path + "/imgs/def_img.png";
+		if($("#list_img1 .shrink_img").attr("src")==def_img){
+			alert("请先设置第一张图片！");
+			return;
+		}else if($("#list_img2 .shrink_img").attr("src")==def_img){
+			alert("请先设置第二张图片！");
+			return;
+		}
+		div_img_obj = $(this);
+		$("#dialog").dialog("open");
+	}
 	
 	/**
 	 * 为所有图片添加删除功能
@@ -164,23 +183,25 @@ $(function(){
 					'px;width: 26px;height: auto;position: absolute;z-index: 1000;" src="'+path+'/imgs/shanchu.png">');
 			$(this).append(img_del);	
 			img_del.click(function(){
+				//alert($(this).parent().attr("id"));
+				$(this).parent().unbind("click");	//解除绑定的事件，以解决点击删除的同也会触发打开编辑图片的对话框的问题
 				$(this).parent().find(".shrink_img").attr("src",path + "/imgs/def_img.png");
 			});
-			
-			
 		}
 	});
-	
-//	//删除已经选定的图片
-//	$(".list_shrink_img_div").children(".img_del").click(function(){
-//		alert(111);
-//	});
-//	
-
 	
 	$(".list_shrink_img_div").mouseleave(function(){
 		if($(this).children(".img_del").length>0){
 			$(this).children(".img_del").remove();	
+			//恢复绑定事件
+			var shrink_img_div_id = $(this).attr("id");
+			if(shrink_img_div_id=="list_img1"){
+				$("#list_img1").bind("click",fn_img1);
+			}else if(shrink_img_div_id=="list_img2"){
+				$("#list_img2").bind("click",fn_img2);
+			}else if(shrink_img_div_id=="list_img3"){
+				$("#list_img3").bind("click",fn_img3);
+			}
 		}	
 	});
 	

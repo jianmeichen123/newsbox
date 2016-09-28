@@ -281,28 +281,20 @@ public class NewsController {
 			news.setCreateTime(DateTools.get().getCurrentDateTime());	//创建时间
 			news.setCreateUser("angli");		//登录用户
 			
-			String newId = news.getNewId();
-			if(CUtils.init().strIsNull(news.getNewId())){
-				newId = CUtils.init().getUUID();
-			}
-			
 			//将富文本生成对应的html5页面
-			String html5Url = createHtml5(request,news);
-			if(html5Url!=null && !"".equals(html5Url.trim())){
-				news.setNewUrl(html5Url);
-			}
-//			String html5Url = createHtml5(request,news);		//将富文本生成对应的html5页面
-//			news.setNewUrl(html5Url);
+			createHtml5(request,news);
+//			if(html5Url!=null && !"".equals(html5Url.trim())){
+//				news.setNewUrl(html5Url);
+//			}
 			
 			if(CUtils.init().strIsNotNull(news.getNewId())){
 				//更新
 				newsService.updateNews(news);
 			}else{
 				//新增
-				news.setNewId(newId);				//设置ID
-				news.setIsPublish(0);				//是否发布 0：不发布
-				news.setIsDel(0);					//删除标志
-				news.setNewUrl(html5Url);
+				news.setNewId(CUtils.init().getUUID());		//设置ID
+				news.setIsPublish(0);						//是否发布 0：不发布
+				news.setIsDel(0);							//删除标志
 				newsService.addNews(news);
 			}
 			
@@ -417,8 +409,8 @@ public class NewsController {
 	/**
 	 * 将富文本生成相应的html5页面
 	 */
-	private String createHtml5(HttpServletRequest request,NewsBean newsBean){
-		String htmlUrl = null;
+	private void createHtml5(HttpServletRequest request,NewsBean newsBean){
+		//String htmlUrl = null;
 		StringBuffer sb = new StringBuffer();
 		sb.append("<!DOCTYPE html>\r\n")
 		.append("<html>\n")
@@ -457,17 +449,22 @@ public class NewsController {
 			htmlFileDir.mkdirs();
 		}
 		
-		File htmlFile = new File(htmlFilePath + File.separator + newsBean.getNewId() + ".html");
+		//判断htmlFileName是否存在，如果不存在说明是新增
+		if(CUtils.init().strIsNull(newsBean.getNewHtmlFileName())){
+			newsBean.setNewHtmlFileName("html_" + CUtils.init().getUUID() + ".html");
+		}
+		
+		File htmlFile = new File(htmlFilePath + File.separator + newsBean.getNewHtmlFileName());
 		try{
 			FileWriter fw = new FileWriter(htmlFile);
 			fw.write(sb.toString());
 			fw.flush();fw.close();
 			
-			htmlUrl = Const.getHtmlServer(request) + "/" + Const.HTML5_DIR_NAME + "/" + newsBean.getNewId() + ".html";
+			//htmlUrl = Const.getHtmlServer(request) + "/" + Const.HTML5_DIR_NAME + "/" + newsBean.getNewHtmlFileName();
 		}catch(Exception e){
 		}
 		
-		return htmlUrl;
+		//return htmlUrl;
 	}
 
 	
