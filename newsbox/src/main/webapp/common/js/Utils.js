@@ -25,8 +25,9 @@ $(function(){
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	};
 	
-
-
+	$.utils.trim = function trim(str) {
+		return str.replace(/(^\s+)|(\s+$)/g, "");
+	};
 	
 	
 	

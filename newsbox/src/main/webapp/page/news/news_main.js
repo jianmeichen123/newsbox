@@ -5,7 +5,6 @@ $(function(){
 	
 	setWindowSize();
 	
-	
 	$(window).resize(function(){
 		setWindowSize();
 	});
@@ -32,10 +31,7 @@ $(function(){
 	
 	function showLoading(){
 		if($("#loading_div").length>0){
-			
 			$("#loading_div").find("img").attr("src",path + "/imgs/loading" + $.utils.getRandInt(5, 1) + ".gif");
-			
-			//$.utils.getRandInt(5, 1)
 			$("#loading_div").show();
 		}
 	}
@@ -69,7 +65,6 @@ $(function(){
 			loading_div_img.css("padding-left",(clientWidth-loading_div_img.width())/2);
 		}
 	}
-	
 	
 	/**
 	 * 动态设置页面各部分的宽度及高
@@ -196,23 +191,18 @@ $(function(){
 							'</div>' + 
 						'</div>' + 
 						'<div class="float_left div_bianji" >');
-							//'<span class="float_left" style="margin-right: 10px;" id="span_publish_'+newId+'">');
 							
 						if(isPublish>=1){
-							//div_htmls += ("发布中");
-							div_htmls += ('<img class="float_left" style="margin-top: 38px;margin-right: 30px;" id="fabu_'+newId+'" src="'+path+'/imgs/fabu1.png">');
+							div_htmls += ('<img class="float_left fabu_img" style="margin-top: 38px;margin-right: 30px;" id="fabu_'+newId+'" src="'+path+'/imgs/fabu1.png">');
 						}else{
-							div_htmls += ('<img class="float_left" style="margin-top: 38px;margin-right: 30px;" id="fabu_'+newId+'" src="'+path+'/imgs/quxiaofabu1.png">');
+							div_htmls += ('<img class="float_left fabu_img" style="margin-top: 38px;margin-right: 30px;" id="fabu_'+newId+'" src="'+path+'/imgs/quxiaofabu1.png">');
 						}
 						
 						div_htmls += (
-							//'</span>'+
 							'<img class="float_left edit_news" style="margin-top: 38px;margin-right: 30px;" id="edit_new_'+newId+'" src="'+path+'/imgs/bianji.png">' +
 							'<img class="float_left new_del" style="margin-top: 38px;margin-right: 30px;" id="del_new_'+newId+'" src="'+path+'/imgs/lajixiang.png">'
 						);
 						
-						
-//							'<span class="new_del" id="btn_new_del_'+newId+'">删除</span>' +
 						div_htmls += ('' +
 						'</div>' + 
 						
@@ -261,7 +251,6 @@ $(function(){
 					$(this).find(".div_bianji").css("visibility","hidden");
 				});
 				
-				
 				$(".news_list_item").click(function(){
 					$(this).find(":checkbox").prop("checked",!$(this).find(":checkbox").is(":checked"));
 				});
@@ -285,6 +274,38 @@ $(function(){
 							}
 						});
 					}
+				});
+				
+				//发布或取消发布
+				$(".fabu_img").click(function(){
+					var newId = $(this).attr("id").substring(5,$(this).attr("id").length);
+					var newIds = [];
+					newIds.push(newId);
+					var url = path + "/news/publishNews.json";
+					var params = {"newIds":newIds};
+					var success_msg = "";
+					var img_publish_src = "";
+					
+					//取消发布
+					if($(this).attr("src").indexOf("quxiao")<0){
+						params.type = "no_publish";  
+						success_msg = "取消发布成功";
+						img_publish_src = path + "/imgs/quxiaofabu1.png";
+					}else{
+						params.type = "publish";
+						success_msg = "发布成功";
+						img_publish_src = path + "/imgs/fabu1.png";
+					}
+					
+					$.utils.sendData(url,JSON.stringify(params),function(data){
+						if(data && data.error==0){
+							alert(success_msg);
+							for(var i=0;i<newIds.length;i++){
+								var img_publish = $("#fabu_"+newIds[i]);
+								img_publish.attr("src",img_publish_src);
+							}
+						}
+					});
 				});
 				
 				hideLoading();

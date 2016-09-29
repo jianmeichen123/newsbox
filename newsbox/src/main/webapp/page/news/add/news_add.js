@@ -40,8 +40,46 @@ $(function(){
 		});
 	 }
 	 
-
+	 /**
+	  * 验证
+	  */
+	 $("#validate_form").validate({
+	    onfocusout: function(element){
+	        $(element).valid();
+	    },
+	    showErrors : function(errorMap, errorList) {  
+	    	var msg = "";  
+	    	$.each(errorList, function(i, v){  
+	    		msg += (v.message + "\r\n");  
+	    	});  
+	    	if(msg != "")  
+	    		alert(msg);  
+	    }
+//	    errorPlacement: function(error, element) {  
+//		    //error.appendTo(element.parent());  
+//	    	alert(JSON.stringify(element));
+//		}
+	 });
 	 
+	 $.extend($.validator.messages, {
+		 required: "这是必填字段",
+		 remote: "请修正此字段",
+		 email: "请输入有效的电子邮件地址",
+		 url: "请输入有效的网址",
+		 date: "请输入有效的日期",
+		 dateISO: "请输入有效的日期 (YYYY-MM-DD)",
+		 number: "请输入有效的数字",
+		 digits: "只能输入数字",
+		 creditcard: "请输入有效的信用卡号码",
+		 equalTo: "你的输入不相同",
+		 extension: "请输入有效的后缀",
+		 maxlength: $.validator.format("最多可以输入 {0} 个字符"),
+		 minlength: $.validator.format("最少要输入 {0} 个字符"),
+		 rangelength: $.validator.format("请输入长度在 {0} 到 {1} 之间的字符串"),
+		 range: $.validator.format("请输入范围在 {0} 到 {1} 之间的数值"),
+		 max: $.validator.format("请输入不大于 {0} 的数值"),
+		 min: $.validator.format("请输入不小于 {0} 的数值")
+	});
 	 
 
 	 
@@ -239,9 +277,18 @@ $(function(){
 		//取得资讯类型
 		params.newType = $("#sel_news_type").val();
 		if(ue){
+			if($.utils.trim(params.newCaption).length<=0){
+				alert("标题不能为空！");
+				return;
+			}else if($.utils.trim(ue.getContent()).length<=0){
+				alert("新闻内容不能为空！");
+				return;
+			}else if(ue.getContent().length>10000){
+				alert("新闻内容长度不能大于20000字！");
+				return;
+			}
 			params.newContent = ue.getContent();
 		}
-		
 		
 		if($("#isWheel").is(":checked")){
 			params.isWheel = 1;
@@ -277,10 +324,12 @@ $(function(){
 		}
 		
 		var url = path + "/news/saveNews.json";
-		
-		
 		$.utils.sendData(url,JSON.stringify(params),function(data){
-			alert("添加成功");
+			if(data.error=='0'){
+				alert("新闻保存成功！");
+			}else{
+				alert("新闻保存失败！");
+			}
 		});
 	});
 	
@@ -290,13 +339,6 @@ $(function(){
 	$("#btn_back_list").click(function(){
 		$('#ifm', window.parent.document).attr("src",path + "/page/news/news_main.jsp");
 	});
-	
-	
-	
-	/**
-	 * 保存并发布
-	 */
-	
 	
 	/**
 	 * 文件上传组件change事件方法

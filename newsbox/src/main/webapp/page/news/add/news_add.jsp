@@ -29,6 +29,9 @@
 		<%--<link rel="stylesheet" type="text/css" href="${path }/common/jquery.imgareaselect-0.9.10/css/imgareaselect-default.css" />
 		<link rel="stylesheet" type="text/css" href="${path }/common/jquery.imgareaselect-0.9.10/css/imgareaselect-deprecated.css" /> --%>
 		
+		<!-- 验证 -->
+		<script type="text/javascript" src="${path }/common/jquery_validate/jquery.validate.min.js"></script>
+		
 		<!-- 自定义脚本 -->
 		<link rel="stylesheet" type="text/css" href="${path }/page/news/add/news_add.css" />
 		<script type="text/javascript" src="${path }/page/news/add/news_add.js"></script>
@@ -110,6 +113,7 @@
 	<div id="div_container">
 		<div id="div_sub_container">
 			<div id="news_info">
+				<form id="validate_form">
 				<table style="width: 100%;margin-top: 10px;">
 					<tr>
 						<td>标题</td>
@@ -120,10 +124,11 @@
 							<input type="hidden" id="newUrl" value="${news.newHtmlFileName }">
 							
 							<textarea id="newContent"  style="position: absolute;left: -99999px;width: 0px;height: 0px;visibility: hidden;padding:0;margin:0;">${news.newContent}</textarea>
-							<input type="text" id="newCaption" class="txt_base" style="width: 400px;" value="${news.newCaption }" placeholder="资讯标题">
+							<input type="text" id="newCaption" class="txt_base" style="width: 400px;" 
+								value="${news.newCaption }" placeholder="资讯标题" required title="资讯标题为必填字段" maxlength="30">
 						</td>
 						<td>关键字</td>
-						<td><input type="text" id="newKeyWord" class="txt_base" style="width: 400px;" value="${news.newKeyWord }" placeholder="关键字"></td>
+						<td><input type="text" id="newKeyWord" class="txt_base" style="width: 400px;" value="${news.newKeyWord }" placeholder="关键字" maxlength="30"></td>
 					</tr>
 					<tr>
 						<td>资讯类型</td>
@@ -165,13 +170,13 @@
 							<!-- <input type="text" id="newType" class="txt_base" style="width: 400px;" placeholder="资讯类型"> -->
 						</td>
 						<td>责任编辑</td>
-						<td><input type="text" id="newEditor" class="txt_base" value="${news.newEditor }" style="width: 400px;" placeholder="责任编辑"></td>
+						<td><input type="text" id="newEditor" class="txt_base" value="${news.newEditor }" maxlength="30" style="width: 400px;" placeholder="责任编辑"></td>
 					</tr>
 					<tr>
 						<td>资讯来源</td>
-						<td><input type="text" id="newSource" class="txt_base" style="width: 400px;" value="${news.newSource }" placeholder="资讯来源"></td>
+						<td><input type="text" id="newSource" class="txt_base" style="width: 400px;" value="${news.newSource }" maxlength="30" placeholder="资讯来源"></td>
 						<td>来源网址</td>
-						<td><input type="text" id="newAthors" class="txt_base" style="width: 400px;" value="${news.newAthors }" placeholder="来源网址"></td>
+						<td><input type="text" id="newAthors" class="txt_base" style="width: 400px;" value="${news.newAthors }" maxlength="150"  placeholder="来源网址"></td>
 					</tr>
 <%-- 					<tr>
 						<td>显示顺序</td>
@@ -221,9 +226,7 @@
 													<c:otherwise>
 														<img class="shrink_img" src="${path }/imgs/def_img.png">
 													</c:otherwise>
-													
 												</c:choose>
-												
 											</div>
 											<div class="list_shrink_img_div" id="list_img2">
 												<c:choose>
@@ -260,7 +263,6 @@
 											<tr>
 												<td style="width: 30%;" class="flg_wheel">
 													<div class="list_shrink_img_div" id="list_img5">
-														<%-- <img src="${path }/imgs/def_img.png" id="wheelImg"> --%>
 														<c:choose>
 															<c:when test="${!empty news.wheelImg }">
 																<img class="shrink_img" src="${news.wheelImg }" id="wheelImg">
@@ -273,11 +275,7 @@
 												</td>
 												<td style="width: 70%;padding-left: 10px;vertical-align: bottom;">
 													<p class="float_left btn_base_noimg" id="save">保存</p>
-													<!-- <p style="margin-left: 10px;" class="float_left btn_base" id="btn_fileupload">保存并发布</p> -->
 													<p style="width: 80px;" class="float_left btn_base_noimg" id="btn_back_list">返回列表</p>
-													<!-- <input id="save" type="button" value="保存">&nbsp;
-													<input type="button" value="保存并发布">
-													<input type="button" id="btn_back_list" value="返回列表"> -->
 												</td>
 											</tr>
 										</table>
@@ -287,6 +285,7 @@
 						</td>
 					</tr> 
 				</table>
+				</form>
 			</div>
 			<div id="ue_parent_div">
 				 <script type="text/plain" id="editor"></script>
@@ -294,20 +293,10 @@
 		</div>
 	</div>
 	
-
-	
-
 	<script type="text/javascript">
-	
-		  
-		//实例化编辑器
-		//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-
-	function clp(){
-		return $("#file_img").click();
-	}
-		   
-
+		function clp(){
+			return $("#file_img").click();
+		}
 	</script>
 </body>
 </html>
