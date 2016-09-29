@@ -283,9 +283,6 @@ $(function(){
 			}else if($.utils.trim(ue.getContent()).length<=0){
 				alert("新闻内容不能为空！");
 				return;
-			}else if(ue.getContent().length>10000){
-				alert("新闻内容长度不能大于20000字！");
-				return;
 			}
 			params.newContent = ue.getContent();
 		}
