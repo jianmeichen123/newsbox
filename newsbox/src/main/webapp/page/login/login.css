@@ -1,0 +1,71 @@
+
+body{
+	background: #efefef;
+	min-width: 1024px;
+	overflow: hidden;
+}
+
+.div_main{
+	width: 100%;
+	max-height: 1024px;
+	overflow: hidden;
+}
+
+.div_login_img{
+	width: 588px;
+	height: 459px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 120px;
+}
+
+
+
+.div_login_img .div_input{
+	width: 300px;
+	height: 100px;
+	margin-left: 144px;
+}
+
+.div_login_img .div_checkbox{
+	width: 300px;
+	height: 40px;
+	margin-left: 144px;
+	line-height: 40px;
+}
+
+.div_login_img .div_checkbox label{
+	font-size: 12px;
+	color: #666;
+}
+
+.div_login_img .btn_base_noimg{
+	font-size: 18px;
+	width: 300px;
+	height: 35px;
+	line-height: 35px;
+	margin-left: 144px;
+}
+
+.login_input_text_top{
+	border-top: solid 2px #ccc;
+	border-left: solid 2px #ccc;
+	border-right: solid 2px #ccc;
+	border-bottom: solid 1px #ccc;
+	width: 280px;
+	height: 46px;
+	padding-left: 16px;
+	font-weight: bold;
+}
+
+.login_input_text_bottom{
+	border-top: solid 1px #ccc;
+	border-left: solid 2px #ccc;
+	border-right: solid 2px #ccc;
+	border-bottom: solid 2px #ccc;
+	width: 280px;
+	height: 46px;
+	padding-left: 16px;
+	font-weight: bold;
+}
+

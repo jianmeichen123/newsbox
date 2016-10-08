@@ -84,7 +84,12 @@ body,div,ul,li,p,iframe{
 	float: left;
 }
 
-
+.round_corner{
+	    /*border: 5px solid #dedede;*/
+    -moz-border-radius: 2px;      /* Gecko browsers */
+    -webkit-border-radius: 2px;   /* Webkit browsers */
+    border-radius: 2px;            /* W3C syntax */
+}
 
 
 
