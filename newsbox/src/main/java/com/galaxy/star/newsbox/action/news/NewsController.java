@@ -254,7 +254,7 @@ public class NewsController {
 			
 			List<NewsBean> newsList = newsService.getNewsList(paramMap);		//列表数据
 			
-			System.out.println(newsList.size());
+			//System.out.println(newsList.size());
 			
 			resultMap.put("error", 0);
 			if(newsList!=null){
@@ -419,7 +419,7 @@ public class NewsController {
 		.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n")												//用于字体自适应
 		.append("<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;\" name=\"viewport\" />\n") 		//取消缩放
 		.append("<link rel=\"stylesheet\" type=\"text/css\" href=\""+Const.getHtmlServer(request) + "/common/css/app_common.css\" />\n")				//引入公共样式
-		.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/jquery-1.12.3.js\"></script>\n")	//引入jquery
+		//.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/jquery-1.12.3.js\"></script>\n")	//引入jquery
 		.append("</head>\n")
 		.append("<body>\n")
 		//拼入标题

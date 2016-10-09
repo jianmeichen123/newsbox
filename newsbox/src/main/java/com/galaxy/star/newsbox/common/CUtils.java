@@ -53,7 +53,12 @@ public class CUtils {
 	 * @throws IOException
 	 */
 	public Map<String,Object> getRequestMap(HttpServletRequest request){
-		return json2map(getRequestBody(request));
+		String jsonString = getRequestBody(request);
+		if(CUtils.init().strIsNotNull(jsonString)){
+			return json2map(jsonString);
+		}else{
+			return null;
+		}
 	}
 	
 	/**

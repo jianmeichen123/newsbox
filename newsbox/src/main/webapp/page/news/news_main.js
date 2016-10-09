@@ -23,7 +23,9 @@ $(function(){
 	
 	function createLoading(){
 		var loading_div = '<div id="loading_div" style="background: #fff;position: absolute;overflow: hidden;">'+
-		'<img src="'+path+'/imgs/loading'+$.utils.getRandInt(5, 1)+'.gif"></div>';
+		'<img src="'+path+'/imgs/loading'+$.utils.getRandInt(5, 1)+'.gif" style="position: absolute;">'+
+		'<span style="position: absolute;float: left;width: 100px;color: #888;font-size: 16px;"><span>' + 
+		'</div>';
 		
 		$("#div_container").append(loading_div);
 		setLoadingPosition();
@@ -46,11 +48,12 @@ $(function(){
 		var clienHeight = de.clientHeight;
 		var div_top_height = $(".div_top").height();
 		var clientWidth = de.clientWidth;
-		var loading_img_height = 300;
+		var loading_img_width = 60;
 		//alert($("#loading_div").length>0);
 		if($("#loading_div").length>0){
 			var loading_div = $("#loading_div");
 			var loading_div_img = $("#loading_div").find("img");
+			var loading_div_span = $("#loading_div").find("span");
 			loading_div.css("width",clientWidth-20);
 			if($("#div_data_list").height()<clienHeight){
 				loading_div.css("height",clienHeight);
@@ -60,9 +63,12 @@ $(function(){
 			
 			loading_div.css("top",div_top_height-110);
 			
-			loading_div_img.css("width",loading_img_height);
-			loading_div_img.css("padding-top",(clienHeight-div_top_height-80-300)/2);
-			loading_div_img.css("padding-left",(clientWidth-loading_div_img.width())/2);
+			loading_div_img.css("width",loading_img_width);
+			loading_div_img.css("top",(clienHeight-div_top_height)/2-80);
+			loading_div_img.css("left",(clientWidth-loading_img_width)/2);
+			
+			loading_div_span.css("top",(clienHeight-div_top_height)/2 - 60);
+			loading_div_span.css("left",(clientWidth)/2 + loading_img_width - 20);
 		}
 	}
 	
@@ -108,7 +114,21 @@ $(function(){
 		
 		var url = path + "/news/getNewsList.json";
 		$.utils.sendData(url,JSON.stringify(params),function(data){
-			$("#pageListCount").html(data.listCount);		//共多少条记录
+			var listCount = data.listCount;
+			$("#pageListCount").html(listCount);		//共多少条记录
+			
+			
+			if(listCount==0){
+				$(".div_page").css("visibility","hidden");
+				//$("#div_data_list").css("background","red");
+				showLoading();
+				$("#loading_div").find("img").attr("src",path + "/imgs/zanwu.png");
+				$("#loading_div").find("span").html("暂无数据");
+				return;
+			}else{
+				$(".div_page").css("visibility","visible");
+			}
+			
 			
 			//写回列表
 			var newListData = data.newsList;
@@ -210,8 +230,8 @@ $(function(){
 					news_list.append(div_htmls);
 				}
 				//设置分页组件的位置
-				if(count<4){
-					count = 4;
+				if(count<6){
+					count = 6;
 				}
 				$(".div_page").css("top",100*count + 20);
 				$(".div_page").css("left",70);

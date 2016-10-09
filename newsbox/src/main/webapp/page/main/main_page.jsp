@@ -16,9 +16,9 @@
 			<div class="float_left menu">
 				<ul>
 					<li value="gaojianku">稿库</li>
-					<li value="gaojianku">推送</li>
-					<li value="gaojianku">统计</li>
-					<li value="gaojianku">系统工具</li>
+					<li value="">推送</li>
+					<li value="">统计</li>
+					<li value="unlogin">退出登录</li>
 				</ul>
 			</div>
 			<div class="float-left user_info">

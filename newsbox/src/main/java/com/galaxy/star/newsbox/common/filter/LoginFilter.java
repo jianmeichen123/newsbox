@@ -37,8 +37,8 @@ public class LoginFilter implements Filter{
 		}
 		
 		//如果系统请求登录页、验证请求或一些静态资源，则放行请求
-		if(url.contains("toLogin") || url.contains("login/validate.json") || (CUtils.init().strIsNotNull(ext) && isAllowExt.indexOf(ext)>=0)){
-			chain.doFilter(httpRequest, response);
+		if(url.contains("toLogin") || url.contains("login/validate.json") || url.contains("mobile") || (CUtils.init().strIsNotNull(ext) && isAllowExt.indexOf(ext)>=0)){
+			chain.doFilter(request, response);
 		}else{
 			String userName = CUtils.init().Obj2string(session.getAttribute("userName"));
 			if(CUtils.init().strIsNull(userName)){

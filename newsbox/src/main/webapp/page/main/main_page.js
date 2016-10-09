@@ -27,9 +27,22 @@ $(function(){
 		$(this).css("color","#34acdb");
 		$(this).siblings().css("color","#cdced1");
 		
+		//稿库
 		if($(this).attr("value")=='gaojianku'){
 			$("#ifm").attr("src",path + "/page/news/news_main.jsp");
 		}
+		
+		//退出登录
+		if($(this).attr("value")=='unlogin'){
+			var url = path + "/login/unlogin";
+			var params = {"userName":""};
+			$.utils.sendData(url,JSON.stringify(params),function(data){
+				if(data && data.error==0){
+					window.location = path + "/";
+				}
+			});
+		}
+		
 	});
 	
 

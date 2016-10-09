@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,13 +39,30 @@ public class LoginController {
 					}
 				}
 			}
-			
-			
 		}catch(Exception e){
 			logger.error("登录失败", e);
 		}
-		
 		return resultMap;
+	}
+	
+	@RequestMapping("unlogin")
+	public Object unlogin(HttpServletRequest request,HttpServletResponse response){
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("error", 1);
+		resultMap.put("msg", "验证失败");
+		try{
+			HttpSession session = request.getSession();
+			String userName = CUtils.init().Obj2string(session.getAttribute("userName"));
+			if(CUtils.init().strIsNotNull(userName)){
+				session.removeAttribute("userName");
+				resultMap.put("error", 0);
+				resultMap.put("msg", "退出登录成功");
+			}
+		}catch(Exception e){
+			logger.error("登录失败", e);
+		}
+		return resultMap;
+		
 	}
 
 }

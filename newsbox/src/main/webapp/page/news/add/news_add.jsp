@@ -218,7 +218,7 @@
 								<tr>
 									<td style="width: 100%;height: 100px;">
 										<div class="div_img_container">
-											<div class="list_shrink_img_div" id="list_img1" style="background: red;">
+											<div class="list_shrink_img_div" id="list_img1" style="">
 												<c:choose>
 													<c:when test="${!empty news.newListImg1 }">
 														<img class="shrink_img" src="${news.newListImg1 }">
