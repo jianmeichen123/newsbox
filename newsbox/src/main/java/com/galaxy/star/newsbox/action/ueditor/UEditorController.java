@@ -101,7 +101,9 @@ public class UEditorController {
 		if(fileList!=null && fileList.length>0){
 			for(int i=0;i<fileList.length;i++){
 				if(fileList[i]!=null && !fileList[i].isEmpty()){
-					String fileName = fileList[i].getOriginalFilename();  
+					String yuanFileName = fileList[i].getOriginalFilename();  
+					String fileExtName = yuanFileName.substring(yuanFileName.lastIndexOf("."), yuanFileName.length());
+					String fileName = "ue_upload_" + CUtils.init().getUUID() + fileExtName;
 			        File targetFile = new File(srcPath, fileName);  
 			        try{  
 			        	String urlPath = Const.getHtmlServer(request) + "/" + fileDir + "/";
@@ -203,7 +205,7 @@ public class UEditorController {
 					URLConnection con = url.openConnection();
 					con.setConnectTimeout(5*1000);
 					InputStream is = con.getInputStream();
-					fileName = CUtils.init().getUUID() + sources[i].substring(sources[i].lastIndexOf("."), sources[i].length());
+					fileName = "ue_catch_" + CUtils.init().getUUID() + sources[i].substring(sources[i].lastIndexOf("."), sources[i].length());
 					
 					OutputStream os = new FileOutputStream(imgDir.getPath() + File.separator + fileName);  
 			        while((len = is.read(bs))!=-1) {  

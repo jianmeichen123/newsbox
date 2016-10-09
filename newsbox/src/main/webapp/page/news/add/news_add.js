@@ -324,6 +324,7 @@ $(function(){
 		$.utils.sendData(url,JSON.stringify(params),function(data){
 			if(data.error=='0'){
 				alert("新闻保存成功！");
+				$('#ifm', window.parent.document).attr("src",path + "/page/news/news_main.jsp");
 			}else{
 				alert("新闻保存失败！");
 			}

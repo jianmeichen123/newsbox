@@ -11,7 +11,8 @@ public class Const {
 	
 	public static final Integer PAGE_SIZE = 10;							//新闻列表页，每页默认记录数
 	
-	public static final String FILE_PATH = "";							//"Z:\\www";
+	//public static final String FILE_PATH = "";							//"Z:\\www";			/data/wwwroot/fxapp.galaxyinternet.com/
+	public static final String FILE_PATH = "";//"/data/wwwroot/fxapp.galaxyinternet.com";	//线上图片文件保存的地址
 	public static final String IMG_SRC_DIR_NAME = "img_src_dir";		//用于存放上传的原图片文件夹
 	public static final String IMG_DEAL_DIR_NAME = "img_deal_dir";		//用于存放裁剪处理以的图片的文件夹
 	public static final String IMG_CATCH_DIR_NAME = "img_catch_dir";	//用于存放自动抓取的图片的文件夹

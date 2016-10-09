@@ -338,7 +338,8 @@ public class NewsController {
 		if(fileList!=null && fileList.length>0){
 			for(int i=0;i<fileList.length;i++){
 				if(fileList[i]!=null && !fileList[i].isEmpty()){
-					String fileName = fileList[i].getOriginalFilename();  
+					String yuanFileName = fileList[i].getOriginalFilename(); 
+					String fileName = "new_list_" + CUtils.init().getUUID() + yuanFileName.substring(yuanFileName.lastIndexOf("."), yuanFileName.length());
 			        File targetFile = new File(srcPath, fileName);  
 			        if(!targetFile.exists()){  
 			            targetFile.mkdirs();  
@@ -423,19 +424,40 @@ public class NewsController {
 		.append("</head>\n")
 		.append("<body>\n")
 		//拼入标题
-		.append("<h1 class=\"h1_new_caption\"><span class=\"span_new_caption\">"+newsBean.getNewCaption()+"</span></h1>\n")
-		.append("<p class=\"p_editor_create_time\">"+newsBean.getCreateTime()+
-				"&nbsp;&nbsp;");
-		//来源
-		if(CUtils.init().strIsNotNull(newsBean.getNewAthors())){
-			sb.append("<a href=\""+newsBean.getNewAthors()+"\" target=\"_blank\">"+
-				newsBean.getNewSource()+"</a>");
+		
+//		<h1 class="h1_new_caption" style="margin-bottom: 0;">辣手摧花优步后，原来滴滴去做婚恋市场了</h1>
+//<span class="p_editor_create_time">2016-10-09 16:08:47&nbsp;&nbsp;<span>
+		.append("<h1 class=\"h1_new_caption\">"+newsBean.getNewCaption()+"</h1>\n");
+
+		String createTime = newsBean.getCreateTime();
+		String changeTime = "";
+		if(createTime!=null){
+			changeTime = createTime.substring(0,createTime.indexOf(" ")+1).replace("-", "/");
 		}
+		
+		sb.append("<p class=\"p_editor_create_time\">来源：<a href=\""
+				+ newsBean.getNewAthors()
+				+ "target=\"_blank\">"
+				+ newsBean.getNewSource()
+				+ "</a><span style=\"margin-left: 40px;\">"
+				+ changeTime
+				+ "</span></p>\n\n");
 			
-		//责任编辑
-		if(CUtils.init().strIsNotNull(newsBean.getNewEditor())){
-			sb.append("<br>责任编辑："+newsBean.getNewEditor()+"</p>\n");
-		}
+		
+		
+		
+		
+//		//来源
+//		if(CUtils.init().strIsNotNull(newsBean.getNewAthors())){
+//			sb.append("<a href=\""+newsBean.getNewAthors()+"\" target=\"_blank\">"+
+//				newsBean.getNewSource()+"</a>");
+//		}
+//			
+//		//责任编辑
+//		if(CUtils.init().strIsNotNull(newsBean.getNewEditor())){
+//			sb.append("责任编辑："+newsBean.getNewEditor());
+//		}
+//		sb.append("</span>\n");
 				
 		sb.append(newsBean.getNewContent())
 		.append("\n")
