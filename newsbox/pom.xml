@@ -28,7 +28,7 @@
 					<defaultsDescriptor>src/main/resources/webdefaults.xml</defaultsDescriptor>
 				</webApp>
 				<httpConnector>
-					<port>8080</port>
+					<port>80</port>
 				</httpConnector>
 				
 			</configuration>

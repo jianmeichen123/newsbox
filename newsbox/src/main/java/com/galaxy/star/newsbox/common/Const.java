@@ -11,17 +11,23 @@ public class Const {
 	
 	public static final Integer PAGE_SIZE = 10;							//新闻列表页，每页默认记录数
 	
-	//public static final String FILE_PATH = "";							//"Z:\\www";			/data/wwwroot/fxapp.galaxyinternet.com/
-	public static final String FILE_PATH = "";//"/data/wwwroot/fxapp.galaxyinternet.com";	//线上图片文件保存的地址
+//	public static final String FILE_PATH = "";			//测试图片文件保存的地址
+//	public static final String HTML_SERVER = "";//测试图片上传成功后与富文本生成后对应html服务器
+	
+//	public static final String FILE_PATH = "z:\\www";			//测试图片文件保存的地址
+//	public static final String HTML_SERVER = "http://192.168.153.129";//测试图片上传成功后与富文本生成后对应html服务器
+	
+	public static final String FILE_PATH = "/data/wwwroot/fxapp.galaxyinternet.com";	//线上   图片文件保存的地址
+	public static final String HTML_SERVER = "https://fxapp.galaxyinternet.com";		//线上   图片上传成功后与富文本生成后对应html服务器
+//	
 	public static final String IMG_SRC_DIR_NAME = "img_src_dir";		//用于存放上传的原图片文件夹
 	public static final String IMG_DEAL_DIR_NAME = "img_deal_dir";		//用于存放裁剪处理以的图片的文件夹
 	public static final String IMG_CATCH_DIR_NAME = "img_catch_dir";	//用于存放自动抓取的图片的文件夹
 	public static final String HTML5_DIR_NAME = "html5";				//存放由富文本生成html5页面的文件夹
-	public static final String UEDITOR_IMGS = "ueditor" + File.separator + "imgs";	//Ueditor上传的图片
+	public static final String UEDITOR_IMGS = "ueditor" + File.separator + "imgs";		//Ueditor上传的图片
 	public static final String UEDITOR_VIDEOS = "ueditor" + File.separator + "videos";	//Ueditor上传的视频
 	public static final String UEDITOR_OTHERS = "ueditor" + File.separator + "other";	//Ueditor上传的视频
-	public static final String HTML_SERVER = "";										//"http://www.bobycloud.com:7777/newsbox";	//图片上传成功后与富文本生成后对应html服务器
-	public static final String CUT_FILE_PRE = "cut_";					//图片经过裁剪处理后生成的图片文件前面的前缀
+	public static final String CUT_FILE_PRE = "cut_";									//图片经过裁剪处理后生成的图片文件前面的前缀
 	
 	/**
 	 * 根据给定的html名称拼写出mobile能够访问的html地址
@@ -29,7 +35,7 @@ public class Const {
 	 * @return
 	 */
 	public static String getNewsHtml5Url(HttpServletRequest request,String newHtmlFileName){
-		return (Const.getHtmlServer(request) + "/" + Const.HTML5_DIR_NAME + "/" + newHtmlFileName);
+		return Const.getHtmlServer(request) + "/" + Const.HTML5_DIR_NAME + "/" + newHtmlFileName;
 	}
 	
 	public static String getHtmlServer(HttpServletRequest request){
@@ -42,6 +48,11 @@ public class Const {
 			
 			return url;
 		}
+	}
+	
+	public static String getCssPath(HttpServletRequest request){
+		//return Const.getHtmlServer(request) + "/common/css/app_common.css";
+		return "../common/css/app_common.css";
 	}
 	
 	public static String getFilePath(HttpServletRequest request){

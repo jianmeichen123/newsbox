@@ -315,7 +315,7 @@ public class NewsController {
 	 * @param model
 	 * @return   10.9.11.161
 	 */
-	@RequestMapping(value = "uploadFile")  
+	@RequestMapping(value = "uploadFile")
 	public Map<String,Object> uploadFile(HttpSession session,@RequestParam(value = "tdjgamtam", required = false) MultipartFile[] fileList,HttpServletRequest request, HttpServletResponse response) {
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("error", 1);
@@ -419,7 +419,7 @@ public class NewsController {
 		.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n")
 		.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n")												//用于字体自适应
 		.append("<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;\" name=\"viewport\" />\n") 		//取消缩放
-		.append("<link rel=\"stylesheet\" type=\"text/css\" href=\""+Const.getHtmlServer(request) + "/common/css/app_common.css\" />\n")				//引入公共样式
+		.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Const.getCssPath(request) + "\" />\n")				//引入公共样式
 		//.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/jquery-1.12.3.js\"></script>\n")	//引入jquery
 		.append("</head>\n")
 		.append("<body>\n")
@@ -435,11 +435,13 @@ public class NewsController {
 			changeTime = createTime.substring(0,createTime.indexOf(" ")+1).replace("-", "/");
 		}
 		
-		sb.append("<p class=\"p_editor_create_time\">来源：<a href=\""
-				+ newsBean.getNewAthors()
-				+ "target=\"_blank\">"
-				+ newsBean.getNewSource()
-				+ "</a><span style=\"margin-left: 40px;\">"
+		sb.append("<p class=\"p_editor_create_time\">");
+		
+		if(CUtils.init().strIsNotNull(newsBean.getNewAthors())){
+			sb.append("<span style=\"margin-right: 40px;\">来源：" + newsBean.getNewSource() + "</span>");			//newsBean.getNewAthors() 
+		}
+		
+		sb.append("<span>"
 				+ changeTime
 				+ "</span></p>\n\n");
 			
@@ -461,7 +463,7 @@ public class NewsController {
 				
 		sb.append(newsBean.getNewContent())
 		.append("\n")
-		.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/app_common.js\"></script>\n")		//引入公共脚本
+		//.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/app_common.js\"></script>\n")		//引入公共脚本
 		.append("</body>\n")
 		.append("</html>\n");
 		
