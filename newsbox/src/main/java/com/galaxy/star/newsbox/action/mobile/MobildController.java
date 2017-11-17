@@ -30,7 +30,7 @@ public class MobildController {
 	public Object getNewsList(HttpServletRequest request,HttpServletResponse response){
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("error", 1);
-		resultMap.put("msg", "获得新闻列表出错！");
+		resultMap.put("msg", "");
 		resultMap.put("newsList", "");
 		
 		try{
