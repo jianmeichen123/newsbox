@@ -28,7 +28,7 @@
 					<defaultsDescriptor>src/main/resources/webdefaults.xml</defaultsDescriptor>
 				</webApp>
 				<httpConnector>
-					<port>80</port>
+					<port>8888</port>
 				</httpConnector>
 				
 			</configuration>
@@ -84,7 +84,7 @@
   	<profile>
   		<id>dev</id>
   		<activation>
-  			<activeByDefault>true</activeByDefault>
+  			<activeByDefault>false</activeByDefault>
   		</activation>
   		<properties>
   			<profile.id>dev</profile.id>
@@ -98,7 +98,7 @@
   	<profile>
   		<id>online</id>
   		<activation>
-  			<activeByDefault>false</activeByDefault>
+  			<activeByDefault>true</activeByDefault>
   		</activation>  		
   		<properties>
   			<profile.id>qa</profile.id>
