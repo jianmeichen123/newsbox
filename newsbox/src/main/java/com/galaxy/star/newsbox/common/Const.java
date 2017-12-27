@@ -11,12 +11,11 @@ public class Const {
 	
 	public static final Integer PAGE_SIZE = 10;							//新闻列表页，每页默认记录数
 	
+	//local dev qa等
 	public static final String FILE_PATH = "";			//测试图片文件保存的地址
 	public static final String HTML_SERVER = "";			//测试图片上传成功后与富文本生成后对应html服务器
 	
-//	public static final String FILE_PATH = "z:\\www";			//测试图片文件保存的地址
-//	public static final String HTML_SERVER = "http://192.168.2.182:7777";//测试图片上传成功后与富文本生成后对应html服务器
-	
+	//线上   
 //	public static final String FILE_PATH = "/data/wwwroot/fxapp.galaxyinternet.com";	//线上   图片文件保存的地址
 //	public static final String HTML_SERVER = "https://fxapp.galaxyinternet.com";		//线上   图片上传成功后与富文本生成后对应html服务器
 	
