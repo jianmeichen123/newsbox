@@ -81,6 +81,20 @@
   
   <!-- 不同环境配置 -->
   <profiles>
+    	<profile>
+  		<id>local</id>
+  		<activation>
+  			<activeByDefault>true</activeByDefault>
+  		</activation>
+  		<properties>
+  			<profile.id>local</profile.id>
+  			<log.moduleName>tdj</log.moduleName>  
+            <log.base>/Users/liyanqiao/temp/logs</log.base>  
+            <log.other.level>DEBUG</log.other.level>  
+            <log.root.level>ERROR</log.root.level>  
+  		</properties>
+  	</profile>
+  	
   	<profile>
   		<id>dev</id>
   		<activation>
@@ -90,27 +104,25 @@
   			<profile.id>dev</profile.id>
   			
   			<log.moduleName>tdj</log.moduleName>  
-            <log.base>D:\\logs</log.base>  
+            <log.base>/data/apps/logs</log.base>  
             <log.other.level>DEBUG</log.other.level>  
             <log.root.level>ERROR</log.root.level>  
   		</properties>
   	</profile>
+  	
   	<profile>
   		<id>online</id>
   		<activation>
-  			<activeByDefault>true</activeByDefault>
+  			<activeByDefault>false</activeByDefault>
   		</activation>  		
   		<properties>
-  			<profile.id>qa</profile.id>
+  			<profile.id>online</profile.id>
   			<log.moduleName>tdj</log.moduleName>  
             <log.base>logs</log.base>  
             <log.other.level>DEBUG</log.other.level>  
             <log.root.level>ERROR</log.root.level>  
   		</properties>
   	</profile>
-  	
-  	
-  	
   </profiles>
 
   <!-- 与依赖相关的 -->
@@ -375,9 +387,9 @@
 	</dependency>
 	
 	<dependency>
-	    <groupId>ueditor</groupId>
-	    <artifactId>ueditor</artifactId>
-	    <version>1.1.2</version>
+	    <groupId>cn.songxinqiang</groupId>
+	    <artifactId>com.baidu.ueditor</artifactId>
+	    <version>1.1.2-offical</version>
 	</dependency>
 	
 	<dependency>

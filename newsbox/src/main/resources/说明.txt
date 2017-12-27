@@ -13,3 +13,10 @@
     需要配置jvm的参数解决这个问题
     Run Configurations...  -->  Maven Build --> Jre （VM Arguments：）添入如下参数
    				 -server -Xms512m -Xmx1024m -XX:PermSize=1024m -XX:MaxPermSize=1024m
+   				 
+   				 
+   				 
+ 6、临时记录
+ 	mv /Users/liyanqiao/git/newsbox/newsbox/target/newsbox-1.0.war /Users/liyanqiao/git/newsbox/newsbox/target/newsbox.war
+ 	rm -fr /data/apps/tomcat-app-8090/webapps/newsbox*
+ 	scp /Users/liyanqiao/git/newsbox/newsbox/target/newsbox.war /data/apps/tomcat-app-8090/webapps
