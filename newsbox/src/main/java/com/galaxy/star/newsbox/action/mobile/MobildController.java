@@ -61,6 +61,7 @@ public class MobildController {
 						NewsBean newsBean = newsList.get(i);
 						map.put("newsId", newsBean.getNewId());
 						map.put("newsCaption", newsBean.getNewCaption());
+						map.put("overview", newsBean.getNewSubTitle());
 						
 						int isShowBigImg = newsBean.getIsShowBigImg();
 						map.put("isShowBigImg", isShowBigImg);		//只返回一张图	

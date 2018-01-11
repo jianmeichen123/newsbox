@@ -273,6 +273,7 @@ $(function(){
 		params.showIndex = $("#showIndex").val();
 		params.isDel = $("#isDel").val();
 		params.isPublish = $("#isPublish").val();
+		params.newSubTitle = $("#newSubTitle").val();
 		
 		//取得资讯类型
 		params.newType = $("#sel_news_type").val();
@@ -283,7 +284,11 @@ $(function(){
 			}else if($.utils.trim(ue.getContent()).length<=0){
 				alert("新闻内容不能为空！");
 				return;
+			}else if($("#newSubTitle").val().length >=1000){
+				alert("资讯概要长度不能大于1000！");
+				return;
 			}
+			
 			params.newContent = ue.getContent();
 		}
 		

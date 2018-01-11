@@ -178,6 +178,15 @@
 						<td>来源网址</td>
 						<td><input type="text" id="newAthors" class="txt_base" style="width: 400px;" value="${news.newAthors }" maxlength="150"  placeholder="来源网址"></td>
 					</tr>
+					
+					<!-- 添加新页简介 -->
+					<tr>
+						<td>资讯概要</td>
+						<td colspan="3">
+							<textarea style="width: 100%;height: 60px" class="txt_base" id="newSubTitle">${news.newSubTitle }</textarea>
+						</td>
+					</tr>
+					
 <%-- 					<tr>
 						<td>显示顺序</td>
 						<td><input type="text" id="showIndex" class="txt_base" style="width: 400px;" value="${news.showIndex }" placeholder="请输入显示顺序"></td>
@@ -287,7 +296,7 @@
 				</table>
 				</form>
 			</div>
-			<div id="ue_parent_div">
+			<div id="ue_parent_div" style="margin-top: 80px;">
 				 <script type="text/plain" id="editor"></script>
 			</div>
 		</div>
