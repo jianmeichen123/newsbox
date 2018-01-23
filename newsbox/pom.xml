@@ -104,7 +104,7 @@
   			<profile.id>dev</profile.id>
   			
   			<log.moduleName>tdj</log.moduleName>  
-            <log.base>/data/apps/logs</log.base>  
+            <log.base>/data/apps/tomcat-app-8090/logs</log.base>  
             <log.other.level>DEBUG</log.other.level>  
             <log.root.level>ERROR</log.root.level>  
   		</properties>
