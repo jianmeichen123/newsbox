@@ -13,6 +13,7 @@ public class Const {
 	
 	//local dev qa等
 	//public static final String FILE_PATH = "";			//测试图片文件保存的地址
+	//public static final String HTML_SERVER = "http://localhost:8888/newsbox";			//测试图片上传成功后与富文本生成后对应html服务器
 	//public static final String HTML_SERVER = "http://fxmobnew.galaxyinternet.com/newsbox";			//测试图片上传成功后与富文本生成后对应html服务器
 	
 	//线上   

@@ -412,6 +412,11 @@ public class NewsController {
 	 */
 	private void createHtml5(HttpServletRequest request,NewsBean newsBean){
 		//String htmlUrl = null;
+		try{
+			request.setCharacterEncoding("utf8");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		StringBuffer sb = new StringBuffer();
 		sb.append("<!DOCTYPE html>\r\n")
 		.append("<html>\n")
