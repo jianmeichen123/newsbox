@@ -109,12 +109,10 @@ public class MobildController {
 						
 						mobileNewsList.add(map);
 					}	
-					resultMap.put("error", 0);
-					if(newsList!=null){
-						resultMap.put("newsList", mobileNewsList);
-						resultMap.put("listCount", listCount);
-					}
 				}
+				resultMap.put("error", 0);
+				resultMap.put("newsList", mobileNewsList);
+				resultMap.put("listCount", listCount);
 			}
 		}catch(Exception e){
 			logger.error("移动端－获取新闻列表出错！");
