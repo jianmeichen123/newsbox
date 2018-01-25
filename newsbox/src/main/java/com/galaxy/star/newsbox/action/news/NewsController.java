@@ -282,7 +282,7 @@ public class NewsController {
 			news.setCreateUser("angli");		//登录用户
 			
 			//将富文本生成对应的html5页面
-			createHtml5(request,news);
+			createHtml5(request,response,news);
 //			if(html5Url!=null && !"".equals(html5Url.trim())){
 //				news.setNewUrl(html5Url);
 //			}
@@ -410,10 +410,11 @@ public class NewsController {
 	/**
 	 * 将富文本生成相应的html5页面
 	 */
-	private void createHtml5(HttpServletRequest request,NewsBean newsBean){
+	private void createHtml5(HttpServletRequest request,HttpServletResponse response,NewsBean newsBean){
 		//String htmlUrl = null;
 		try{
-			request.setCharacterEncoding("utf8");
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html; charset=utf-8");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
