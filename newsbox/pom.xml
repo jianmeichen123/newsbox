@@ -201,11 +201,11 @@
   	</dependency>
   
 	<!-- servlet -->
-	<dependency>
+	<!-- <dependency>
 	    <groupId>javax.servlet</groupId>
 	    <artifactId>servlet-api</artifactId>
 	    <version>2.5</version>
-	</dependency>
+	</dependency> -->
 	
 	<!-- spring自动返回对象需要用到的json -->
 	<dependency>
