@@ -1,7 +1,9 @@
 package com.galaxy.star.newsbox.action.news;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -282,7 +284,7 @@ public class NewsController {
 			news.setCreateUser("angli");		//登录用户
 			
 			//将富文本生成对应的html5页面
-			createHtml5(request,response,news);
+			createHtml5(request,news);
 //			if(html5Url!=null && !"".equals(html5Url.trim())){
 //				news.setNewUrl(html5Url);
 //			}
@@ -410,14 +412,9 @@ public class NewsController {
 	/**
 	 * 将富文本生成相应的html5页面
 	 */
-	private void createHtml5(HttpServletRequest request,HttpServletResponse response,NewsBean newsBean){
+	private void createHtml5(HttpServletRequest request,NewsBean newsBean){
 		//String htmlUrl = null;
-		try{
-			request.setCharacterEncoding("utf-8");
-			response.setContentType("text/html; charset=utf-8");
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		
 		StringBuffer sb = new StringBuffer();
 		sb.append("<!DOCTYPE html>\r\n")
 		.append("<html>\n")
@@ -486,9 +483,14 @@ public class NewsController {
 		
 		File htmlFile = new File(htmlFilePath + File.separator + newsBean.getNewHtmlFileName());
 		try{
-			FileWriter fw = new FileWriter(htmlFile);
+			BufferedWriter writer = new BufferedWriter 
+					(new OutputStreamWriter (new FileOutputStream (htmlFile,true),"UTF-8"));
+			writer.write(sb.toString());
+			writer.flush();
+			writer.close();
+			/*FileWriter fw = new FileWriter(htmlFile);
 			fw.write(sb.toString());
-			fw.flush();fw.close();
+			fw.flush();fw.close();*/
 			
 			//htmlUrl = Const.getHtmlServer(request) + "/" + Const.HTML5_DIR_NAME + "/" + newsBean.getNewHtmlFileName();
 		}catch(Exception e){
