@@ -1,9 +1,7 @@
 package com.galaxy.star.newsbox.action.news;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +39,7 @@ public class NewsController {
 	private INewsService newsService;
 	
 	/**
-	 * è·³è½¬åˆ°æ–°å¢æ–°é—»é¡µ
+	 * Ìø×ªµ½ĞÂÔöĞÂÎÅÒ³
 	 * @return
 	 */
 	@RequestMapping("toAddNewPage")
@@ -50,7 +48,7 @@ public class NewsController {
 	}
 	
 	/**
-	 * è·³è½¬åˆ°æ–°é—»åˆ—è¡¨é¡µ
+	 * Ìø×ªµ½ĞÂÎÅÁĞ±íÒ³
 	 */
 	@RequestMapping(value = "toListPage")  
 	public String toListPage(HttpServletRequest request,HttpServletResponse response,Model model){
@@ -74,13 +72,13 @@ public class NewsController {
 	}
 	
 	/**
-	 * å‘å¸ƒæˆ–å–æ¶ˆæ–°é—»
+	 * ·¢²¼»òÈ¡ÏûĞÂÎÅ
 	 */
 	@RequestMapping(value = "publishNews")  
 	public Object publishNews(HttpServletRequest request,HttpServletResponse response){
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("error", 1);
-		resultMap.put("msg","å‘å¸ƒå¤±è´¥");
+		resultMap.put("msg","·¢²¼Ê§°Ü");
 		
 		try{
 			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
@@ -101,7 +99,7 @@ public class NewsController {
 				
 				Map<String,Object> map = new HashMap<String,Object>();
 				map.put("newIds", newList);
-				//åˆ¤æ–­æ˜¯å‘å¸ƒæ–°é—»è¿˜æ˜¯å–æ¶ˆå‘å¸ƒæ–°é—»
+				//ÅĞ¶ÏÊÇ·¢²¼ĞÂÎÅ»¹ÊÇÈ¡Ïû·¢²¼ĞÂÎÅ
 				if("publish".equals(type)){
 					map.put("isPublish", 1);
 				}else{
@@ -122,19 +120,19 @@ public class NewsController {
 				resultMap.put("error", 0);
 			}
 		}catch(Exception e){
-			logger.error("å‘å¸ƒæˆ–å–æ¶ˆå‘å¸ƒå¤±è´¥",e);
+			logger.error("·¢²¼»òÈ¡Ïû·¢²¼Ê§°Ü",e);
 		}
 		return resultMap;
 	}
 	
 //	/**
-//	 * å–æ¶ˆå‘å¸ƒæ–°é—»
+//	 * È¡Ïû·¢²¼ĞÂÎÅ
 //	 */
 //	@RequestMapping(value = "cancelPublishNews")  
 //	public Object cancelPublishNews(HttpServletRequest request,HttpServletResponse response){
 //		Map<String,Object> resultMap = new HashMap<String,Object>();
 //		resultMap.put("error", 1);
-//		resultMap.put("msg","å–æ¶ˆå‘å¸ƒå¤±è´¥");
+//		resultMap.put("msg","È¡Ïû·¢²¼Ê§°Ü");
 //		
 //		try{
 //			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
@@ -144,19 +142,19 @@ public class NewsController {
 //				resultMap.put("error", 0);
 //			}
 //		}catch(Exception e){
-//			logger.error("å–æ¶ˆå‘å¸ƒå¤±è´¥",e);
+//			logger.error("È¡Ïû·¢²¼Ê§°Ü",e);
 //		}
 //		return resultMap;
 //	}
 	
 	/**
-	 * åˆ é™¤æ–°é—»
+	 * É¾³ıĞÂÎÅ
 	 */
 	@RequestMapping(value = "deleteNews")  
 	public Object deleteNews(HttpServletRequest request,HttpServletResponse response){
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("error", 1);
-		resultMap.put("msg","åˆ é™¤å¤±è´¥");
+		resultMap.put("msg","É¾³ıÊ§°Ü");
 		
 		try{
 			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
@@ -166,13 +164,13 @@ public class NewsController {
 				resultMap.put("error", 0);
 			}
 		}catch(Exception e){
-			logger.error("åˆ é™¤å¤±è´¥",e);
+			logger.error("É¾³ıÊ§°Ü",e);
 		}
 		return resultMap;
 	}
 	
 	/**
-	 * ç”¨äºä¿å­˜å¹¶è·å–æŸ¥è¯¢æ¡ä»¶
+	 * ÓÃÓÚ±£´æ²¢»ñÈ¡²éÑ¯Ìõ¼ş
 	 */
 	@RequestMapping("saveAndGetFind")
 	public Object saveAndGetFind(HttpServletRequest request,HttpServletResponse response){
@@ -201,7 +199,7 @@ public class NewsController {
 	}
 	
 	/**
-	 * è·³è½¬åˆ°ç¼–è¾‘é¡µ
+	 * Ìø×ªµ½±à¼­Ò³
 	 * @param request
 	 * @param response
 	 * @param model
@@ -217,14 +215,14 @@ public class NewsController {
 				model.addAttribute("news", news);
 			}
 		}catch(Exception e){
-			logger.error("å–æ–°é—»å‡ºé”™",e);
+			logger.error("È¡ĞÂÎÅ³ö´í",e);
 		}
 		
 		return "news/add/news_add";
 	}
 	
 	/**
-	 * å–å¾—æ–°é—»åˆ—è¡¨
+	 * È¡µÃĞÂÎÅÁĞ±í
 	 * @param request
 	 * @param response
 	 * @return
@@ -233,16 +231,16 @@ public class NewsController {
 	public Map<String,Object> getNewsList(HttpServletRequest request,HttpServletResponse response){
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap.put("error", 1);
-		resultMap.put("msg","å–å¾—æ–°é—»åˆ—è¡¨å¤±è´¥");
+		resultMap.put("msg","È¡µÃĞÂÎÅÁĞ±íÊ§°Ü");
 		resultMap.put("newsList", "");
 		
 		Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
 		
 		try{
-			Integer listCount = newsService.getNewsListCount(paramMap);								//æ€»è®°å½•æ•°
-			Integer pageSize = CUtils.init().Obj2Int(paramMap.get("pageSize"), Const.PAGE_SIZE);	//æ¯é¡µæ€»è®°å½•æ•°
+			Integer listCount = newsService.getNewsListCount(paramMap);								//×Ü¼ÇÂ¼Êı
+			Integer pageSize = CUtils.init().Obj2Int(paramMap.get("pageSize"), Const.PAGE_SIZE);	//Ã¿Ò³×Ü¼ÇÂ¼Êı
 			paramMap.put("pageSize", pageSize);
-			Integer pageNo = CUtils.init().Obj2Int(paramMap.get("pageNo"),1);						//å½“å‰é¡µç 
+			Integer pageNo = CUtils.init().Obj2Int(paramMap.get("pageNo"),1);						//µ±Ç°Ò³Âë
 			
 			int totalPage = (int)Math.ceil(listCount*1.0/pageSize);
 			if(pageNo>totalPage){
@@ -254,7 +252,7 @@ public class NewsController {
 			paramMap.put("pageNo", start);
 			
 			
-			List<NewsBean> newsList = newsService.getNewsList(paramMap);		//åˆ—è¡¨æ•°æ®
+			List<NewsBean> newsList = newsService.getNewsList(paramMap);		//ÁĞ±íÊı¾İ
 			
 			//System.out.println(newsList.size());
 			
@@ -264,54 +262,54 @@ public class NewsController {
 				resultMap.put("listCount", listCount);
 			}
 		}catch(Exception e){
-			logger.error("å–å¾—æ–°é—»åˆ—è¡¨å¤±è´¥",e);
+			logger.error("È¡µÃĞÂÎÅÁĞ±íÊ§°Ü",e);
 		}
 		return resultMap;
 	}
 	
 	/**
-	 * ä¿å­˜æ–°é—»ç¨¿
+	 * ±£´æĞÂÎÅ¸å
 	 * 
 	 */
 	@RequestMapping(value = "saveNews")  
 	public Map<String,Object> saveNews(HttpServletRequest request, HttpServletResponse response,@RequestBody NewsBean news) {
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("error", 1);
-		result.put("msg","ä¿å­˜èµ„è®¯å¤±è´¥ï¼");
+		result.put("msg","±£´æ×ÊÑ¶Ê§°Ü£¡");
 
 		try{
-			news.setCreateTime(DateTools.get().getCurrentDateTime());	//åˆ›å»ºæ—¶é—´
-			news.setCreateUser("angli");		//ç™»å½•ç”¨æˆ·
+			news.setCreateTime(DateTools.get().getCurrentDateTime());	//´´½¨Ê±¼ä
+			news.setCreateUser("angli");		//µÇÂ¼ÓÃ»§
 			
-			//å°†å¯Œæ–‡æœ¬ç”Ÿæˆå¯¹åº”çš„html5é¡µé¢
+			//½«¸»ÎÄ±¾Éú³É¶ÔÓ¦µÄhtml5Ò³Ãæ
 			createHtml5(request,news);
 //			if(html5Url!=null && !"".equals(html5Url.trim())){
 //				news.setNewUrl(html5Url);
 //			}
 			
 			if(CUtils.init().strIsNotNull(news.getNewId())){
-				//æ›´æ–°
+				//¸üĞÂ
 				newsService.updateNews(news);
 			}else{
-				//æ–°å¢
-				news.setNewId(CUtils.init().getUUID());		//è®¾ç½®ID
-				news.setIsPublish(0);						//æ˜¯å¦å‘å¸ƒ 0ï¼šä¸å‘å¸ƒ
-				news.setIsDel(0);							//åˆ é™¤æ ‡å¿—
+				//ĞÂÔö
+				news.setNewId(CUtils.init().getUUID());		//ÉèÖÃID
+				news.setIsPublish(0);						//ÊÇ·ñ·¢²¼ 0£º²»·¢²¼
+				news.setIsDel(0);							//É¾³ı±êÖ¾
 				newsService.addNews(news);
 			}
 			
 			result.put("error", 0);
-			result.put("msg","ä¿å­˜èµ„è®¯æˆåŠŸï¼");
+			result.put("msg","±£´æ×ÊÑ¶³É¹¦£¡");
 			
 		}catch(Exception e){
-			logger.error("ä¿å­˜æ–°é—»å¤±è´¥", e);
+			logger.error("±£´æĞÂÎÅÊ§°Ü", e);
 		}
 		
 		return result;
 	}
 	
 	/**
-	 * ä¸Šä¼ å›¾ç‰‡-ç”¨äºä¸Šä¼ è‡ªå®šä¹‰çš„åˆ—è¡¨å›¾ç‰‡ç­‰
+	 * ÉÏ´«Í¼Æ¬-ÓÃÓÚÉÏ´«×Ô¶¨ÒåµÄÁĞ±íÍ¼Æ¬µÈ
 	 * @param file
 	 * @param request
 	 * @param model
@@ -321,17 +319,17 @@ public class NewsController {
 	public Map<String,Object> uploadFile(HttpSession session,@RequestParam(value = "tdjgamtam", required = false) MultipartFile[] fileList,HttpServletRequest request, HttpServletResponse response) {
 		Map<String,Object> result = new HashMap<String,Object>();
 		result.put("error", 1);
-		result.put("msg","ä¸Šä¼ å¤±è´¥");
+		result.put("msg","ÉÏ´«Ê§°Ü");
 		
 		String srcPath = Const.getImgSrcPath(request);
 		String dealPath = Const.getImgDealPath(request);
 		
-		//ä¸Šä¼ çš„æºå›¾ç‰‡æ–‡ä»¶å­˜æ”¾çš„ç›®å½•
+		//ÉÏ´«µÄÔ´Í¼Æ¬ÎÄ¼ş´æ·ÅµÄÄ¿Â¼
 		File uploadDirectory = new File(srcPath); 
 		if(!uploadDirectory.exists()){
 			uploadDirectory.mkdirs();
 		}
-		//è£å‰ªå¤„ç†åçš„å›¾ç‰‡å­˜æ”¾ç›®å½•
+		//²Ã¼ô´¦ÀíºóµÄÍ¼Æ¬´æ·ÅÄ¿Â¼
 		File dealDirectory = new File(dealPath); 
 		if(!dealDirectory.exists()){
 			dealDirectory.mkdirs();
@@ -352,7 +350,7 @@ public class NewsController {
 			        	fileList[i].transferTo(targetFile); 
 			        	boolean flag = cutImg(request,fileName,srcPath,dealPath);
 			        	
-			        	//å¦‚æœå­˜åœ¨è£å‰ªçš„å›¾ç‰‡åˆ™è¿”å›è¯¥å›¾ç‰‡ï¼Œå¦‚æœæ²¡æœ‰è£å‰ªçš„å›¾ç‰‡åˆ™è¿”å›åŸå›¾ç‰‡
+			        	//Èç¹û´æÔÚ²Ã¼ôµÄÍ¼Æ¬Ôò·µ»Ø¸ÃÍ¼Æ¬£¬Èç¹ûÃ»ÓĞ²Ã¼ôµÄÍ¼Æ¬Ôò·µ»ØÔ­Í¼Æ¬
 			        	if(!flag){	
 			        		result.put("img_src", Const.getHtmlServer(request) + "/" + Const.IMG_SRC_DIR_NAME + "/" + fileName);
 			        	}else{
@@ -360,7 +358,7 @@ public class NewsController {
 			        	}
 			        	
 			        	result.put("error", 0);
-						result.put("msg","ä¸Šä¼ æˆåŠŸ");
+						result.put("msg","ÉÏ´«³É¹¦");
 			            //properties.replace("app."+appName+".version", appVersion);
 			        }catch (Exception e) {  
 			            e.printStackTrace();  
@@ -374,12 +372,12 @@ public class NewsController {
 	
 	
 	/**
-	 * è£å‰ªå›¾ç‰‡
+	 * ²Ã¼ôÍ¼Æ¬
 	 * @param request
 	 * @param fileName
 	 */
     private boolean cutImg(HttpServletRequest request,String fileName,String imgSrcPath,String imgDealPath) {
-        //å¾—åˆ°åæ ‡
+        //µÃµ½×ø±ê
     	int x1 = CUtils.init().Obj2Int(request.getParameter("x1"),-1);
 		int y1 = CUtils.init().Obj2Int(request.getParameter("y1"),-1);
 		int x2 = CUtils.init().Obj2Int(request.getParameter("x2"),-1);
@@ -388,7 +386,7 @@ public class NewsController {
 		boolean flag = false;
 		
 		if(x1>=0 && x2>0 && y1>=0 && y2>0){
-			//å–å¾—æºå›¾ç‰‡æ‰€åœ¨imgçš„å®½åº¦ï¼Œç”¨äºè§£å†³é€‰æ‹©ç»„ä»¶ä¸çœŸå®å›¾ç‰‡çš„é€‰æ‹©è¯¯ å·®
+			//È¡µÃÔ´Í¼Æ¬ËùÔÚimgµÄ¿í¶È£¬ÓÃÓÚ½â¾öÑ¡Ôñ×é¼şÓëÕæÊµÍ¼Æ¬µÄÑ¡ÔñÎó ²î
 			int imgScaleWidth = CUtils.init().Obj2Int(request.getParameter("imgWidth"),-1);
 			int imgScaleHeight = CUtils.init().Obj2Int(request.getParameter("imgHeight"),-1);
 			ImageRect srcRect = new ImageRect();
@@ -399,8 +397,8 @@ public class NewsController {
 			srcRect.setWidth(imgScaleWidth);
 			srcRect.setHeight(imgScaleHeight);
 			
-	        String imgSrcFileName = imgSrcPath + File.separator + fileName;					//åŸå›¾ç‰‡è·¯å¾„
-	        String imgDealFileName = imgDealPath + File.separator + "cut_" + fileName;		//å‰ªåˆ‡åå›¾ç‰‡è·¯å¾„
+	        String imgSrcFileName = imgSrcPath + File.separator + fileName;					//Ô­Í¼Æ¬Â·¾¶
+	        String imgDealFileName = imgDealPath + File.separator + "cut_" + fileName;		//¼ôÇĞºóÍ¼Æ¬Â·¾¶
 	        
 	        ImageUtils2 imgUtils = new ImageUtils2();
 	        flag = imgUtils.cutImage(imgSrcFileName,imgDealFileName, srcRect);
@@ -410,7 +408,7 @@ public class NewsController {
     }
     
 	/**
-	 * å°†å¯Œæ–‡æœ¬ç”Ÿæˆç›¸åº”çš„html5é¡µé¢
+	 * ½«¸»ÎÄ±¾Éú³ÉÏàÓ¦µÄhtml5Ò³Ãæ
 	 */
 	private void createHtml5(HttpServletRequest request,NewsBean newsBean){
 		//String htmlUrl = null;
@@ -419,16 +417,16 @@ public class NewsController {
 		sb.append("<!DOCTYPE html>\r\n")
 		.append("<html>\n")
 		.append("<head>\n")
-		.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n")
-		.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n")												//ç”¨äºå­—ä½“è‡ªé€‚åº”
-		.append("<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;\" name=\"viewport\" />\n") 		//å–æ¶ˆç¼©æ”¾
-		.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Const.getCssPath(request) + "\" />\n")				//å¼•å…¥å…¬å…±æ ·å¼
-		//.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/jquery-1.12.3.js\"></script>\n")	//å¼•å…¥jquery
+		.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=GBK\">\n")
+		.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n")												//ÓÃÓÚ×ÖÌå×ÔÊÊÓ¦
+		.append("<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;\" name=\"viewport\" />\n") 		//È¡ÏûËõ·Å
+		.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Const.getCssPath(request) + "\" />\n")				//ÒıÈë¹«¹²ÑùÊ½
+		//.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/jquery-1.12.3.js\"></script>\n")	//ÒıÈëjquery
 		.append("</head>\n")
 		.append("<body>\n")
-		//æ‹¼å…¥æ ‡é¢˜
+		//Æ´Èë±êÌâ
 		
-//		<h1 class="h1_new_caption" style="margin-bottom: 0;">è¾£æ‰‹æ‘§èŠ±ä¼˜æ­¥åï¼ŒåŸæ¥æ»´æ»´å»åšå©šæ‹å¸‚åœºäº†</h1>
+//		<h1 class="h1_new_caption" style="margin-bottom: 0;">À±ÊÖ´İ»¨ÓÅ²½ºó£¬Ô­À´µÎµÎÈ¥×ö»éÁµÊĞ³¡ÁË</h1>
 //<span class="p_editor_create_time">2016-10-09 16:08:47&nbsp;&nbsp;<span>
 		.append("<h1 class=\"h1_new_caption\">"+newsBean.getNewCaption()+"</h1>\n");
 
@@ -441,7 +439,7 @@ public class NewsController {
 		sb.append("<p class=\"p_editor_create_time\">");
 		
 		if(CUtils.init().strIsNotNull(newsBean.getNewSource())){
-			sb.append("<span style=\"margin-right: 40px;\">æ¥æºï¼š" + newsBean.getNewSource() + "</span>");			//newsBean.getNewAthors() 
+			sb.append("<span style=\"margin-right: 40px;\">À´Ô´£º" + newsBean.getNewSource() + "</span>");			//newsBean.getNewAthors() 
 		}
 		
 		sb.append("<span>"
@@ -452,21 +450,21 @@ public class NewsController {
 		
 		
 		
-//		//æ¥æº
+//		//À´Ô´
 //		if(CUtils.init().strIsNotNull(newsBean.getNewAthors())){
 //			sb.append("<a href=\""+newsBean.getNewAthors()+"\" target=\"_blank\">"+
 //				newsBean.getNewSource()+"</a>");
 //		}
 //			
-//		//è´£ä»»ç¼–è¾‘
+//		//ÔğÈÎ±à¼­
 //		if(CUtils.init().strIsNotNull(newsBean.getNewEditor())){
-//			sb.append("è´£ä»»ç¼–è¾‘ï¼š"+newsBean.getNewEditor());
+//			sb.append("ÔğÈÎ±à¼­£º"+newsBean.getNewEditor());
 //		}
 //		sb.append("</span>\n");
 				
 		sb.append(newsBean.getNewContent())
 		.append("\n")
-		//.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/app_common.js\"></script>\n")		//å¼•å…¥å…¬å…±è„šæœ¬
+		//.append("<script type=\"text/javascript\" charset=\"utf-8\" src=\""+Const.getHtmlServer(request)+"/common/js/app_common.js\"></script>\n")		//ÒıÈë¹«¹²½Å±¾
 		.append("</body>\n")
 		.append("</html>\n");
 		
@@ -476,21 +474,21 @@ public class NewsController {
 			htmlFileDir.mkdirs();
 		}
 		
-		//åˆ¤æ–­htmlFileNameæ˜¯å¦å­˜åœ¨ï¼Œå¦‚æœä¸å­˜åœ¨è¯´æ˜æ˜¯æ–°å¢
+		//ÅĞ¶ÏhtmlFileNameÊÇ·ñ´æÔÚ£¬Èç¹û²»´æÔÚËµÃ÷ÊÇĞÂÔö
 		if(CUtils.init().strIsNull(newsBean.getNewHtmlFileName())){
 			newsBean.setNewHtmlFileName("html_" + CUtils.init().getUUID() + ".html");
 		}
 		
 		File htmlFile = new File(htmlFilePath + File.separator + newsBean.getNewHtmlFileName());
 		try{
-			BufferedWriter writer = new BufferedWriter 
+			/*BufferedWriter writer = new BufferedWriter 
 					(new OutputStreamWriter (new FileOutputStream (htmlFile,true),"UTF-8"));
 			writer.write(sb.toString());
 			writer.flush();
-			writer.close();
-			/*FileWriter fw = new FileWriter(htmlFile);
+			writer.close();*/
+			FileWriter fw = new FileWriter(htmlFile);
 			fw.write(sb.toString());
-			fw.flush();fw.close();*/
+			fw.flush();fw.close();
 			
 			//htmlUrl = Const.getHtmlServer(request) + "/" + Const.HTML5_DIR_NAME + "/" + newsBean.getNewHtmlFileName();
 		}catch(Exception e){
