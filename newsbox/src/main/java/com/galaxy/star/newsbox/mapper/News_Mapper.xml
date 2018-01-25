@@ -170,7 +170,7 @@
 		from new_repository t
 		where t.is_del=0
 		<if test="newCaption !=null ">
-			AND t.new_caption like CONCAT(CONCAT('%', #{newCaption, jdbcType=VARCHAR}),'%') 
+			AND binary t.new_caption like CONCAT(CONCAT('%', #{newCaption, jdbcType=VARCHAR}),'%') 
 		</if>
 		<if test="newsId !=null ">
 			AND t.new_id =#{newsId}
