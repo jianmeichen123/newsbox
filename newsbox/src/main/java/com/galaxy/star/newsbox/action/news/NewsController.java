@@ -1,7 +1,9 @@
 package com.galaxy.star.newsbox.action.news;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -417,7 +419,7 @@ public class NewsController {
 		sb.append("<!DOCTYPE html>\r\n")
 		.append("<html>\n")
 		.append("<head>\n")
-		.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=GBK\">\n")
+		.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n")
 		.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n")												//用于字体自适应
 		.append("<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;\" name=\"viewport\" />\n") 		//取消缩放
 		.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Const.getCssPath(request) + "\" />\n")				//引入公共样式
@@ -481,14 +483,14 @@ public class NewsController {
 		
 		File htmlFile = new File(htmlFilePath + File.separator + newsBean.getNewHtmlFileName());
 		try{
-			/*BufferedWriter writer = new BufferedWriter 
+			BufferedWriter writer = new BufferedWriter 
 					(new OutputStreamWriter (new FileOutputStream (htmlFile,true),"UTF-8"));
 			writer.write(sb.toString());
 			writer.flush();
-			writer.close();*/
-			FileWriter fw = new FileWriter(htmlFile);
+			writer.close();
+			/*FileWriter fw = new FileWriter(htmlFile);
 			fw.write(sb.toString());
-			fw.flush();fw.close();
+			fw.flush();fw.close();*/
 			
 			//htmlUrl = Const.getHtmlServer(request) + "/" + Const.HTML5_DIR_NAME + "/" + newsBean.getNewHtmlFileName();
 		}catch(Exception e){
