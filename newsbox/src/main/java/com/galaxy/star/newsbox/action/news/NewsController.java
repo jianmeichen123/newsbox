@@ -291,15 +291,12 @@ public class NewsController {
 			
 			if(CUtils.init().strIsNotNull(news.getNewId())){
 				//更新
-				news.setNewSource("来源："+news.getNewSource());
 				newsService.updateNews(news);
 			}else{
 				//新增
 				news.setNewId(CUtils.init().getUUID());		//设置ID
 				news.setIsPublish(0);						//是否发布 0：不发布
-				news.setIsDel(0);	
-				news.setNewSource("来源："+news.getNewSource());
-				//删除标志
+				news.setIsDel(0);							//删除标志
 				newsService.addNews(news);
 			}
 			
