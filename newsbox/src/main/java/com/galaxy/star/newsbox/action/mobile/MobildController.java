@@ -36,10 +36,10 @@ public class MobildController {
 		try{
 			Map<String,Object> paramMap = CUtils.init().getRequestMap(request);
 			if(paramMap!=null){
-				Integer listCount = newsService.getMobileNewsListCount(paramMap);						//总记录数
-				Integer pageSize = CUtils.init().Obj2Int(paramMap.get("pageSize"), Const.PAGE_SIZE);	//每页总记录数
+				Integer listCount = newsService.getMobileNewsListCount(paramMap);						//鎬昏褰曟暟
+				Integer pageSize = CUtils.init().Obj2Int(paramMap.get("pageSize"), Const.PAGE_SIZE);	//姣忛〉鎬昏褰曟暟
 				paramMap.put("pageSize", pageSize);
-				Integer pageNo = CUtils.init().Obj2Int(paramMap.get("pageNo"),1);						//当前页码
+				Integer pageNo = CUtils.init().Obj2Int(paramMap.get("pageNo"),1);						//褰撳墠椤电爜
 				
 				int totalPage = (int)Math.ceil(listCount*1.0/pageSize);
 				if(pageNo>totalPage){
@@ -51,11 +51,11 @@ public class MobildController {
 				paramMap.put("pageNo", start);
 				
 				
-				List<NewsBean> newsList = newsService.getMobileNewsList(paramMap);		//列表数据
+				List<NewsBean> newsList = newsService.getMobileNewsList(paramMap);		//鍒楄〃鏁版嵁
 				List<Map<String,Object>> mobileNewsList = null;
+				mobileNewsList = new ArrayList<Map<String,Object>>();
 				
 				if(newsList!=null && newsList.size()>0){
-					mobileNewsList = new ArrayList<Map<String,Object>>();
 					for(int i=0;i<newsList.size();i++){
 						Map<String,Object> map = new HashMap<String,Object>();
 						NewsBean newsBean = newsList.get(i);
@@ -64,14 +64,14 @@ public class MobildController {
 						map.put("overview", newsBean.getNewSubTitle());
 						
 						int isShowBigImg = newsBean.getIsShowBigImg();
-						map.put("isShowBigImg", isShowBigImg);		//只返回一张图	
+						map.put("isShowBigImg", isShowBigImg);		//鍙繑鍥炰竴寮犲浘	
 						List<Map<String,Object>> listImgArray = new ArrayList<Map<String,Object>>();
 						
 						String img1 = newsBean.getNewListImg1();
 						String img2 = newsBean.getNewListImg2();
 						String img3 = newsBean.getNewListImg3();
 						
-						if(isShowBigImg>=1){	//此时显示为一张大图
+						if(isShowBigImg>=1){	//姝ゆ椂鏄剧ず涓轰竴寮犲ぇ鍥�
 							if(CUtils.init().strIsNotNull(img1)){
 								Map<String,Object> imgMap = new HashMap<String,Object>();
 								imgMap.put("url", img1);
@@ -115,7 +115,7 @@ public class MobildController {
 				resultMap.put("listCount", listCount);
 			}
 		}catch(Exception e){
-			logger.error("移动端－获取新闻列表出错！");
+			logger.error("绉诲姩绔紞鑾峰彇鏂伴椈鍒楄〃鍑洪敊锛�");
 		}
 		return resultMap;
 	}
