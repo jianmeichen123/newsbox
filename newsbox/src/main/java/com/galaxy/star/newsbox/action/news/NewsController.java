@@ -441,7 +441,7 @@ public class NewsController {
 		sb.append("<p class=\"p_editor_create_time\">");
 		
 		if(CUtils.init().strIsNotNull(newsBean.getNewSource())){
-			sb.append("<span style=\"margin-right: 40px;\">来源：" + newsBean.getNewSource() + "</span>");			//newsBean.getNewAthors() 
+			sb.append("<span style=\"margin-right: 40px;\">" + "来源："+newsBean.getNewSource() + "</span>");			//newsBean.getNewAthors() 
 		}
 		
 		sb.append("<span>"
