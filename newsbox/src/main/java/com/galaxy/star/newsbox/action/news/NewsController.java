@@ -419,7 +419,7 @@ public class NewsController {
 		sb.append("<!DOCTYPE html>\r\n")
 		.append("<html>\n")
 		.append("<head>\n")
-		.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n")
+		.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=GBK\">\n")
 		.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n")												//用于字体自适应
 		.append("<meta content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;\" name=\"viewport\" />\n") 		//取消缩放
 		.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Const.getCssPath(request) + "\" />\n")				//引入公共样式
@@ -484,7 +484,7 @@ public class NewsController {
 		File htmlFile = new File(htmlFilePath + File.separator + newsBean.getNewHtmlFileName());
 		try{
 			BufferedWriter writer = new BufferedWriter 
-					(new OutputStreamWriter (new FileOutputStream (htmlFile,true),"UTF-8"));
+					(new OutputStreamWriter (new FileOutputStream (htmlFile,true),"GBK"));
 			writer.write(sb.toString());
 			writer.flush();
 			writer.close();
