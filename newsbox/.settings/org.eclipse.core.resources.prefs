@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/galaxy/star/newsbox/action/news/NewsController.java=GBK
 encoding//src/main/java/com/galaxy/star/newsbox/action/ueditor/UEditorController.java=UTF-8
 encoding//src/main/java/com/galaxy/star/newsbox/common/Const.java=UTF-8
 encoding//src/main/resources/spring-mybatis.xml=UTF-8
