@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -442,14 +441,7 @@ public class NewsController {
 		sb.append("<p class=\"p_editor_create_time\">");
 		
 		if(CUtils.init().strIsNotNull(newsBean.getNewSource())){
-			String utf8 = null;
-			try {
-				utf8 = new String("来源：".getBytes("ISO-8859-1"),"UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			sb.append("<span style=\"margin-right: 40px;\">" + utf8+newsBean.getNewSource() + "</span>");			//newsBean.getNewAthors() 
+			sb.append("<span style=\"margin-right: 40px;\">" + "来源："+newsBean.getNewSource() + "</span>");			//newsBean.getNewAthors() 
 		}
 		
 		sb.append("<span>"
