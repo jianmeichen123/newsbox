@@ -17,11 +17,11 @@ public class Const {
 	//public static final String HTML_SERVER = "http://fxmobnew.galaxyinternet.com/newsbox";			//测试图片上传成功后与富文本生成后对应html服务器
 	
 	//线上   
-//	public static final String FILE_PATH = "/data/wwwroot/fxapp.galaxyinternet.com";	//线上   图片文件保存的地址
-//	public static final String HTML_SERVER = "https://fxapp.galaxyinternet.com";		//线上   图片上传成功后与富文本生成后对应html服务器
+	public static final String FILE_PATH = "/data/wwwroot/fxapp.galaxyinternet.com";	//线上   图片文件保存的地址
+	public static final String HTML_SERVER = "http://fxapp.galaxyinternet.com";		//线上   图片上传成功后与富文本生成后对应html服务器
 
-	public static final String FILE_PATH = "/data/websites/fxapp_file/file";	//线上   图片文件保存的地址
-	public static final String HTML_SERVER = "http://fxmobnew.galaxyinternet.com/file";		//线上   图片上传成功后与富文本生成后对应html服务器
+	//public static final String FILE_PATH = "/data/websites/fxapp_file/file";	//线上   图片文件保存的地址
+	//public static final String HTML_SERVER = "http://fxmobnew.galaxyinternet.com/file";		//线上   图片上传成功后与富文本生成后对应html服务器
 	
 	public static final String IMG_SRC_DIR_NAME = "img_src_dir";		//用于存放上传的原图片文件夹
 	public static final String IMG_DEAL_DIR_NAME = "img_deal_dir";		//用于存放裁剪处理以的图片的文件夹
